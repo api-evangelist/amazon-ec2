@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/amazon/ec2/instance.json",
+  "title": "Amazon EC2 Instance",
+  "description": "Represents an Amazon EC2 virtual server instance with its associated configuration, state, and metadata.",
+  "type": "object",
+  "required": ["instanceId", "instanceType", "imageId", "instanceState"],
+  "properties": {
+    "instanceId": {
+      "type": "string",
+      "description": "The unique identifier for the instance",
+      "pattern": "^i-[a-f0-9]{8,17}$"
+    },
+    "imageId": {
+      "type": "string",
+      "description": "The ID of the AMI used to launch the instance",
+      "pattern": "^ami-[a-f0-9]{8,17}$"
+    },
+    "instanceType": {
+      "type": "string",
+      "description": "The instance type (e.g., t2.micro, m5.large, c5.xlarge)"
+    },
+    "keyName": {
+      "type": "string",
+      "description": "The name of the key pair used for SSH access"
+    },
+    "launchTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time the instance was launched"
+    },
+    "instanceState": {
+      "$ref": "#/$defs/InstanceState"
+    },
+    "placement": {
+      "$ref": "#/$defs/Placement"
+    },
+    "subnetId": {
+      "type": "string",
+      "description": "The ID of the subnet the instance is running in",
+      "pattern": "^subnet-[a-f0-9]{8,17}$"
+    },
+    "vpcId": {
+      "type": "string",
+      "description": "The ID of the VPC the instance is running in",
+      "pattern": "^vpc-[a-f0-9]{8,17}$"
+    },
+    "privateIpAddress": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "The private IPv4 address assigned to the instance"
+    },
+    "publicIpAddress": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "The public IPv4 address assigned to the instance"
+    },
+    "architecture": {
+      "type": "string",
+      "description": "The architecture of the instance",
+      "enum": ["i386", "x86_64", "arm64"]
+    },
+    "rootDeviceType": {
+      "type": "string",
+      "description": "The root device type used by the AMI",
+      "enum": ["ebs", "instance-store"]
+    },
+    "rootDeviceName": {
+      "type": "string",
+      "description": "The device name of the root device volume"
+    },
+    "blockDeviceMappings": {
+      "type": "array",
+      "description": "Block device mappings for the instance",
+      "items": {
+        "$ref": "#/$defs/BlockDeviceMapping"
+      }
+    },
+    "securityGroups": {
+      "type": "array",
+      "description": "The security groups associated with the instance",
+      "items": {
+        "$ref": "#/$defs/SecurityGroupIdentifier"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags assigned to the instance",
+      "items": {
+        "$ref": "#/$defs/Tag"
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "description": "The monitoring state of the instance",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Indicates whether detailed monitoring is enabled",
+          "enum": ["disabled", "disabling", "enabled", "pending"]
+        }
+      }
+    },
+    "platform": {
+      "type": "string",
+      "description": "The platform of the instance (Windows or empty for Linux)"
+    },
+    "ebsOptimized": {
+      "type": "boolean",
+      "description": "Indicates whether the instance is optimized for Amazon EBS I/O"
+    },
+    "enaSupport": {
+      "type": "boolean",
+      "description": "Specifies whether enhanced networking with ENA is enabled"
+    }
+  },
+  "$defs": {
+    "InstanceState": {
+      "type": "object",
+      "description": "Describes the current state of the instance",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "The state code (0=pending, 16=running, 32=shutting-down, 48=terminated, 64=stopping, 80=stopped)",
+          "enum": [0, 16, 32, 48, 64, 80]
+        },
+        "name": {
+          "type": "string",
+          "description": "The current state of the instance",
+          "enum": ["pending", "running", "shutting-down", "terminated", "stopping", "stopped"]
+        }
+      }
+    },
+    "Placement": {
+      "type": "object",
+      "description": "Describes the placement of an instance",
+      "properties": {
+        "availabilityZone": {
+          "type": "string",
+          "description": "The Availability Zone of the instance"
+        },
+        "groupName": {
+          "type": "string",
+          "description": "The name of the placement group"
+        },
+        "tenancy": {
+          "type": "string",
+          "description": "The tenancy of the instance",
+          "enum": ["default", "dedicated", "host"]
+        }
+      }
+    },
+    "BlockDeviceMapping": {
+      "type": "object",
+      "description": "Describes a block device mapping",
+      "properties": {
+        "deviceName": {
+          "type": "string",
+          "description": "The device name (e.g., /dev/sdh or xvdh)"
+        },
+        "ebs": {
+          "type": "object",
+          "description": "Parameters used to set up EBS volumes",
+          "properties": {
+            "volumeId": {
+              "type": "string",
+              "description": "The ID of the EBS volume"
+            },
+            "status": {
+              "type": "string",
+              "description": "The attachment state",
+              "enum": ["attaching", "attached", "detaching", "detached"]
+            },
+            "deleteOnTermination": {
+              "type": "boolean",
+              "description": "Whether the volume is deleted on instance termination"
+            }
+          }
+        }
+      }
+    },
+    "SecurityGroupIdentifier": {
+      "type": "object",
+      "description": "Describes a security group",
+      "properties": {
+        "groupId": {
+          "type": "string",
+          "description": "The ID of the security group",
+          "pattern": "^sg-[a-f0-9]{8,17}$"
+        },
+        "groupName": {
+          "type": "string",
+          "description": "The name of the security group"
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "description": "Describes a resource tag",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The key of the tag",
+          "maxLength": 128
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the tag",
+          "maxLength": 256
+        }
+      },
+      "required": ["key"]
+    }
+  }
+}

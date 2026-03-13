@@ -1,0 +1,133 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "ec2": "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Instance": {
+      "@id": "ec2:Instance",
+      "@context": {
+        "instanceId": "ec2:instanceId",
+        "imageId": "ec2:imageId",
+        "instanceType": "ec2:instanceType",
+        "keyName": "ec2:keyName",
+        "launchTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "instanceState": "ec2:instanceState",
+        "privateIpAddress": "ec2:privateIpAddress",
+        "publicIpAddress": "ec2:publicIpAddress",
+        "architecture": "ec2:architecture",
+        "platform": "ec2:platform",
+        "subnetId": "ec2:subnetId",
+        "vpcId": "ec2:vpcId",
+        "tags": {
+          "@id": "ec2:tags",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Image": {
+      "@id": "ec2:Image",
+      "@context": {
+        "imageId": "ec2:imageId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "architecture": "ec2:architecture",
+        "imageType": "ec2:imageType",
+        "state": "ec2:state",
+        "creationDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "ownerId": "ec2:ownerId",
+        "public": "ec2:isPublic"
+      }
+    },
+
+    "SecurityGroup": {
+      "@id": "ec2:SecurityGroup",
+      "@context": {
+        "groupId": "ec2:groupId",
+        "groupName": "schema:name",
+        "description": "schema:description",
+        "vpcId": "ec2:vpcId",
+        "ownerId": "ec2:ownerId",
+        "ipPermissions": {
+          "@id": "ec2:ipPermissions",
+          "@container": "@set"
+        },
+        "ipPermissionsEgress": {
+          "@id": "ec2:ipPermissionsEgress",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "KeyPair": {
+      "@id": "ec2:KeyPair",
+      "@context": {
+        "keyPairId": "ec2:keyPairId",
+        "keyName": "schema:name",
+        "keyFingerprint": "ec2:keyFingerprint",
+        "keyType": "ec2:keyType",
+        "createTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ElasticIp": {
+      "@id": "ec2:Address",
+      "@context": {
+        "allocationId": "ec2:allocationId",
+        "publicIp": "ec2:publicIp",
+        "instanceId": "ec2:instanceId",
+        "domain": "ec2:domain",
+        "associationId": "ec2:associationId"
+      }
+    },
+
+    "LaunchTemplate": {
+      "@id": "ec2:LaunchTemplate",
+      "@context": {
+        "launchTemplateId": "ec2:launchTemplateId",
+        "launchTemplateName": "schema:name",
+        "versionNumber": "ec2:versionNumber",
+        "createTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "createdBy": "dcterms:creator"
+      }
+    },
+
+    "Region": {
+      "@id": "ec2:Region",
+      "@context": {
+        "regionName": "schema:name",
+        "endpoint": {
+          "@id": "ec2:endpoint",
+          "@type": "@id"
+        },
+        "optInStatus": "ec2:optInStatus"
+      }
+    },
+
+    "AvailabilityZone": {
+      "@id": "ec2:AvailabilityZone",
+      "@context": {
+        "zoneName": "schema:name",
+        "zoneId": "ec2:zoneId",
+        "regionName": "ec2:regionName",
+        "state": "ec2:state",
+        "zoneType": "ec2:zoneType"
+      }
+    }
+  }
+}
