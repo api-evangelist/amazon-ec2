@@ -1,4 +1,4 @@
-name: Amazon EC2 API
+name: Amazon EC2
 description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud, allowing you to launch virtual server instances, manage networking, and configure storage with complete control over your computing resources.
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://aws.amazon.com/ec2/
