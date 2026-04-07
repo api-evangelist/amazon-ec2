@@ -46,7 +46,7 @@ paths:
   /?Action=RunInstances:
     get:
       operationId: runInstances
-      summary: Launch EC2 instances
+      summary: Amazon EC2 Launch EC2 instances
       description: >-
         Launches the specified number of instances using an AMI for which
         you have permissions. You can specify a number of options, or leave
@@ -104,7 +104,7 @@ paths:
   /?Action=DescribeInstances:
     get:
       operationId: describeInstances
-      summary: Describe EC2 instances
+      summary: Amazon EC2 Describe EC2 instances
       description: >-
         Describes the specified instances or all instances. Returns
         information about the instances including instance ID, instance
@@ -152,7 +152,7 @@ paths:
   /?Action=StartInstances:
     get:
       operationId: startInstances
-      summary: Start stopped instances
+      summary: Amazon EC2 Start stopped instances
       description: >-
         Starts an Amazon EBS-backed instance that you have previously
         stopped. Instances that use Amazon EBS volumes as their root
@@ -178,7 +178,7 @@ paths:
   /?Action=StopInstances:
     get:
       operationId: stopInstances
-      summary: Stop running instances
+      summary: Amazon EC2 Stop running instances
       description: >-
         Stops an Amazon EBS-backed instance. You can use the stopped
         instance to modify the root volume, change instance type, or
@@ -209,7 +209,7 @@ paths:
   /?Action=TerminateInstances:
     get:
       operationId: terminateInstances
-      summary: Terminate instances
+      summary: Amazon EC2 Terminate instances
       description: >-
         Shuts down the specified instances. This operation is idempotent;
         if you terminate an instance more than once, each call succeeds.
@@ -236,7 +236,7 @@ paths:
   /?Action=RebootInstances:
     get:
       operationId: rebootInstances
-      summary: Reboot instances
+      summary: Amazon EC2 Reboot instances
       description: >-
         Requests a reboot of the specified instances. This operation is
         asynchronous; it only queues a request to reboot the specified
@@ -262,7 +262,7 @@ paths:
   /?Action=DescribeInstanceStatus:
     get:
       operationId: describeInstanceStatus
-      summary: Describe instance status
+      summary: Amazon EC2 Describe instance status
       description: >-
         Describes the status of the specified instances or all of your
         instances. Instance status includes status checks, scheduled
@@ -290,7 +290,7 @@ paths:
   /?Action=CreateImage:
     get:
       operationId: createImage
-      summary: Create an AMI from an instance
+      summary: Amazon EC2 Create an AMI from an instance
       description: >-
         Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance
         that is either running or stopped. The AMI is created with the
@@ -334,7 +334,7 @@ paths:
   /?Action=DescribeImages:
     get:
       operationId: describeImages
-      summary: Describe AMIs
+      summary: Amazon EC2 Describe AMIs
       description: >-
         Describes the specified images (AMIs, AKIs, and ARIs) available
         to you or all of the images available to you. Images available
@@ -373,7 +373,7 @@ paths:
   /?Action=DeregisterImage:
     get:
       operationId: deregisterImage
-      summary: Deregister an AMI
+      summary: Amazon EC2 Deregister an AMI
       description: >-
         Deregisters the specified AMI. After you deregister an AMI, it
         cannot be used to launch new instances. Deregistering does not
@@ -395,7 +395,7 @@ paths:
   /?Action=CreateSecurityGroup:
     get:
       operationId: createSecurityGroup
-      summary: Create a security group
+      summary: Amazon EC2 Create a security group
       description: >-
         Creates a security group. A security group acts as a virtual
         firewall for your instances to control inbound and outbound traffic.
@@ -427,7 +427,7 @@ paths:
   /?Action=DescribeSecurityGroups:
     get:
       operationId: describeSecurityGroups
-      summary: Describe security groups
+      summary: Amazon EC2 Describe security groups
       description: >-
         Describes the specified security groups or all of your security
         groups. A security group is for use with instances either in the
@@ -457,7 +457,7 @@ paths:
   /?Action=AuthorizeSecurityGroupIngress:
     get:
       operationId: authorizeSecurityGroupIngress
-      summary: Add inbound security group rules
+      summary: Amazon EC2 Add inbound security group rules
       description: >-
         Adds the specified inbound (ingress) rules to a security group.
         An inbound rule permits instances to receive traffic from the
@@ -500,7 +500,7 @@ paths:
   /?Action=DeleteSecurityGroup:
     get:
       operationId: deleteSecurityGroup
-      summary: Delete a security group
+      summary: Amazon EC2 Delete a security group
       description: >-
         Deletes a security group. If you attempt to delete a security
         group that is associated with an instance, or is referenced by
@@ -526,7 +526,7 @@ paths:
   /?Action=CreateKeyPair:
     get:
       operationId: createKeyPair
-      summary: Create a key pair
+      summary: Amazon EC2 Create a key pair
       description: >-
         Creates an ED25519 or 2048-bit RSA key pair with the specified
         name. Amazon EC2 stores the public key and displays the private
@@ -556,7 +556,7 @@ paths:
   /?Action=DescribeKeyPairs:
     get:
       operationId: describeKeyPairs
-      summary: Describe key pairs
+      summary: Amazon EC2 Describe key pairs
       description: >-
         Describes the specified key pairs or all of your key pairs.
       tags:
@@ -584,7 +584,7 @@ paths:
   /?Action=DeleteKeyPair:
     get:
       operationId: deleteKeyPair
-      summary: Delete a key pair
+      summary: Amazon EC2 Delete a key pair
       description: >-
         Deletes the specified key pair by removing the public key from
         Amazon EC2.
@@ -609,7 +609,7 @@ paths:
   /?Action=AllocateAddress:
     get:
       operationId: allocateAddress
-      summary: Allocate an Elastic IP address
+      summary: Amazon EC2 Allocate an Elastic IP address
       description: >-
         Allocates an Elastic IP address to your AWS account. After you
         allocate the Elastic IP address you can associate it with an
@@ -633,7 +633,7 @@ paths:
   /?Action=AssociateAddress:
     get:
       operationId: associateAddress
-      summary: Associate an Elastic IP address
+      summary: Amazon EC2 Associate an Elastic IP address
       description: >-
         Associates an Elastic IP address with an instance or a network
         interface. This is an idempotent operation.
@@ -663,7 +663,7 @@ paths:
   /?Action=ReleaseAddress:
     get:
       operationId: releaseAddress
-      summary: Release an Elastic IP address
+      summary: Amazon EC2 Release an Elastic IP address
       description: >-
         Releases the specified Elastic IP address. After releasing an
         Elastic IP address, it is released to the IP address pool.
@@ -683,7 +683,7 @@ paths:
   /?Action=CreateLaunchTemplate:
     get:
       operationId: createLaunchTemplate
-      summary: Create a launch template
+      summary: Amazon EC2 Create a launch template
       description: >-
         Creates a launch template. A launch template contains the
         parameters to launch an instance. When you launch an instance
@@ -711,7 +711,7 @@ paths:
   /?Action=DescribeLaunchTemplates:
     get:
       operationId: describeLaunchTemplates
-      summary: Describe launch templates
+      summary: Amazon EC2 Describe launch templates
       description: >-
         Describes one or more launch templates.
       tags:
@@ -739,7 +739,7 @@ paths:
   /?Action=RequestSpotInstances:
     get:
       operationId: requestSpotInstances
-      summary: Request Spot Instances
+      summary: Amazon EC2 Request Spot Instances
       description: >-
         Creates a Spot Instance request. For more information about Spot
         Instances, see Spot Instances in the Amazon EC2 User Guide.
@@ -772,7 +772,7 @@ paths:
   /?Action=DescribeSpotInstanceRequests:
     get:
       operationId: describeSpotInstanceRequests
-      summary: Describe Spot Instance requests
+      summary: Amazon EC2 Describe Spot Instance requests
       description: >-
         Describes the specified Spot Instance requests. You can use
         DescribeSpotInstanceRequests to find a running Spot Instance by
@@ -795,7 +795,7 @@ paths:
   /?Action=DescribeRegions:
     get:
       operationId: describeRegions
-      summary: Describe AWS regions
+      summary: Amazon EC2 Describe AWS regions
       description: >-
         Describes the Regions that are enabled for your account, or all
         Regions. For a list of the Regions supported by Amazon EC2, see
@@ -823,7 +823,7 @@ paths:
   /?Action=DescribeAvailabilityZones:
     get:
       operationId: describeAvailabilityZones
-      summary: Describe availability zones
+      summary: Amazon EC2 Describe availability zones
       description: >-
         Describes the Availability Zones, Local Zones, and Wavelength
         Zones that are available to you. The results include zones only
