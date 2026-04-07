@@ -22,24 +22,22 @@ servers:
         default: us-east-1
         description: AWS Region
 tags:
-  - name: Instances
-    description: Operations for launching, managing, and terminating EC2 instances
   - name: AMIs
     description: Operations for creating and managing Amazon Machine Images
-  - name: Security Groups
-    description: Operations for managing security group rules and firewall settings
-  - name: Key Pairs
-    description: Operations for managing SSH key pairs used for instance access
   - name: Elastic IPs
     description: Operations for allocating and managing static IP addresses
+  - name: Instances
+    description: Operations for launching, managing, and terminating EC2 instances
+  - name: Key Pairs
+    description: Operations for managing SSH key pairs used for instance access
   - name: Launch Templates
     description: Operations for managing reusable instance launch configurations
-  - name: Spot Instances
-    description: Operations for requesting and managing Spot Instances
-  - name: Capacity Reservations
-    description: Operations for reserving compute capacity
   - name: Regions
     description: Operations for describing AWS regions and availability zones
+  - name: Security Groups
+    description: Operations for managing security group rules and firewall settings
+  - name: Spot Instances
+    description: Operations for requesting and managing Spot Instances
 security:
   - sigv4Auth: []
 paths:
