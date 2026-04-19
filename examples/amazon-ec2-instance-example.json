@@ -1,0 +1,6 @@
+{
+  "instanceId": "i-0abc123def456789",
+  "instanceType": "standard",
+  "imageId": "ami-0abc123def456789",
+  "instanceState": "example"
+}

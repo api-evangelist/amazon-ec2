@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-ec2/refs/heads/main/json-structure/ec2-openapi-create-image-response-structure.json",
+  "name": "CreateImageResponse",
+  "description": "Response from the CreateImage action",
+  "type": "object",
+  "properties": {
+    "imageId": {
+      "type": "string",
+      "description": "The ID of the new AMI"
+    }
+  }
+}

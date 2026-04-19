@@ -1,133 +1,162 @@
 {
   "@context": {
     "@version": 1.1,
-    "ec2": "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/",
+    "aws": "https://aws.amazon.com/schema/",
     "schema": "https://schema.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
-
-    "Instance": {
-      "@id": "ec2:Instance",
-      "@context": {
-        "instanceId": "ec2:instanceId",
-        "imageId": "ec2:imageId",
-        "instanceType": "ec2:instanceType",
-        "keyName": "ec2:keyName",
-        "launchTime": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "instanceState": "ec2:instanceState",
-        "privateIpAddress": "ec2:privateIpAddress",
-        "publicIpAddress": "ec2:publicIpAddress",
-        "architecture": "ec2:architecture",
-        "platform": "ec2:platform",
-        "subnetId": "ec2:subnetId",
-        "vpcId": "ec2:vpcId",
-        "tags": {
-          "@id": "ec2:tags",
-          "@container": "@set"
-        }
-      }
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "pan": "https://aws.amazon.com/schema/",
+    "Amazon EC2 Instance": "aws:Amazon EC2 Instance",
+    "CreateImageResponse": "aws:CreateImageResponse",
+    "DescribeInstancesResponse": "aws:DescribeInstancesResponse",
+    "Instance": "aws:Instance",
+    "RunInstancesResponse": "aws:RunInstancesResponse",
+    "Tag": "aws:Tag",
+    "instanceId": {
+      "@id": "pan:instanceId",
+      "@type": "xsd:string"
     },
-
-    "Image": {
-      "@id": "ec2:Image",
-      "@context": {
-        "imageId": "ec2:imageId",
-        "name": "schema:name",
-        "description": "schema:description",
-        "architecture": "ec2:architecture",
-        "imageType": "ec2:imageType",
-        "state": "ec2:state",
-        "creationDate": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "ownerId": "ec2:ownerId",
-        "public": "ec2:isPublic"
-      }
+    "imageId": {
+      "@id": "pan:imageId",
+      "@type": "xsd:string"
     },
-
-    "SecurityGroup": {
-      "@id": "ec2:SecurityGroup",
-      "@context": {
-        "groupId": "ec2:groupId",
-        "groupName": "schema:name",
-        "description": "schema:description",
-        "vpcId": "ec2:vpcId",
-        "ownerId": "ec2:ownerId",
-        "ipPermissions": {
-          "@id": "ec2:ipPermissions",
-          "@container": "@set"
-        },
-        "ipPermissionsEgress": {
-          "@id": "ec2:ipPermissionsEgress",
-          "@container": "@set"
-        }
-      }
+    "instanceType": {
+      "@id": "pan:instanceType",
+      "@type": "xsd:string"
     },
-
-    "KeyPair": {
-      "@id": "ec2:KeyPair",
-      "@context": {
-        "keyPairId": "ec2:keyPairId",
-        "keyName": "schema:name",
-        "keyFingerprint": "ec2:keyFingerprint",
-        "keyType": "ec2:keyType",
-        "createTime": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "keyName": {
+      "@id": "pan:keyName",
+      "@type": "xsd:string"
     },
-
-    "ElasticIp": {
-      "@id": "ec2:Address",
-      "@context": {
-        "allocationId": "ec2:allocationId",
-        "publicIp": "ec2:publicIp",
-        "instanceId": "ec2:instanceId",
-        "domain": "ec2:domain",
-        "associationId": "ec2:associationId"
-      }
+    "launchTime": {
+      "@id": "pan:launchTime",
+      "@type": "xsd:dateTime"
     },
-
-    "LaunchTemplate": {
-      "@id": "ec2:LaunchTemplate",
-      "@context": {
-        "launchTemplateId": "ec2:launchTemplateId",
-        "launchTemplateName": "schema:name",
-        "versionNumber": "ec2:versionNumber",
-        "createTime": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "createdBy": "dcterms:creator"
-      }
+    "placement": {
+      "@id": "pan:placement",
+      "@type": "@id"
     },
-
-    "Region": {
-      "@id": "ec2:Region",
-      "@context": {
-        "regionName": "schema:name",
-        "endpoint": {
-          "@id": "ec2:endpoint",
-          "@type": "@id"
-        },
-        "optInStatus": "ec2:optInStatus"
-      }
+    "availabilityZone": {
+      "@id": "pan:availabilityZone",
+      "@type": "xsd:string"
     },
-
-    "AvailabilityZone": {
-      "@id": "ec2:AvailabilityZone",
-      "@context": {
-        "zoneName": "schema:name",
-        "zoneId": "ec2:zoneId",
-        "regionName": "ec2:regionName",
-        "state": "ec2:state",
-        "zoneType": "ec2:zoneType"
-      }
+    "monitoring": {
+      "@id": "pan:monitoring",
+      "@type": "@id"
+    },
+    "state": {
+      "@id": "pan:state",
+      "@type": "xsd:string"
+    },
+    "instanceState": {
+      "@id": "pan:instanceState",
+      "@type": "@id"
+    },
+    "code": {
+      "@id": "pan:code",
+      "@type": "xsd:integer"
+    },
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "subnetId": {
+      "@id": "pan:subnetId",
+      "@type": "xsd:string"
+    },
+    "vpcId": {
+      "@id": "pan:vpcId",
+      "@type": "xsd:string"
+    },
+    "privateIpAddress": {
+      "@id": "pan:privateIpAddress",
+      "@type": "xsd:string"
+    },
+    "publicIpAddress": {
+      "@id": "pan:publicIpAddress",
+      "@type": "xsd:string"
+    },
+    "architecture": {
+      "@id": "pan:architecture",
+      "@type": "xsd:string"
+    },
+    "rootDeviceType": {
+      "@id": "pan:rootDeviceType",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "pan:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "securityGroups": {
+      "@id": "pan:securityGroups",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "groupId": {
+      "@id": "pan:groupId",
+      "@type": "xsd:string"
+    },
+    "groupName": {
+      "@id": "pan:groupName",
+      "@type": "xsd:string"
+    },
+    "reservationId": {
+      "@id": "pan:reservationId",
+      "@type": "xsd:string"
+    },
+    "ownerId": {
+      "@id": "pan:ownerId",
+      "@type": "xsd:string"
+    },
+    "instances": {
+      "@id": "pan:instances",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "rootDeviceName": {
+      "@id": "pan:rootDeviceName",
+      "@type": "xsd:string"
+    },
+    "blockDeviceMappings": {
+      "@id": "pan:blockDeviceMappings",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "platform": {
+      "@id": "pan:platform",
+      "@type": "xsd:string"
+    },
+    "ebsOptimized": {
+      "@id": "pan:ebsOptimized",
+      "@type": "xsd:boolean"
+    },
+    "enaSupport": {
+      "@id": "pan:enaSupport",
+      "@type": "xsd:boolean"
+    },
+    "key": {
+      "@id": "pan:key",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "pan:value",
+      "@type": "xsd:string"
+    },
+    "reservationSet": {
+      "@id": "pan:reservationSet",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "nextToken": {
+      "@id": "pan:nextToken",
+      "@type": "xsd:string"
+    },
+    "instancesSet": {
+      "@id": "pan:instancesSet",
+      "@container": "@set",
+      "@type": "xsd:string"
     }
   }
 }

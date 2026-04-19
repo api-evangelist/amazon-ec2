@@ -1,0 +1,664 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Amazon EC2"
+  description: "Amazon EC2 resizable compute capacity in the cloud."
+  tags:
+    - Amazon EC2
+    - AWS
+    - Compute
+    - Cloud Computing
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: ec2
+      baseUri: https://ec2.amazonaws.com
+      description: "Amazon EC2 resizable compute capacity in the cloud."
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "AWS4-HMAC-SHA256 Credential={{env.AWS_ACCESS_KEY_ID}}"
+        placement: header
+      resources:
+        - name: ?Action=RunInstances
+          path: /?Action=RunInstances
+          description: "Operations for ?Action=RunInstances resources."
+          operations:
+            - name: runInstances
+              method: GET
+              description: "Amazon EC2 Launch EC2 Instances"
+              inputParameters:
+                - name: MinCount
+                  in: query
+                  type: integer
+                  required: true
+                  description: "The minimum number of instances to launch"
+                - name: MaxCount
+                  in: query
+                  type: integer
+                  required: true
+                  description: "The maximum number of instances to launch"
+                - name: KeyName
+                  in: query
+                  type: string
+                  required: false
+                  description: "The name of the key pair to use for SSH access"
+                - name: SecurityGroupId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The IDs of the security groups"
+                - name: SubnetId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the subnet to launch the instance into"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeInstances
+          path: /?Action=DescribeInstances
+          description: "Operations for ?Action=DescribeInstances resources."
+          operations:
+            - name: describeInstances
+              method: GET
+              description: "Amazon EC2 Describe EC2 Instances"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The instance IDs to describe"
+                - name: Filter
+                  in: query
+                  type: array
+                  required: false
+                  description: "Filters to apply to the results"
+                - name: MaxResults
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Maximum number of results to return"
+                - name: NextToken
+                  in: query
+                  type: string
+                  required: false
+                  description: "Token for the next page of results"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=StartInstances
+          path: /?Action=StartInstances
+          description: "Operations for ?Action=StartInstances resources."
+          operations:
+            - name: startInstances
+              method: GET
+              description: "Amazon EC2 Start Stopped Instances"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: array
+                  required: true
+                  description: "The IDs of the instances to start"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=StopInstances
+          path: /?Action=StopInstances
+          description: "Operations for ?Action=StopInstances resources."
+          operations:
+            - name: stopInstances
+              method: GET
+              description: "Amazon EC2 Stop Running Instances"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: array
+                  required: true
+                  description: "The IDs of the instances to stop"
+                - name: Force
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Forces the instances to stop without graceful shutdown"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=TerminateInstances
+          path: /?Action=TerminateInstances
+          description: "Operations for ?Action=TerminateInstances resources."
+          operations:
+            - name: terminateInstances
+              method: GET
+              description: "Amazon EC2 Terminate Instances"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: array
+                  required: true
+                  description: "The IDs of the instances to terminate"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=RebootInstances
+          path: /?Action=RebootInstances
+          description: "Operations for ?Action=RebootInstances resources."
+          operations:
+            - name: rebootInstances
+              method: GET
+              description: "Amazon EC2 Reboot Instances"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: array
+                  required: true
+                  description: "The IDs of the instances to reboot"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeInstanceStatus
+          path: /?Action=DescribeInstanceStatus
+          description: "Operations for ?Action=DescribeInstanceStatus resources."
+          operations:
+            - name: describeInstanceStatus
+              method: GET
+              description: "Amazon EC2 Describe Instance Status"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The instance IDs to describe"
+                - name: IncludeAllInstances
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Include all instances regardless of running state"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=CreateImage
+          path: /?Action=CreateImage
+          description: "Operations for ?Action=CreateImage resources."
+          operations:
+            - name: createImage
+              method: GET
+              description: "Amazon EC2 Create an AMI from an Instance"
+              inputParameters:
+                - name: InstanceId
+                  in: query
+                  type: string
+                  required: true
+                  description: "The ID of the instance to create the image from"
+                - name: Name
+                  in: query
+                  type: string
+                  required: true
+                  description: "A name for the new image"
+                - name: Description
+                  in: query
+                  type: string
+                  required: false
+                  description: "A description for the new image"
+                - name: NoReboot
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "If true, Amazon EC2 does not shut down the instance before creating the image"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeImages
+          path: /?Action=DescribeImages
+          description: "Operations for ?Action=DescribeImages resources."
+          operations:
+            - name: describeImages
+              method: GET
+              description: "Amazon EC2 Describe AMIs"
+              inputParameters:
+                - name: ImageId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The image IDs to describe"
+                - name: Owner
+                  in: query
+                  type: array
+                  required: false
+                  description: "Scopes the results to images with the specified owners"
+                - name: Filter
+                  in: query
+                  type: array
+                  required: false
+                  description: "Filters to apply to the results"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DeregisterImage
+          path: /?Action=DeregisterImage
+          description: "Operations for ?Action=DeregisterImage resources."
+          operations:
+            - name: deregisterImage
+              method: GET
+              description: "Amazon EC2 Deregister an AMI"
+              inputParameters:
+                - name: ImageId
+                  in: query
+                  type: string
+                  required: true
+                  description: "The ID of the AMI to deregister"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=CreateSecurityGroup
+          path: /?Action=CreateSecurityGroup
+          description: "Operations for ?Action=CreateSecurityGroup resources."
+          operations:
+            - name: createSecurityGroup
+              method: GET
+              description: "Amazon EC2 Create a Security Group"
+              inputParameters:
+                - name: GroupName
+                  in: query
+                  type: string
+                  required: true
+                  description: "The name of the security group"
+                - name: GroupDescription
+                  in: query
+                  type: string
+                  required: true
+                  description: "A description for the security group"
+                - name: VpcId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the VPC for the security group"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeSecurityGroups
+          path: /?Action=DescribeSecurityGroups
+          description: "Operations for ?Action=DescribeSecurityGroups resources."
+          operations:
+            - name: describeSecurityGroups
+              method: GET
+              description: "Amazon EC2 Describe Security Groups"
+              inputParameters:
+                - name: GroupId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The IDs of the security groups to describe"
+                - name: GroupName
+                  in: query
+                  type: array
+                  required: false
+                  description: "The names of the security groups to describe"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=AuthorizeSecurityGroupIngress
+          path: /?Action=AuthorizeSecurityGroupIngress
+          description: "Operations for ?Action=AuthorizeSecurityGroupIngress resources."
+          operations:
+            - name: authorizeSecurityGroupIngress
+              method: GET
+              description: "Amazon EC2 Add Inbound Security Group Rules"
+              inputParameters:
+                - name: GroupId
+                  in: query
+                  type: string
+                  required: true
+                  description: "The ID of the security group"
+                - name: IpProtocol
+                  in: query
+                  type: string
+                  required: false
+                  description: "The IP protocol name (tcp, udp, icmp) or number"
+                - name: FromPort
+                  in: query
+                  type: integer
+                  required: false
+                  description: "The start of port range for TCP and UDP protocols"
+                - name: ToPort
+                  in: query
+                  type: integer
+                  required: false
+                  description: "The end of port range for TCP and UDP protocols"
+                - name: CidrIp
+                  in: query
+                  type: string
+                  required: false
+                  description: "The IPv4 CIDR range"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DeleteSecurityGroup
+          path: /?Action=DeleteSecurityGroup
+          description: "Operations for ?Action=DeleteSecurityGroup resources."
+          operations:
+            - name: deleteSecurityGroup
+              method: GET
+              description: "Amazon EC2 Delete a Security Group"
+              inputParameters:
+                - name: GroupId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the security group to delete"
+                - name: GroupName
+                  in: query
+                  type: string
+                  required: false
+                  description: "The name of the security group to delete"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=CreateKeyPair
+          path: /?Action=CreateKeyPair
+          description: "Operations for ?Action=CreateKeyPair resources."
+          operations:
+            - name: createKeyPair
+              method: GET
+              description: "Amazon EC2 Create a Key Pair"
+              inputParameters:
+                - name: KeyName
+                  in: query
+                  type: string
+                  required: true
+                  description: "A unique name for the key pair"
+                - name: KeyType
+                  in: query
+                  type: string
+                  required: false
+                  description: "The type of key pair (rsa or ed25519)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeKeyPairs
+          path: /?Action=DescribeKeyPairs
+          description: "Operations for ?Action=DescribeKeyPairs resources."
+          operations:
+            - name: describeKeyPairs
+              method: GET
+              description: "Amazon EC2 Describe Key Pairs"
+              inputParameters:
+                - name: KeyName
+                  in: query
+                  type: array
+                  required: false
+                  description: "The key pair names to describe"
+                - name: KeyPairId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The IDs of the key pairs"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DeleteKeyPair
+          path: /?Action=DeleteKeyPair
+          description: "Operations for ?Action=DeleteKeyPair resources."
+          operations:
+            - name: deleteKeyPair
+              method: GET
+              description: "Amazon EC2 Delete a Key Pair"
+              inputParameters:
+                - name: KeyName
+                  in: query
+                  type: string
+                  required: false
+                  description: "The name of the key pair to delete"
+                - name: KeyPairId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the key pair to delete"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=AllocateAddress
+          path: /?Action=AllocateAddress
+          description: "Operations for ?Action=AllocateAddress resources."
+          operations:
+            - name: allocateAddress
+              method: GET
+              description: "Amazon EC2 Allocate an Elastic IP Address"
+              inputParameters:
+                - name: Domain
+                  in: query
+                  type: string
+                  required: false
+                  description: "Set to vpc to allocate the address for use with instances in a VPC"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=AssociateAddress
+          path: /?Action=AssociateAddress
+          description: "Operations for ?Action=AssociateAddress resources."
+          operations:
+            - name: associateAddress
+              method: GET
+              description: "Amazon EC2 Associate an Elastic IP Address"
+              inputParameters:
+                - name: AllocationId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The allocation ID for the Elastic IP address"
+                - name: InstanceId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the instance to associate with"
+                - name: NetworkInterfaceId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The ID of the network interface"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=ReleaseAddress
+          path: /?Action=ReleaseAddress
+          description: "Operations for ?Action=ReleaseAddress resources."
+          operations:
+            - name: releaseAddress
+              method: GET
+              description: "Amazon EC2 Release an Elastic IP Address"
+              inputParameters:
+                - name: AllocationId
+                  in: query
+                  type: string
+                  required: false
+                  description: "The allocation ID of the Elastic IP address"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=CreateLaunchTemplate
+          path: /?Action=CreateLaunchTemplate
+          description: "Operations for ?Action=CreateLaunchTemplate resources."
+          operations:
+            - name: createLaunchTemplate
+              method: GET
+              description: "Amazon EC2 Create a Launch Template"
+              inputParameters:
+                - name: LaunchTemplateName
+                  in: query
+                  type: string
+                  required: true
+                  description: "A name for the launch template"
+                - name: VersionDescription
+                  in: query
+                  type: string
+                  required: false
+                  description: "A description for the first version of the launch template"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeLaunchTemplates
+          path: /?Action=DescribeLaunchTemplates
+          description: "Operations for ?Action=DescribeLaunchTemplates resources."
+          operations:
+            - name: describeLaunchTemplates
+              method: GET
+              description: "Amazon EC2 Describe Launch Templates"
+              inputParameters:
+                - name: LaunchTemplateId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The IDs of the launch templates"
+                - name: LaunchTemplateName
+                  in: query
+                  type: array
+                  required: false
+                  description: "The names of the launch templates"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=RequestSpotInstances
+          path: /?Action=RequestSpotInstances
+          description: "Operations for ?Action=RequestSpotInstances resources."
+          operations:
+            - name: requestSpotInstances
+              method: GET
+              description: "Amazon EC2 Request Spot Instances"
+              inputParameters:
+                - name: SpotPrice
+                  in: query
+                  type: string
+                  required: false
+                  description: "The maximum price per unit hour for a Spot Instance"
+                - name: InstanceCount
+                  in: query
+                  type: integer
+                  required: false
+                  description: "The maximum number of Spot Instances to launch"
+                - name: Type
+                  in: query
+                  type: string
+                  required: false
+                  description: "The Spot Instance request type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeSpotInstanceRequests
+          path: /?Action=DescribeSpotInstanceRequests
+          description: "Operations for ?Action=DescribeSpotInstanceRequests resources."
+          operations:
+            - name: describeSpotInstanceRequests
+              method: GET
+              description: "Amazon EC2 Describe Spot Instance Requests"
+              inputParameters:
+                - name: SpotInstanceRequestId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The IDs of the Spot Instance requests"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeRegions
+          path: /?Action=DescribeRegions
+          description: "Operations for ?Action=DescribeRegions resources."
+          operations:
+            - name: describeRegions
+              method: GET
+              description: "Amazon EC2 Describe AWS Regions"
+              inputParameters:
+                - name: RegionName
+                  in: query
+                  type: array
+                  required: false
+                  description: "The names of the Regions"
+                - name: AllRegions
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Indicates whether to display all Regions including disabled"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: ?Action=DescribeAvailabilityZones
+          path: /?Action=DescribeAvailabilityZones
+          description: "Operations for ?Action=DescribeAvailabilityZones resources."
+          operations:
+            - name: describeAvailabilityZones
+              method: GET
+              description: "Amazon EC2 Describe Availability Zones"
+              inputParameters:
+                - name: ZoneName
+                  in: query
+                  type: array
+                  required: false
+                  description: "The names of the Availability Zones"
+                - name: ZoneId
+                  in: query
+                  type: array
+                  required: false
+                  description: "The IDs of the Availability Zones"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."

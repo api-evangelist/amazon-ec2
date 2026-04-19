@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-ec2/refs/heads/main/json-schema/ec2-openapi-tag-schema.json",
+  "title": "Tag",
+  "description": "Describes a tag",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The key of the tag"
+    },
+    "value": {
+      "type": "string",
+      "description": "The value of the tag"
+    }
+  }
+}

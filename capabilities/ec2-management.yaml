@@ -1,0 +1,237 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Amazon EC2 Cloud Compute Management"
+  description: "Unified capability for managing EC2 instances, AMIs, security groups, and networking for cloud infrastructure engineers."
+  tags:
+    - Amazon EC2
+    - AWS
+    - Compute
+    - Cloud Computing
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+
+capability:
+  consumes:
+    - import: ec2
+      location: ./shared/ec2.yaml
+
+  exposes:
+    - type: rest
+      port: 8083
+      namespace: ec2-api
+      description: "Unified REST API for Cloud Compute Management."
+      resources:
+        - path: /v1/?Action=RunInstances
+          name: runInstances
+          description: "Amazon EC2 Launch EC2 Instances"
+          operations:
+            - method: GET
+              name: runInstances
+              description: "Amazon EC2 Launch EC2 Instances"
+              call: "ec2.runInstances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=DescribeInstances
+          name: describeInstances
+          description: "Amazon EC2 Describe EC2 Instances"
+          operations:
+            - method: GET
+              name: describeInstances
+              description: "Amazon EC2 Describe EC2 Instances"
+              call: "ec2.describeInstances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=StartInstances
+          name: startInstances
+          description: "Amazon EC2 Start Stopped Instances"
+          operations:
+            - method: GET
+              name: startInstances
+              description: "Amazon EC2 Start Stopped Instances"
+              call: "ec2.startInstances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=StopInstances
+          name: stopInstances
+          description: "Amazon EC2 Stop Running Instances"
+          operations:
+            - method: GET
+              name: stopInstances
+              description: "Amazon EC2 Stop Running Instances"
+              call: "ec2.stopInstances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=TerminateInstances
+          name: terminateInstances
+          description: "Amazon EC2 Terminate Instances"
+          operations:
+            - method: GET
+              name: terminateInstances
+              description: "Amazon EC2 Terminate Instances"
+              call: "ec2.terminateInstances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=RebootInstances
+          name: rebootInstances
+          description: "Amazon EC2 Reboot Instances"
+          operations:
+            - method: GET
+              name: rebootInstances
+              description: "Amazon EC2 Reboot Instances"
+              call: "ec2.rebootInstances"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=DescribeInstanceStatus
+          name: describeInstanceStatus
+          description: "Amazon EC2 Describe Instance Status"
+          operations:
+            - method: GET
+              name: describeInstanceStatus
+              description: "Amazon EC2 Describe Instance Status"
+              call: "ec2.describeInstanceStatus"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=CreateImage
+          name: createImage
+          description: "Amazon EC2 Create an AMI from an Instance"
+          operations:
+            - method: GET
+              name: createImage
+              description: "Amazon EC2 Create an AMI from an Instance"
+              call: "ec2.createImage"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=DescribeImages
+          name: describeImages
+          description: "Amazon EC2 Describe AMIs"
+          operations:
+            - method: GET
+              name: describeImages
+              description: "Amazon EC2 Describe AMIs"
+              call: "ec2.describeImages"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/?Action=DeregisterImage
+          name: deregisterImage
+          description: "Amazon EC2 Deregister an AMI"
+          operations:
+            - method: GET
+              name: deregisterImage
+              description: "Amazon EC2 Deregister an AMI"
+              call: "ec2.deregisterImage"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9093
+      namespace: ec2-mcp
+      transport: http
+      description: "MCP server for AI-assisted Cloud Compute Management."
+      tools:
+        - name: run-instances
+          description: "Amazon EC2 Launch EC2 Instances"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.runInstances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: describe-instances
+          description: "Amazon EC2 Describe EC2 Instances"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.describeInstances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: start-instances
+          description: "Amazon EC2 Start Stopped Instances"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.startInstances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: stop-instances
+          description: "Amazon EC2 Stop Running Instances"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.stopInstances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: terminate-instances
+          description: "Amazon EC2 Terminate Instances"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.terminateInstances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: reboot-instances
+          description: "Amazon EC2 Reboot Instances"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.rebootInstances"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: describe-instance-status
+          description: "Amazon EC2 Describe Instance Status"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.describeInstanceStatus"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-image
+          description: "Amazon EC2 Create an AMI from an Instance"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.createImage"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: describe-images
+          description: "Amazon EC2 Describe AMIs"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.describeImages"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: deregister-image
+          description: "Amazon EC2 Deregister an AMI"
+          hints:
+            readOnly: true
+            destructive: false
+          call: "ec2.deregisterImage"
+          outputParameters:
+            - type: object
+              mapping: "$."

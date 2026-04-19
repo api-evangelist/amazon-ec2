@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-ec2/refs/heads/main/json-schema/ec2-openapi-describe-instances-response-schema.json",
+  "title": "DescribeInstancesResponse",
+  "description": "Response from the DescribeInstances action",
+  "type": "object",
+  "properties": {
+    "reservationSet": {
+      "type": "array",
+      "description": "Information about the reservations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reservationId": {
+            "type": "string",
+            "description": "The ID of the reservation"
+          },
+          "instancesSet": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Instance"
+            }
+          }
+        }
+      }
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Token for the next page of results"
+    }
+  }
+}

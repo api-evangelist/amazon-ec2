@@ -15,77 +15,83 @@ externalDocs:
   description: Amazon EC2 API Reference
   url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
 servers:
-  - url: https://ec2.{region}.amazonaws.com
-    description: Amazon EC2 Regional Endpoint
-    variables:
-      region:
-        default: us-east-1
-        description: AWS Region
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
 tags:
-  - name: AMIs
-    description: Operations for creating and managing Amazon Machine Images
-  - name: Elastic IPs
-    description: Operations for allocating and managing static IP addresses
-  - name: Instances
-    description: Operations for launching, managing, and terminating EC2 instances
-  - name: Key Pairs
-    description: Operations for managing SSH key pairs used for instance access
-  - name: Launch Templates
-    description: Operations for managing reusable instance launch configurations
-  - name: Regions
-    description: Operations for describing AWS regions and availability zones
-  - name: Security Groups
-    description: Operations for managing security group rules and firewall settings
-  - name: Spot Instances
-    description: Operations for requesting and managing Spot Instances
+- name: AMIs
+  description: Operations for creating and managing Amazon Machine Images
+- name: Elastic IPs
+  description: Operations for allocating and managing static IP addresses
+- name: Instances
+  description: Operations for launching, managing, and terminating EC2 instances
+- name: Key Pairs
+  description: Operations for managing SSH key pairs used for instance access
+- name: Launch Templates
+  description: Operations for managing reusable instance launch configurations
+- name: Regions
+  description: Operations for describing AWS regions and availability zones
+- name: Security Groups
+  description: Operations for managing security group rules and firewall settings
+- name: Spot Instances
+  description: Operations for requesting and managing Spot Instances
 security:
-  - sigv4Auth: []
+- sigv4Auth: []
 paths:
   /?Action=RunInstances:
     get:
       operationId: runInstances
-      summary: Amazon EC2 Launch EC2 instances
+      summary: Amazon EC2 Launch EC2 Instances
       description: >-
         Launches the specified number of instances using an AMI for which
         you have permissions. You can specify a number of options, or leave
         the default options. When you launch an instance, it enters the
         pending state, then the running state.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - $ref: '#/components/parameters/ImageId'
-        - $ref: '#/components/parameters/InstanceType'
-        - name: MinCount
-          in: query
-          required: true
-          description: The minimum number of instances to launch
-          schema:
-            type: integer
-            minimum: 1
-        - name: MaxCount
-          in: query
-          required: true
-          description: The maximum number of instances to launch
-          schema:
-            type: integer
-            minimum: 1
-        - name: KeyName
-          in: query
-          description: The name of the key pair to use for SSH access
-          schema:
+      - $ref: '#/components/parameters/ImageId'
+      - $ref: '#/components/parameters/InstanceType'
+      - name: MinCount
+        in: query
+        required: true
+        description: The minimum number of instances to launch
+        schema:
+          type: integer
+          minimum: 1
+        example: 1
+      - name: MaxCount
+        in: query
+        required: true
+        description: The maximum number of instances to launch
+        schema:
+          type: integer
+          minimum: 1
+        example: 1
+      - name: KeyName
+        in: query
+        description: The name of the key pair to use for SSH access
+        schema:
+          type: string
+        example: example-resource-name
+      - name: SecurityGroupId
+        in: query
+        description: The IDs of the security groups
+        schema:
+          type: array
+          items:
             type: string
-        - name: SecurityGroupId
-          in: query
-          description: The IDs of the security groups
-          schema:
-            type: array
-            items:
-              type: string
-        - name: SubnetId
-          in: query
-          description: The ID of the subnet to launch the instance into
-          schema:
-            type: string
+        example:
+        - example-cluster-01
+      - name: SubnetId
+        in: query
+        description: The ID of the subnet to launch the instance into
+        schema:
+          type: string
+        example: example-id-1234
       responses:
         '200':
           description: Successfully launched instances
@@ -93,49 +99,67 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/RunInstancesResponse'
+              examples:
+                runInstances200Example:
+                  summary: Default runInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    reservationId: example-id-1234
+                    ownerId: example-id-1234
+                    instances:
+                    - i-0abc123def456789
         '400':
           description: Invalid request parameters
         '401':
           description: Authentication failure
         '403':
           description: Authorization failure
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeInstances:
     get:
       operationId: describeInstances
-      summary: Amazon EC2 Describe EC2 instances
+      summary: Amazon EC2 Describe EC2 Instances
       description: >-
         Describes the specified instances or all instances. Returns
         information about the instances including instance ID, instance
         type, launch time, placement, monitoring state, and more.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - name: InstanceId
-          in: query
-          description: The instance IDs to describe
-          schema:
-            type: array
-            items:
-              type: string
-        - name: Filter
-          in: query
-          description: Filters to apply to the results
-          schema:
-            type: array
-            items:
-              type: string
-        - name: MaxResults
-          in: query
-          description: Maximum number of results to return
-          schema:
-            type: integer
-            minimum: 5
-            maximum: 1000
-        - name: NextToken
-          in: query
-          description: Token for the next page of results
-          schema:
+      - name: InstanceId
+        in: query
+        description: The instance IDs to describe
+        schema:
+          type: array
+          items:
             type: string
+        example:
+        - i-0abc123def456789
+      - name: Filter
+        in: query
+        description: Filters to apply to the results
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-string
+      - name: MaxResults
+        in: query
+        description: Maximum number of results to return
+        schema:
+          type: integer
+          minimum: 5
+          maximum: 1000
+        example: 1
+      - name: NextToken
+        in: query
+        description: Token for the next page of results
+        schema:
+          type: string
+        example: example-string
       responses:
         '200':
           description: Successfully described instances
@@ -143,29 +167,44 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/DescribeInstancesResponse'
+              examples:
+                describeInstances200Example:
+                  summary: Default describeInstances 200 response
+                  x-microcks-default: true
+                  value:
+                    reservationSet:
+                    - reservationId: example-id-1234
+                      instancesSet:
+                      - example
+                    nextToken: example-string
         '400':
           description: Invalid request parameters
         '401':
           description: Authentication failure
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=StartInstances:
     get:
       operationId: startInstances
-      summary: Amazon EC2 Start stopped instances
+      summary: Amazon EC2 Start Stopped Instances
       description: >-
         Starts an Amazon EBS-backed instance that you have previously
         stopped. Instances that use Amazon EBS volumes as their root
         devices can be quickly stopped and started.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - name: InstanceId
-          in: query
-          required: true
-          description: The IDs of the instances to start
-          schema:
-            type: array
-            items:
-              type: string
+      - name: InstanceId
+        in: query
+        required: true
+        description: The IDs of the instances to start
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
       responses:
         '200':
           description: Successfully started instances
@@ -173,30 +212,36 @@ paths:
           description: Invalid request parameters
         '401':
           description: Authentication failure
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=StopInstances:
     get:
       operationId: stopInstances
-      summary: Amazon EC2 Stop running instances
+      summary: Amazon EC2 Stop Running Instances
       description: >-
         Stops an Amazon EBS-backed instance. You can use the stopped
         instance to modify the root volume, change instance type, or
         attach additional EBS volumes.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - name: InstanceId
-          in: query
-          required: true
-          description: The IDs of the instances to stop
-          schema:
-            type: array
-            items:
-              type: string
-        - name: Force
-          in: query
-          description: Forces the instances to stop without graceful shutdown
-          schema:
-            type: boolean
+      - name: InstanceId
+        in: query
+        required: true
+        description: The IDs of the instances to stop
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
+      - name: Force
+        in: query
+        description: Forces the instances to stop without graceful shutdown
+        schema:
+          type: boolean
+        example: true
       responses:
         '200':
           description: Successfully stopped instances
@@ -204,26 +249,31 @@ paths:
           description: Invalid request parameters
         '401':
           description: Authentication failure
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=TerminateInstances:
     get:
       operationId: terminateInstances
-      summary: Amazon EC2 Terminate instances
+      summary: Amazon EC2 Terminate Instances
       description: >-
         Shuts down the specified instances. This operation is idempotent;
         if you terminate an instance more than once, each call succeeds.
         Terminated instances remain visible for a short period after
         termination.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - name: InstanceId
-          in: query
-          required: true
-          description: The IDs of the instances to terminate
-          schema:
-            type: array
-            items:
-              type: string
+      - name: InstanceId
+        in: query
+        required: true
+        description: The IDs of the instances to terminate
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
       responses:
         '200':
           description: Successfully terminated instances
@@ -231,25 +281,30 @@ paths:
           description: Invalid request parameters
         '401':
           description: Authentication failure
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=RebootInstances:
     get:
       operationId: rebootInstances
-      summary: Amazon EC2 Reboot instances
+      summary: Amazon EC2 Reboot Instances
       description: >-
         Requests a reboot of the specified instances. This operation is
         asynchronous; it only queues a request to reboot the specified
         instances.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - name: InstanceId
-          in: query
-          required: true
-          description: The IDs of the instances to reboot
-          schema:
-            type: array
-            items:
-              type: string
+      - name: InstanceId
+        in: query
+        required: true
+        description: The IDs of the instances to reboot
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
       responses:
         '200':
           description: Successfully requested instance reboot
@@ -257,69 +312,82 @@ paths:
           description: Invalid request parameters
         '401':
           description: Authentication failure
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeInstanceStatus:
     get:
       operationId: describeInstanceStatus
-      summary: Amazon EC2 Describe instance status
+      summary: Amazon EC2 Describe Instance Status
       description: >-
         Describes the status of the specified instances or all of your
         instances. Instance status includes status checks, scheduled
         events, and instance state information.
       tags:
-        - Instances
+      - Instances
       parameters:
-        - name: InstanceId
-          in: query
-          description: The instance IDs to describe
-          schema:
-            type: array
-            items:
-              type: string
-        - name: IncludeAllInstances
-          in: query
-          description: Include all instances regardless of running state
-          schema:
-            type: boolean
+      - name: InstanceId
+        in: query
+        description: The instance IDs to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
+      - name: IncludeAllInstances
+        in: query
+        description: Include all instances regardless of running state
+        schema:
+          type: boolean
+        example: true
       responses:
         '200':
           description: Successfully described instance status
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=CreateImage:
     get:
       operationId: createImage
-      summary: Amazon EC2 Create an AMI from an instance
+      summary: Amazon EC2 Create an AMI from an Instance
       description: >-
         Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance
         that is either running or stopped. The AMI is created with the
         root volume and any additional EBS volumes attached to the instance.
       tags:
-        - AMIs
+      - AMIs
       parameters:
-        - name: InstanceId
-          in: query
-          required: true
-          description: The ID of the instance to create the image from
-          schema:
-            type: string
-        - name: Name
-          in: query
-          required: true
-          description: A name for the new image
-          schema:
-            type: string
-        - name: Description
-          in: query
-          description: A description for the new image
-          schema:
-            type: string
-        - name: NoReboot
-          in: query
-          description: >-
-            If true, Amazon EC2 does not shut down the instance before
-            creating the image
-          schema:
-            type: boolean
+      - name: InstanceId
+        in: query
+        required: true
+        description: The ID of the instance to create the image from
+        schema:
+          type: string
+        example: i-0abc123def456789
+      - name: Name
+        in: query
+        required: true
+        description: A name for the new image
+        schema:
+          type: string
+        example: example-resource-name
+      - name: Description
+        in: query
+        description: A description for the new image
+        schema:
+          type: string
+        example: example-string
+      - name: NoReboot
+        in: query
+        description: >-
+          If true, Amazon EC2 does not shut down the instance before
+          creating the image
+        schema:
+          type: boolean
+        example: true
       responses:
         '200':
           description: Successfully created image
@@ -327,8 +395,17 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/CreateImageResponse'
+              examples:
+                createImage200Example:
+                  summary: Default createImage 200 response
+                  x-microcks-default: true
+                  value:
+                    imageId: ami-0abc123def456789
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeImages:
     get:
       operationId: describeImages
@@ -339,35 +416,44 @@ paths:
         include public images, private images owned by you, and private
         images owned by others for which you have explicit launch permissions.
       tags:
-        - AMIs
+      - AMIs
       parameters:
-        - name: ImageId
-          in: query
-          description: The image IDs to describe
-          schema:
-            type: array
-            items:
-              type: string
-        - name: Owner
-          in: query
-          description: >-
-            Scopes the results to images with the specified owners
-          schema:
-            type: array
-            items:
-              type: string
-        - name: Filter
-          in: query
-          description: Filters to apply to the results
-          schema:
-            type: array
-            items:
-              type: string
+      - name: ImageId
+        in: query
+        description: The image IDs to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - ami-0abc123def456789
+      - name: Owner
+        in: query
+        description: >-
+          Scopes the results to images with the specified owners
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-string
+      - name: Filter
+        in: query
+        description: Filters to apply to the results
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-string
       responses:
         '200':
           description: Successfully described images
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DeregisterImage:
     get:
       operationId: deregisterImage
@@ -377,363 +463,436 @@ paths:
         cannot be used to launch new instances. Deregistering does not
         delete the AMI.
       tags:
-        - AMIs
+      - AMIs
       parameters:
-        - name: ImageId
-          in: query
-          required: true
-          description: The ID of the AMI to deregister
-          schema:
-            type: string
+      - name: ImageId
+        in: query
+        required: true
+        description: The ID of the AMI to deregister
+        schema:
+          type: string
+        example: ami-0abc123def456789
       responses:
         '200':
           description: Successfully deregistered image
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=CreateSecurityGroup:
     get:
       operationId: createSecurityGroup
-      summary: Amazon EC2 Create a security group
+      summary: Amazon EC2 Create a Security Group
       description: >-
         Creates a security group. A security group acts as a virtual
         firewall for your instances to control inbound and outbound traffic.
       tags:
-        - Security Groups
+      - Security Groups
       parameters:
-        - name: GroupName
-          in: query
-          required: true
-          description: The name of the security group
-          schema:
-            type: string
-        - name: GroupDescription
-          in: query
-          required: true
-          description: A description for the security group
-          schema:
-            type: string
-        - name: VpcId
-          in: query
-          description: The ID of the VPC for the security group
-          schema:
-            type: string
+      - name: GroupName
+        in: query
+        required: true
+        description: The name of the security group
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: GroupDescription
+        in: query
+        required: true
+        description: A description for the security group
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: VpcId
+        in: query
+        description: The ID of the VPC for the security group
+        schema:
+          type: string
+        example: example-id-1234
       responses:
         '200':
           description: Successfully created security group
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeSecurityGroups:
     get:
       operationId: describeSecurityGroups
-      summary: Amazon EC2 Describe security groups
+      summary: Amazon EC2 Describe Security Groups
       description: >-
         Describes the specified security groups or all of your security
         groups. A security group is for use with instances either in the
         EC2-Classic platform or in a specific VPC.
       tags:
-        - Security Groups
+      - Security Groups
       parameters:
-        - name: GroupId
-          in: query
-          description: The IDs of the security groups to describe
-          schema:
-            type: array
-            items:
-              type: string
-        - name: GroupName
-          in: query
-          description: The names of the security groups to describe
-          schema:
-            type: array
-            items:
-              type: string
+      - name: GroupId
+        in: query
+        description: The IDs of the security groups to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-cluster-01
+      - name: GroupName
+        in: query
+        description: The names of the security groups to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-cluster-01
       responses:
         '200':
           description: Successfully described security groups
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=AuthorizeSecurityGroupIngress:
     get:
       operationId: authorizeSecurityGroupIngress
-      summary: Amazon EC2 Add inbound security group rules
+      summary: Amazon EC2 Add Inbound Security Group Rules
       description: >-
         Adds the specified inbound (ingress) rules to a security group.
         An inbound rule permits instances to receive traffic from the
         specified IPv4 or IPv6 CIDR address range, or from the instances
         associated with the specified security group.
       tags:
-        - Security Groups
+      - Security Groups
       parameters:
-        - name: GroupId
-          in: query
-          required: true
-          description: The ID of the security group
-          schema:
-            type: string
-        - name: IpProtocol
-          in: query
-          description: The IP protocol name (tcp, udp, icmp) or number
-          schema:
-            type: string
-        - name: FromPort
-          in: query
-          description: The start of port range for TCP and UDP protocols
-          schema:
-            type: integer
-        - name: ToPort
-          in: query
-          description: The end of port range for TCP and UDP protocols
-          schema:
-            type: integer
-        - name: CidrIp
-          in: query
-          description: The IPv4 CIDR range
-          schema:
-            type: string
+      - name: GroupId
+        in: query
+        required: true
+        description: The ID of the security group
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: IpProtocol
+        in: query
+        description: The IP protocol name (tcp, udp, icmp) or number
+        schema:
+          type: string
+        example: example-string
+      - name: FromPort
+        in: query
+        description: The start of port range for TCP and UDP protocols
+        schema:
+          type: integer
+        example: 27017
+      - name: ToPort
+        in: query
+        description: The end of port range for TCP and UDP protocols
+        schema:
+          type: integer
+        example: 27017
+      - name: CidrIp
+        in: query
+        description: The IPv4 CIDR range
+        schema:
+          type: string
+        example: example-id-1234
       responses:
         '200':
           description: Successfully authorized ingress rules
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DeleteSecurityGroup:
     get:
       operationId: deleteSecurityGroup
-      summary: Amazon EC2 Delete a security group
+      summary: Amazon EC2 Delete a Security Group
       description: >-
         Deletes a security group. If you attempt to delete a security
         group that is associated with an instance, or is referenced by
         another security group, the operation fails.
       tags:
-        - Security Groups
+      - Security Groups
       parameters:
-        - name: GroupId
-          in: query
-          description: The ID of the security group to delete
-          schema:
-            type: string
-        - name: GroupName
-          in: query
-          description: The name of the security group to delete
-          schema:
-            type: string
+      - name: GroupId
+        in: query
+        description: The ID of the security group to delete
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: GroupName
+        in: query
+        description: The name of the security group to delete
+        schema:
+          type: string
+        example: example-cluster-01
       responses:
         '200':
           description: Successfully deleted security group
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=CreateKeyPair:
     get:
       operationId: createKeyPair
-      summary: Amazon EC2 Create a key pair
+      summary: Amazon EC2 Create a Key Pair
       description: >-
         Creates an ED25519 or 2048-bit RSA key pair with the specified
         name. Amazon EC2 stores the public key and displays the private
         key for you to save to a file.
       tags:
-        - Key Pairs
+      - Key Pairs
       parameters:
-        - name: KeyName
-          in: query
-          required: true
-          description: A unique name for the key pair
-          schema:
-            type: string
-        - name: KeyType
-          in: query
-          description: The type of key pair (rsa or ed25519)
-          schema:
-            type: string
-            enum:
-              - rsa
-              - ed25519
+      - name: KeyName
+        in: query
+        required: true
+        description: A unique name for the key pair
+        schema:
+          type: string
+        example: example-resource-name
+      - name: KeyType
+        in: query
+        description: The type of key pair (rsa or ed25519)
+        schema:
+          type: string
+          enum:
+          - rsa
+          - ed25519
+        example: rsa
       responses:
         '200':
           description: Successfully created key pair
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeKeyPairs:
     get:
       operationId: describeKeyPairs
-      summary: Amazon EC2 Describe key pairs
+      summary: Amazon EC2 Describe Key Pairs
       description: >-
         Describes the specified key pairs or all of your key pairs.
       tags:
-        - Key Pairs
+      - Key Pairs
       parameters:
-        - name: KeyName
-          in: query
-          description: The key pair names to describe
-          schema:
-            type: array
-            items:
-              type: string
-        - name: KeyPairId
-          in: query
-          description: The IDs of the key pairs
-          schema:
-            type: array
-            items:
-              type: string
+      - name: KeyName
+        in: query
+        description: The key pair names to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      - name: KeyPairId
+        in: query
+        description: The IDs of the key pairs
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-id-1234
       responses:
         '200':
           description: Successfully described key pairs
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DeleteKeyPair:
     get:
       operationId: deleteKeyPair
-      summary: Amazon EC2 Delete a key pair
+      summary: Amazon EC2 Delete a Key Pair
       description: >-
         Deletes the specified key pair by removing the public key from
         Amazon EC2.
       tags:
-        - Key Pairs
+      - Key Pairs
       parameters:
-        - name: KeyName
-          in: query
-          description: The name of the key pair to delete
-          schema:
-            type: string
-        - name: KeyPairId
-          in: query
-          description: The ID of the key pair to delete
-          schema:
-            type: string
+      - name: KeyName
+        in: query
+        description: The name of the key pair to delete
+        schema:
+          type: string
+        example: example-resource-name
+      - name: KeyPairId
+        in: query
+        description: The ID of the key pair to delete
+        schema:
+          type: string
+        example: example-id-1234
       responses:
         '200':
           description: Successfully deleted key pair
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=AllocateAddress:
     get:
       operationId: allocateAddress
-      summary: Amazon EC2 Allocate an Elastic IP address
+      summary: Amazon EC2 Allocate an Elastic IP Address
       description: >-
         Allocates an Elastic IP address to your AWS account. After you
         allocate the Elastic IP address you can associate it with an
         instance or network interface.
       tags:
-        - Elastic IPs
+      - Elastic IPs
       parameters:
-        - name: Domain
-          in: query
-          description: Set to vpc to allocate the address for use with instances in a VPC
-          schema:
-            type: string
-            enum:
-              - vpc
-              - standard
+      - name: Domain
+        in: query
+        description: Set to vpc to allocate the address for use with instances in a VPC
+        schema:
+          type: string
+          enum:
+          - vpc
+          - standard
+        example: vpc
       responses:
         '200':
           description: Successfully allocated address
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=AssociateAddress:
     get:
       operationId: associateAddress
-      summary: Amazon EC2 Associate an Elastic IP address
+      summary: Amazon EC2 Associate an Elastic IP Address
       description: >-
         Associates an Elastic IP address with an instance or a network
         interface. This is an idempotent operation.
       tags:
-        - Elastic IPs
+      - Elastic IPs
       parameters:
-        - name: AllocationId
-          in: query
-          description: The allocation ID for the Elastic IP address
-          schema:
-            type: string
-        - name: InstanceId
-          in: query
-          description: The ID of the instance to associate with
-          schema:
-            type: string
-        - name: NetworkInterfaceId
-          in: query
-          description: The ID of the network interface
-          schema:
-            type: string
+      - name: AllocationId
+        in: query
+        description: The allocation ID for the Elastic IP address
+        schema:
+          type: string
+        example: example-id-1234
+      - name: InstanceId
+        in: query
+        description: The ID of the instance to associate with
+        schema:
+          type: string
+        example: i-0abc123def456789
+      - name: NetworkInterfaceId
+        in: query
+        description: The ID of the network interface
+        schema:
+          type: string
+        example: example-id-1234
       responses:
         '200':
           description: Successfully associated address
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=ReleaseAddress:
     get:
       operationId: releaseAddress
-      summary: Amazon EC2 Release an Elastic IP address
+      summary: Amazon EC2 Release an Elastic IP Address
       description: >-
         Releases the specified Elastic IP address. After releasing an
         Elastic IP address, it is released to the IP address pool.
       tags:
-        - Elastic IPs
+      - Elastic IPs
       parameters:
-        - name: AllocationId
-          in: query
-          description: The allocation ID of the Elastic IP address
-          schema:
-            type: string
+      - name: AllocationId
+        in: query
+        description: The allocation ID of the Elastic IP address
+        schema:
+          type: string
+        example: example-id-1234
       responses:
         '200':
           description: Successfully released address
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=CreateLaunchTemplate:
     get:
       operationId: createLaunchTemplate
-      summary: Amazon EC2 Create a launch template
+      summary: Amazon EC2 Create a Launch Template
       description: >-
         Creates a launch template. A launch template contains the
         parameters to launch an instance. When you launch an instance
         using RunInstances, you can specify a launch template instead
         of providing the launch parameters in the request.
       tags:
-        - Launch Templates
+      - Launch Templates
       parameters:
-        - name: LaunchTemplateName
-          in: query
-          required: true
-          description: A name for the launch template
-          schema:
-            type: string
-        - name: VersionDescription
-          in: query
-          description: A description for the first version of the launch template
-          schema:
-            type: string
+      - name: LaunchTemplateName
+        in: query
+        required: true
+        description: A name for the launch template
+        schema:
+          type: string
+        example: example-resource-name
+      - name: VersionDescription
+        in: query
+        description: A description for the first version of the launch template
+        schema:
+          type: string
+        example: 5.0.0
       responses:
         '200':
           description: Successfully created launch template
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeLaunchTemplates:
     get:
       operationId: describeLaunchTemplates
-      summary: Amazon EC2 Describe launch templates
+      summary: Amazon EC2 Describe Launch Templates
       description: >-
         Describes one or more launch templates.
       tags:
-        - Launch Templates
+      - Launch Templates
       parameters:
-        - name: LaunchTemplateId
-          in: query
-          description: The IDs of the launch templates
-          schema:
-            type: array
-            items:
-              type: string
-        - name: LaunchTemplateName
-          in: query
-          description: The names of the launch templates
-          schema:
-            type: array
-            items:
-              type: string
+      - name: LaunchTemplateId
+        in: query
+        description: The IDs of the launch templates
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-id-1234
+      - name: LaunchTemplateName
+        in: query
+        description: The names of the launch templates
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
       responses:
         '200':
           description: Successfully described launch templates
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=RequestSpotInstances:
     get:
       operationId: requestSpotInstances
@@ -742,112 +901,136 @@ paths:
         Creates a Spot Instance request. For more information about Spot
         Instances, see Spot Instances in the Amazon EC2 User Guide.
       tags:
-        - Spot Instances
+      - Spot Instances
       parameters:
-        - name: SpotPrice
-          in: query
-          description: The maximum price per unit hour for a Spot Instance
-          schema:
-            type: string
-        - name: InstanceCount
-          in: query
-          description: The maximum number of Spot Instances to launch
-          schema:
-            type: integer
-        - name: Type
-          in: query
-          description: The Spot Instance request type
-          schema:
-            type: string
-            enum:
-              - one-time
-              - persistent
+      - name: SpotPrice
+        in: query
+        description: The maximum price per unit hour for a Spot Instance
+        schema:
+          type: string
+        example: example-string
+      - name: InstanceCount
+        in: query
+        description: The maximum number of Spot Instances to launch
+        schema:
+          type: integer
+        example: 1
+      - name: Type
+        in: query
+        description: The Spot Instance request type
+        schema:
+          type: string
+          enum:
+          - one-time
+          - persistent
+        example: one-time
       responses:
         '200':
           description: Successfully created Spot Instance request
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeSpotInstanceRequests:
     get:
       operationId: describeSpotInstanceRequests
-      summary: Amazon EC2 Describe Spot Instance requests
+      summary: Amazon EC2 Describe Spot Instance Requests
       description: >-
         Describes the specified Spot Instance requests. You can use
         DescribeSpotInstanceRequests to find a running Spot Instance by
         querying for the Spot Instance request ID.
       tags:
-        - Spot Instances
+      - Spot Instances
       parameters:
-        - name: SpotInstanceRequestId
-          in: query
-          description: The IDs of the Spot Instance requests
-          schema:
-            type: array
-            items:
-              type: string
+      - name: SpotInstanceRequestId
+        in: query
+        description: The IDs of the Spot Instance requests
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
       responses:
         '200':
           description: Successfully described Spot Instance requests
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeRegions:
     get:
       operationId: describeRegions
-      summary: Amazon EC2 Describe AWS regions
+      summary: Amazon EC2 Describe AWS Regions
       description: >-
         Describes the Regions that are enabled for your account, or all
         Regions. For a list of the Regions supported by Amazon EC2, see
         the Amazon EC2 Regions and Endpoints.
       tags:
-        - Regions
+      - Regions
       parameters:
-        - name: RegionName
-          in: query
-          description: The names of the Regions
-          schema:
-            type: array
-            items:
-              type: string
-        - name: AllRegions
-          in: query
-          description: Indicates whether to display all Regions including disabled
-          schema:
-            type: boolean
+      - name: RegionName
+        in: query
+        description: The names of the Regions
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      - name: AllRegions
+        in: query
+        description: Indicates whether to display all Regions including disabled
+        schema:
+          type: boolean
+        example: true
       responses:
         '200':
           description: Successfully described regions
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /?Action=DescribeAvailabilityZones:
     get:
       operationId: describeAvailabilityZones
-      summary: Amazon EC2 Describe availability zones
+      summary: Amazon EC2 Describe Availability Zones
       description: >-
         Describes the Availability Zones, Local Zones, and Wavelength
         Zones that are available to you. The results include zones only
         for the Region you are currently using.
       tags:
-        - Regions
+      - Regions
       parameters:
-        - name: ZoneName
-          in: query
-          description: The names of the Availability Zones
-          schema:
-            type: array
-            items:
-              type: string
-        - name: ZoneId
-          in: query
-          description: The IDs of the Availability Zones
-          schema:
-            type: array
-            items:
-              type: string
+      - name: ZoneName
+        in: query
+        description: The names of the Availability Zones
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      - name: ZoneId
+        in: query
+        description: The IDs of the Availability Zones
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-id-1234
       responses:
         '200':
           description: Successfully described availability zones
         '400':
           description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     sigv4Auth:
@@ -878,14 +1061,18 @@ components:
         reservationId:
           type: string
           description: The ID of the reservation
+          example: example-id-1234
         ownerId:
           type: string
           description: The ID of the AWS account that owns the reservation
+          example: example-id-1234
         instances:
           type: array
           description: The instances launched
           items:
             $ref: '#/components/schemas/Instance'
+          example:
+          - i-0abc123def456789
     DescribeInstancesResponse:
       type: object
       description: Response from the DescribeInstances action
@@ -903,9 +1090,14 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/Instance'
+          example:
+          - reservationId: example-id-1234
+            instancesSet:
+            - example
         nextToken:
           type: string
           description: Token for the next page of results
+          example: example-string
     CreateImageResponse:
       type: object
       description: Response from the CreateImage action
@@ -913,6 +1105,7 @@ components:
         imageId:
           type: string
           description: The ID of the new AMI
+          example: ami-0abc123def456789
     Instance:
       type: object
       description: Describes an EC2 instance
@@ -920,19 +1113,24 @@ components:
         instanceId:
           type: string
           description: The ID of the instance
+          example: i-0abc123def456789
         imageId:
           type: string
           description: The ID of the AMI used to launch the instance
+          example: ami-0abc123def456789
         instanceType:
           type: string
           description: The instance type
+          example: i-0abc123def456789
         keyName:
           type: string
           description: The name of the key pair
+          example: example-resource-name
         launchTime:
           type: string
           format: date-time
           description: The time the instance was launched
+          example: '2025-03-15T14:30:00Z'
         placement:
           type: object
           description: The location where the instance launched
@@ -940,6 +1138,8 @@ components:
             availabilityZone:
               type: string
               description: The Availability Zone of the instance
+          example:
+            availabilityZone: example-string
         monitoring:
           type: object
           description: The monitoring for the instance
@@ -948,10 +1148,12 @@ components:
               type: string
               description: The monitoring state
               enum:
-                - disabled
-                - disabling
-                - enabled
-                - pending
+              - disabled
+              - disabling
+              - enabled
+              - pending
+          example:
+            state: disabled
         instanceState:
           type: object
           description: The current state of the instance
@@ -963,42 +1165,53 @@ components:
               type: string
               description: The current state of the instance
               enum:
-                - pending
-                - running
-                - shutting-down
-                - terminated
-                - stopping
-                - stopped
+              - pending
+              - running
+              - shutting-down
+              - terminated
+              - stopping
+              - stopped
+          example:
+            code: 1
+            name: pending
         subnetId:
           type: string
           description: The ID of the subnet in which the instance is running
+          example: example-id-1234
         vpcId:
           type: string
           description: The ID of the VPC in which the instance is running
+          example: example-id-1234
         privateIpAddress:
           type: string
           description: The private IPv4 address assigned to the instance
+          example: example-string
         publicIpAddress:
           type: string
           description: The public IPv4 address assigned to the instance
+          example: example-string
         architecture:
           type: string
           description: The architecture of the image
           enum:
-            - i386
-            - x86_64
-            - arm64
+          - i386
+          - x86_64
+          - arm64
+          example: i386
         rootDeviceType:
           type: string
           description: The root device type used by the AMI
           enum:
-            - ebs
-            - instance-store
+          - ebs
+          - instance-store
+          example: ebs
         tags:
           type: array
           description: Any tags assigned to the instance
           items:
             $ref: '#/components/schemas/Tag'
+          example:
+          - example-string
         securityGroups:
           type: array
           description: The security groups for the instance
@@ -1011,6 +1224,9 @@ components:
               groupName:
                 type: string
                 description: The name of the security group
+          example:
+          - groupId: example-cluster-01
+            groupName: example-cluster-01
     Tag:
       type: object
       description: Describes a tag
@@ -1018,6 +1234,8 @@ components:
         key:
           type: string
           description: The key of the tag
+          example: example-string
         value:
           type: string
           description: The value of the tag
+          example: example-string

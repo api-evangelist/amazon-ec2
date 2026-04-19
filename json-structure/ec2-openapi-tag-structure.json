@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-ec2/refs/heads/main/json-structure/ec2-openapi-tag-structure.json",
+  "name": "Tag",
+  "description": "Describes a tag",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The key of the tag"
+    },
+    "value": {
+      "type": "string",
+      "description": "The value of the tag"
+    }
+  }
+}

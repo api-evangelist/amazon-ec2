@@ -1,0 +1,255 @@
+vocabulary: 1.0.0
+info:
+  provider: Amazon EC2
+  description: Unified vocabulary and taxonomy for Amazon EC2 APIs covering operational and capability dimensions.
+  created: '2026-04-19'
+  modified: '2026-04-19'
+operational:
+  apis:
+  - name: Amazon EC2 API
+    namespace: ec2
+    version: '2024'
+    status: active
+  resources:
+  - name: ?Action=DescribeImages
+    description: ?Action=DescribeImages resources
+  - name: ?Action=CreateKeyPair
+    description: ?Action=CreateKeyPair resources
+  - name: ?Action=StopInstances
+    description: ?Action=StopInstances resources
+  - name: ?Action=RequestSpotInstances
+    description: ?Action=RequestSpotInstances resources
+  - name: ?Action=RunInstances
+    description: ?Action=RunInstances resources
+  - name: ?Action=CreateImage
+    description: ?Action=CreateImage resources
+  - name: ?Action=ReleaseAddress
+    description: ?Action=ReleaseAddress resources
+  - name: ?Action=AssociateAddress
+    description: ?Action=AssociateAddress resources
+  - name: ?Action=CreateLaunchTemplate
+    description: ?Action=CreateLaunchTemplate resources
+  - name: ?Action=DescribeRegions
+    description: ?Action=DescribeRegions resources
+  - name: ?Action=TerminateInstances
+    description: ?Action=TerminateInstances resources
+  - name: ?Action=RebootInstances
+    description: ?Action=RebootInstances resources
+  - name: ?Action=DescribeSecurityGroups
+    description: ?Action=DescribeSecurityGroups resources
+  - name: ?Action=DeleteSecurityGroup
+    description: ?Action=DeleteSecurityGroup resources
+  - name: ?Action=AuthorizeSecurityGroupIngress
+    description: ?Action=AuthorizeSecurityGroupIngress resources
+  - name: ?Action=AllocateAddress
+    description: ?Action=AllocateAddress resources
+  - name: ?Action=DescribeSpotInstanceRequests
+    description: ?Action=DescribeSpotInstanceRequests resources
+  - name: ?Action=DescribeInstances
+    description: ?Action=DescribeInstances resources
+  - name: ?Action=DescribeInstanceStatus
+    description: ?Action=DescribeInstanceStatus resources
+  - name: ?Action=DescribeKeyPairs
+    description: ?Action=DescribeKeyPairs resources
+  - name: ?Action=CreateSecurityGroup
+    description: ?Action=CreateSecurityGroup resources
+  - name: ?Action=DescribeAvailabilityZones
+    description: ?Action=DescribeAvailabilityZones resources
+  - name: ?Action=DescribeLaunchTemplates
+    description: ?Action=DescribeLaunchTemplates resources
+  - name: ?Action=DeleteKeyPair
+    description: ?Action=DeleteKeyPair resources
+  - name: ?Action=StartInstances
+    description: ?Action=StartInstances resources
+  - name: ?Action=DeregisterImage
+    description: ?Action=DeregisterImage resources
+  actions:
+  - name: create
+    pattern: write
+  - name: reboot
+    pattern: write
+  - name: release
+    pattern: write
+  - name: stop
+    pattern: write
+  - name: describe
+    pattern: read
+  - name: terminate
+    pattern: write
+  - name: authorize
+    pattern: write
+  - name: start
+    pattern: write
+  - name: run
+    pattern: write
+  - name: deregister
+    pattern: write
+  - name: delete
+    pattern: write
+  - name: allocate
+    pattern: write
+  - name: associate
+    pattern: write
+  - name: request
+    pattern: write
+  schemas:
+    core:
+    - name: RunInstancesResponse
+      description: Response from the RunInstances action
+    - name: DescribeInstancesResponse
+      description: Response from the DescribeInstances action
+    - name: CreateImageResponse
+      description: Response from the CreateImage action
+    - name: Instance
+      description: Describes an EC2 instance
+    - name: Tag
+      description: Describes a tag
+  authentication:
+    schemes:
+    - AWS Signature Version 4
+    description: All API requests use AWS Signature Version 4 for authentication.
+capability:
+  workflows:
+  - name: Cloud Compute Management
+    file: capabilities/ec2-management.yaml
+    description: Workflow capability for Cloud Compute Management.
+  personas:
+  - id: cloud-engineer
+    name: Cloud Engineer
+    description: Engineers managing Amazon EC2 resources on AWS.
+    workflows:
+    - Cloud Compute Management
+  domains:
+  - name: Cloud Compute Management
+    description: Cloud Compute Management business domain for Amazon EC2.
+crossReference:
+- resource: ?Action=DescribeImages
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=CreateKeyPair
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=StopInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=RequestSpotInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=RunInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=CreateImage
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=ReleaseAddress
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=AssociateAddress
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=CreateLaunchTemplate
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeRegions
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=TerminateInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=RebootInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeSecurityGroups
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DeleteSecurityGroup
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=AuthorizeSecurityGroupIngress
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=AllocateAddress
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeSpotInstanceRequests
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeInstanceStatus
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeKeyPairs
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=CreateSecurityGroup
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeAvailabilityZones
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DescribeLaunchTemplates
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DeleteKeyPair
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=StartInstances
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer
+- resource: ?Action=DeregisterImage
+  workflows:
+  - Cloud Compute Management
+  personas:
+  - Cloud Engineer

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-ec2/refs/heads/main/json-schema/ec2-openapi-instance-schema.json",
+  "title": "Instance",
+  "description": "Describes an EC2 instance",
+  "type": "object",
+  "properties": {
+    "instanceId": {
+      "type": "string",
+      "description": "The ID of the instance"
+    },
+    "imageId": {
+      "type": "string",
+      "description": "The ID of the AMI used to launch the instance"
+    },
+    "instanceType": {
+      "type": "string",
+      "description": "The instance type"
+    },
+    "keyName": {
+      "type": "string",
+      "description": "The name of the key pair"
+    },
+    "launchTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time the instance was launched"
+    },
+    "placement": {
+      "type": "object",
+      "description": "The location where the instance launched",
+      "properties": {
+        "availabilityZone": {
+          "type": "string",
+          "description": "The Availability Zone of the instance"
+        }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "description": "The monitoring for the instance",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The monitoring state",
+          "enum": [
+            "disabled",
+            "disabling",
+            "enabled",
+            "pending"
+          ]
+        }
+      }
+    },
+    "instanceState": {
+      "type": "object",
+      "description": "The current state of the instance",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "The state code (0=pending, 16=running, 32=shutting-down, 48=terminated, 64=stopping, 80=stopped)"
+        },
+        "name": {
+          "type": "string",
+          "description": "The current state of the instance",
+          "enum": [
+            "pending",
+            "running",
+            "shutting-down",
+            "terminated",
+            "stopping",
+            "stopped"
+          ]
+        }
+      }
+    },
+    "subnetId": {
+      "type": "string",
+      "description": "The ID of the subnet in which the instance is running"
+    },
+    "vpcId": {
+      "type": "string",
+      "description": "The ID of the VPC in which the instance is running"
+    },
+    "privateIpAddress": {
+      "type": "string",
+      "description": "The private IPv4 address assigned to the instance"
+    },
+    "publicIpAddress": {
+      "type": "string",
+      "description": "The public IPv4 address assigned to the instance"
+    },
+    "architecture": {
+      "type": "string",
+      "description": "The architecture of the image",
+      "enum": [
+        "i386",
+        "x86_64",
+        "arm64"
+      ]
+    },
+    "rootDeviceType": {
+      "type": "string",
+      "description": "The root device type used by the AMI",
+      "enum": [
+        "ebs",
+        "instance-store"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Any tags assigned to the instance",
+      "items": {
+        "$ref": "#/components/schemas/Tag"
+      }
+    },
+    "securityGroups": {
+      "type": "array",
+      "description": "The security groups for the instance",
+      "items": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string",
+            "description": "The ID of the security group"
+          },
+          "groupName": {
+            "type": "string",
+            "description": "The name of the security group"
+          }
+        }
+      }
+    }
+  }
+}

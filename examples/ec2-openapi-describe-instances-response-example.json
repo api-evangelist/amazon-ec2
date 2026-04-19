@@ -1,0 +1,17 @@
+{
+  "reservationSet": [
+    {
+      "reservationId": "example-id-4193",
+      "instancesSet": [
+        "example"
+      ]
+    },
+    {
+      "reservationId": "example-id-9628",
+      "instancesSet": [
+        "example"
+      ]
+    }
+  ],
+  "nextToken": "example-string-value"
+}
