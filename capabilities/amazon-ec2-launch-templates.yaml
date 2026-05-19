@@ -1,0 +1,135 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon EC2 API — Launch Templates
+  description: 'Amazon EC2 API — Launch Templates. 2 operations. Lead operation: Amazon EC2 Create a Launch Template. Self-contained
+    Naftiko capability covering one Amazon Ec2 business surface.'
+  tags:
+  - Amazon Ec2
+  - Launch Templates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_EC2_API_KEY: AMAZON_EC2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-ec2-launch-templates
+    baseUri: https://ec2.{region}.amazonaws.com
+    description: Amazon EC2 API — Launch Templates business capability. Self-contained, no shared references.
+    resources:
+    - name: ?Action=CreateLaunchTemplate
+      path: /?Action=CreateLaunchTemplate
+      operations:
+      - name: createlaunchtemplate
+        method: GET
+        description: Amazon EC2 Create a Launch Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LaunchTemplateName
+          in: query
+          type: string
+          description: A name for the launch template
+          required: true
+        - name: VersionDescription
+          in: query
+          type: string
+          description: A description for the first version of the launch template
+    - name: ?Action=DescribeLaunchTemplates
+      path: /?Action=DescribeLaunchTemplates
+      operations:
+      - name: describelaunchtemplates
+        method: GET
+        description: Amazon EC2 Describe Launch Templates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: LaunchTemplateId
+          in: query
+          type: array
+          description: The IDs of the launch templates
+        - name: LaunchTemplateName
+          in: query
+          type: array
+          description: The names of the launch templates
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_EC2_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-ec2-launch-templates-rest
+    port: 8080
+    description: REST adapter for Amazon EC2 API — Launch Templates. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/action-createlaunchtemplate
+      name: action-createlaunchtemplate
+      description: REST surface for ?Action=CreateLaunchTemplate.
+      operations:
+      - method: GET
+        name: createlaunchtemplate
+        description: Amazon EC2 Create a Launch Template
+        call: amazon-ec2-launch-templates.createlaunchtemplate
+        with:
+          LaunchTemplateName: rest.LaunchTemplateName
+          VersionDescription: rest.VersionDescription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-describelaunchtemplates
+      name: action-describelaunchtemplates
+      description: REST surface for ?Action=DescribeLaunchTemplates.
+      operations:
+      - method: GET
+        name: describelaunchtemplates
+        description: Amazon EC2 Describe Launch Templates
+        call: amazon-ec2-launch-templates.describelaunchtemplates
+        with:
+          LaunchTemplateId: rest.LaunchTemplateId
+          LaunchTemplateName: rest.LaunchTemplateName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-ec2-launch-templates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon EC2 API — Launch Templates. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-ec2-create-launch-template
+      description: Amazon EC2 Create a Launch Template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-launch-templates.createlaunchtemplate
+      with:
+        LaunchTemplateName: tools.LaunchTemplateName
+        VersionDescription: tools.VersionDescription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-describe-launch-templates
+      description: Amazon EC2 Describe Launch Templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-launch-templates.describelaunchtemplates
+      with:
+        LaunchTemplateId: tools.LaunchTemplateId
+        LaunchTemplateName: tools.LaunchTemplateName
+      outputParameters:
+      - type: object
+        mapping: $.

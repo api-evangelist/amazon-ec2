@@ -1,0 +1,175 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon EC2 API — Elastic IPs
+  description: 'Amazon EC2 API — Elastic IPs. 3 operations. Lead operation: Amazon EC2 Allocate an Elastic IP Address. Self-contained
+    Naftiko capability covering one Amazon Ec2 business surface.'
+  tags:
+  - Amazon Ec2
+  - Elastic IPs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_EC2_API_KEY: AMAZON_EC2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-ec2-elastic-ips
+    baseUri: https://ec2.{region}.amazonaws.com
+    description: Amazon EC2 API — Elastic IPs business capability. Self-contained, no shared references.
+    resources:
+    - name: ?Action=AllocateAddress
+      path: /?Action=AllocateAddress
+      operations:
+      - name: allocateaddress
+        method: GET
+        description: Amazon EC2 Allocate an Elastic IP Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Domain
+          in: query
+          type: string
+          description: Set to vpc to allocate the address for use with instances in a VPC
+    - name: ?Action=AssociateAddress
+      path: /?Action=AssociateAddress
+      operations:
+      - name: associateaddress
+        method: GET
+        description: Amazon EC2 Associate an Elastic IP Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: AllocationId
+          in: query
+          type: string
+          description: The allocation ID for the Elastic IP address
+        - name: InstanceId
+          in: query
+          type: string
+          description: The ID of the instance to associate with
+        - name: NetworkInterfaceId
+          in: query
+          type: string
+          description: The ID of the network interface
+    - name: ?Action=ReleaseAddress
+      path: /?Action=ReleaseAddress
+      operations:
+      - name: releaseaddress
+        method: GET
+        description: Amazon EC2 Release an Elastic IP Address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: AllocationId
+          in: query
+          type: string
+          description: The allocation ID of the Elastic IP address
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_EC2_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-ec2-elastic-ips-rest
+    port: 8080
+    description: REST adapter for Amazon EC2 API — Elastic IPs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/action-allocateaddress
+      name: action-allocateaddress
+      description: REST surface for ?Action=AllocateAddress.
+      operations:
+      - method: GET
+        name: allocateaddress
+        description: Amazon EC2 Allocate an Elastic IP Address
+        call: amazon-ec2-elastic-ips.allocateaddress
+        with:
+          Domain: rest.Domain
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-associateaddress
+      name: action-associateaddress
+      description: REST surface for ?Action=AssociateAddress.
+      operations:
+      - method: GET
+        name: associateaddress
+        description: Amazon EC2 Associate an Elastic IP Address
+        call: amazon-ec2-elastic-ips.associateaddress
+        with:
+          AllocationId: rest.AllocationId
+          InstanceId: rest.InstanceId
+          NetworkInterfaceId: rest.NetworkInterfaceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-releaseaddress
+      name: action-releaseaddress
+      description: REST surface for ?Action=ReleaseAddress.
+      operations:
+      - method: GET
+        name: releaseaddress
+        description: Amazon EC2 Release an Elastic IP Address
+        call: amazon-ec2-elastic-ips.releaseaddress
+        with:
+          AllocationId: rest.AllocationId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-ec2-elastic-ips-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon EC2 API — Elastic IPs. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: amazon-ec2-allocate-elastic-ip
+      description: Amazon EC2 Allocate an Elastic IP Address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-elastic-ips.allocateaddress
+      with:
+        Domain: tools.Domain
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-associate-elastic-ip
+      description: Amazon EC2 Associate an Elastic IP Address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-elastic-ips.associateaddress
+      with:
+        AllocationId: tools.AllocationId
+        InstanceId: tools.InstanceId
+        NetworkInterfaceId: tools.NetworkInterfaceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-release-elastic-ip
+      description: Amazon EC2 Release an Elastic IP Address
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-elastic-ips.releaseaddress
+      with:
+        AllocationId: tools.AllocationId
+      outputParameters:
+      - type: object
+        mapping: $.

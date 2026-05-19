@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon EC2 API — Regions
+  description: 'Amazon EC2 API — Regions. 2 operations. Lead operation: Amazon EC2 Describe Availability Zones. Self-contained
+    Naftiko capability covering one Amazon Ec2 business surface.'
+  tags:
+  - Amazon Ec2
+  - Regions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_EC2_API_KEY: AMAZON_EC2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-ec2-regions
+    baseUri: https://ec2.{region}.amazonaws.com
+    description: Amazon EC2 API — Regions business capability. Self-contained, no shared references.
+    resources:
+    - name: ?Action=DescribeAvailabilityZones
+      path: /?Action=DescribeAvailabilityZones
+      operations:
+      - name: describeavailabilityzones
+        method: GET
+        description: Amazon EC2 Describe Availability Zones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ZoneName
+          in: query
+          type: array
+          description: The names of the Availability Zones
+        - name: ZoneId
+          in: query
+          type: array
+          description: The IDs of the Availability Zones
+    - name: ?Action=DescribeRegions
+      path: /?Action=DescribeRegions
+      operations:
+      - name: describeregions
+        method: GET
+        description: Amazon EC2 Describe AWS Regions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: RegionName
+          in: query
+          type: array
+          description: The names of the Regions
+        - name: AllRegions
+          in: query
+          type: boolean
+          description: Indicates whether to display all Regions including disabled
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_EC2_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-ec2-regions-rest
+    port: 8080
+    description: REST adapter for Amazon EC2 API — Regions. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/action-describeavailabilityzones
+      name: action-describeavailabilityzones
+      description: REST surface for ?Action=DescribeAvailabilityZones.
+      operations:
+      - method: GET
+        name: describeavailabilityzones
+        description: Amazon EC2 Describe Availability Zones
+        call: amazon-ec2-regions.describeavailabilityzones
+        with:
+          ZoneName: rest.ZoneName
+          ZoneId: rest.ZoneId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-describeregions
+      name: action-describeregions
+      description: REST surface for ?Action=DescribeRegions.
+      operations:
+      - method: GET
+        name: describeregions
+        description: Amazon EC2 Describe AWS Regions
+        call: amazon-ec2-regions.describeregions
+        with:
+          RegionName: rest.RegionName
+          AllRegions: rest.AllRegions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-ec2-regions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon EC2 API — Regions. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: amazon-ec2-describe-availability-zones
+      description: Amazon EC2 Describe Availability Zones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-regions.describeavailabilityzones
+      with:
+        ZoneName: tools.ZoneName
+        ZoneId: tools.ZoneId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-describe-aws-regions
+      description: Amazon EC2 Describe AWS Regions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-regions.describeregions
+      with:
+        RegionName: tools.RegionName
+        AllRegions: tools.AllRegions
+      outputParameters:
+      - type: object
+        mapping: $.

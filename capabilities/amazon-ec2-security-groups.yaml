@@ -1,0 +1,255 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon EC2 API — Security Groups
+  description: 'Amazon EC2 API — Security Groups. 4 operations. Lead operation: Amazon EC2 Add Inbound Security Group Rules.
+    Self-contained Naftiko capability covering one Amazon Ec2 business surface.'
+  tags:
+  - Amazon Ec2
+  - Security Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_EC2_API_KEY: AMAZON_EC2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-ec2-security-groups
+    baseUri: https://ec2.{region}.amazonaws.com
+    description: Amazon EC2 API — Security Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: ?Action=AuthorizeSecurityGroupIngress
+      path: /?Action=AuthorizeSecurityGroupIngress
+      operations:
+      - name: authorizesecuritygroupingress
+        method: GET
+        description: Amazon EC2 Add Inbound Security Group Rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: GroupId
+          in: query
+          type: string
+          description: The ID of the security group
+          required: true
+        - name: IpProtocol
+          in: query
+          type: string
+          description: The IP protocol name (tcp, udp, icmp) or number
+        - name: FromPort
+          in: query
+          type: integer
+          description: The start of port range for TCP and UDP protocols
+        - name: ToPort
+          in: query
+          type: integer
+          description: The end of port range for TCP and UDP protocols
+        - name: CidrIp
+          in: query
+          type: string
+          description: The IPv4 CIDR range
+    - name: ?Action=CreateSecurityGroup
+      path: /?Action=CreateSecurityGroup
+      operations:
+      - name: createsecuritygroup
+        method: GET
+        description: Amazon EC2 Create a Security Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: GroupName
+          in: query
+          type: string
+          description: The name of the security group
+          required: true
+        - name: GroupDescription
+          in: query
+          type: string
+          description: A description for the security group
+          required: true
+        - name: VpcId
+          in: query
+          type: string
+          description: The ID of the VPC for the security group
+    - name: ?Action=DeleteSecurityGroup
+      path: /?Action=DeleteSecurityGroup
+      operations:
+      - name: deletesecuritygroup
+        method: GET
+        description: Amazon EC2 Delete a Security Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: GroupId
+          in: query
+          type: string
+          description: The ID of the security group to delete
+        - name: GroupName
+          in: query
+          type: string
+          description: The name of the security group to delete
+    - name: ?Action=DescribeSecurityGroups
+      path: /?Action=DescribeSecurityGroups
+      operations:
+      - name: describesecuritygroups
+        method: GET
+        description: Amazon EC2 Describe Security Groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: GroupId
+          in: query
+          type: array
+          description: The IDs of the security groups to describe
+        - name: GroupName
+          in: query
+          type: array
+          description: The names of the security groups to describe
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_EC2_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-ec2-security-groups-rest
+    port: 8080
+    description: REST adapter for Amazon EC2 API — Security Groups. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/action-authorizesecuritygroupingress
+      name: action-authorizesecuritygroupingress
+      description: REST surface for ?Action=AuthorizeSecurityGroupIngress.
+      operations:
+      - method: GET
+        name: authorizesecuritygroupingress
+        description: Amazon EC2 Add Inbound Security Group Rules
+        call: amazon-ec2-security-groups.authorizesecuritygroupingress
+        with:
+          GroupId: rest.GroupId
+          IpProtocol: rest.IpProtocol
+          FromPort: rest.FromPort
+          ToPort: rest.ToPort
+          CidrIp: rest.CidrIp
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-createsecuritygroup
+      name: action-createsecuritygroup
+      description: REST surface for ?Action=CreateSecurityGroup.
+      operations:
+      - method: GET
+        name: createsecuritygroup
+        description: Amazon EC2 Create a Security Group
+        call: amazon-ec2-security-groups.createsecuritygroup
+        with:
+          GroupName: rest.GroupName
+          GroupDescription: rest.GroupDescription
+          VpcId: rest.VpcId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-deletesecuritygroup
+      name: action-deletesecuritygroup
+      description: REST surface for ?Action=DeleteSecurityGroup.
+      operations:
+      - method: GET
+        name: deletesecuritygroup
+        description: Amazon EC2 Delete a Security Group
+        call: amazon-ec2-security-groups.deletesecuritygroup
+        with:
+          GroupId: rest.GroupId
+          GroupName: rest.GroupName
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-describesecuritygroups
+      name: action-describesecuritygroups
+      description: REST surface for ?Action=DescribeSecurityGroups.
+      operations:
+      - method: GET
+        name: describesecuritygroups
+        description: Amazon EC2 Describe Security Groups
+        call: amazon-ec2-security-groups.describesecuritygroups
+        with:
+          GroupId: rest.GroupId
+          GroupName: rest.GroupName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-ec2-security-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon EC2 API — Security Groups. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: amazon-ec2-add-inbound-security
+      description: Amazon EC2 Add Inbound Security Group Rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-security-groups.authorizesecuritygroupingress
+      with:
+        GroupId: tools.GroupId
+        IpProtocol: tools.IpProtocol
+        FromPort: tools.FromPort
+        ToPort: tools.ToPort
+        CidrIp: tools.CidrIp
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-create-security-group
+      description: Amazon EC2 Create a Security Group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-security-groups.createsecuritygroup
+      with:
+        GroupName: tools.GroupName
+        GroupDescription: tools.GroupDescription
+        VpcId: tools.VpcId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-delete-security-group
+      description: Amazon EC2 Delete a Security Group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-security-groups.deletesecuritygroup
+      with:
+        GroupId: tools.GroupId
+        GroupName: tools.GroupName
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-describe-security-groups
+      description: Amazon EC2 Describe Security Groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-security-groups.describesecuritygroups
+      with:
+        GroupId: tools.GroupId
+        GroupName: tools.GroupName
+      outputParameters:
+      - type: object
+        mapping: $.

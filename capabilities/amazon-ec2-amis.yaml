@@ -1,0 +1,196 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Amazon EC2 API — AMIs
+  description: 'Amazon EC2 API — AMIs. 3 operations. Lead operation: Amazon EC2 Create an AMI from an Instance. Self-contained
+    Naftiko capability covering one Amazon Ec2 business surface.'
+  tags:
+  - Amazon Ec2
+  - AMIs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AMAZON_EC2_API_KEY: AMAZON_EC2_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: amazon-ec2-amis
+    baseUri: https://ec2.{region}.amazonaws.com
+    description: Amazon EC2 API — AMIs business capability. Self-contained, no shared references.
+    resources:
+    - name: ?Action=CreateImage
+      path: /?Action=CreateImage
+      operations:
+      - name: createimage
+        method: GET
+        description: Amazon EC2 Create an AMI from an Instance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: InstanceId
+          in: query
+          type: string
+          description: The ID of the instance to create the image from
+          required: true
+        - name: Name
+          in: query
+          type: string
+          description: A name for the new image
+          required: true
+        - name: Description
+          in: query
+          type: string
+          description: A description for the new image
+        - name: NoReboot
+          in: query
+          type: boolean
+          description: If true, Amazon EC2 does not shut down the instance before creating the image
+    - name: ?Action=DeregisterImage
+      path: /?Action=DeregisterImage
+      operations:
+      - name: deregisterimage
+        method: GET
+        description: Amazon EC2 Deregister an AMI
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ImageId
+          in: query
+          type: string
+          description: The ID of the AMI to deregister
+          required: true
+    - name: ?Action=DescribeImages
+      path: /?Action=DescribeImages
+      operations:
+      - name: describeimages
+        method: GET
+        description: Amazon EC2 Describe AMIs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: ImageId
+          in: query
+          type: array
+          description: The image IDs to describe
+        - name: Owner
+          in: query
+          type: array
+          description: Scopes the results to images with the specified owners
+        - name: Filter
+          in: query
+          type: array
+          description: Filters to apply to the results
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AMAZON_EC2_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: amazon-ec2-amis-rest
+    port: 8080
+    description: REST adapter for Amazon EC2 API — AMIs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/action-createimage
+      name: action-createimage
+      description: REST surface for ?Action=CreateImage.
+      operations:
+      - method: GET
+        name: createimage
+        description: Amazon EC2 Create an AMI from an Instance
+        call: amazon-ec2-amis.createimage
+        with:
+          InstanceId: rest.InstanceId
+          Name: rest.Name
+          Description: rest.Description
+          NoReboot: rest.NoReboot
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-deregisterimage
+      name: action-deregisterimage
+      description: REST surface for ?Action=DeregisterImage.
+      operations:
+      - method: GET
+        name: deregisterimage
+        description: Amazon EC2 Deregister an AMI
+        call: amazon-ec2-amis.deregisterimage
+        with:
+          ImageId: rest.ImageId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/action-describeimages
+      name: action-describeimages
+      description: REST surface for ?Action=DescribeImages.
+      operations:
+      - method: GET
+        name: describeimages
+        description: Amazon EC2 Describe AMIs
+        call: amazon-ec2-amis.describeimages
+        with:
+          ImageId: rest.ImageId
+          Owner: rest.Owner
+          Filter: rest.Filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: amazon-ec2-amis-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Amazon EC2 API — AMIs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: amazon-ec2-create-ami-instance
+      description: Amazon EC2 Create an AMI from an Instance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-amis.createimage
+      with:
+        InstanceId: tools.InstanceId
+        Name: tools.Name
+        Description: tools.Description
+        NoReboot: tools.NoReboot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-deregister-ami
+      description: Amazon EC2 Deregister an AMI
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-amis.deregisterimage
+      with:
+        ImageId: tools.ImageId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: amazon-ec2-describe-amis
+      description: Amazon EC2 Describe AMIs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: amazon-ec2-amis.describeimages
+      with:
+        ImageId: tools.ImageId
+        Owner: tools.Owner
+        Filter: tools.Filter
+      outputParameters:
+      - type: object
+        mapping: $.
