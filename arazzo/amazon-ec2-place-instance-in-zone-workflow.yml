@@ -1,0 +1,97 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Place an Instance in an Availability Zone
+  summary: Describe regions and availability zones, then launch an instance in a chosen zone.
+  description: >-
+    Picks a placement target and launches into it. The workflow lists the
+    enabled regions, lists the availability zones available in the current
+    region, and then launches an instance using the supplied AMI and instance
+    type. Every step spells out its request inline using the Amazon EC2 query
+    protocol (Action and Version parameters) so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: place-instance-in-zone
+  summary: Survey regions and zones, then launch an instance.
+  description: >-
+    Chains DescribeRegions, DescribeAvailabilityZones, and RunInstances so a
+    placement decision is informed by live region and zone data before launch.
+  inputs:
+    type: object
+    required:
+    - imageId
+    - instanceType
+    properties:
+      imageId:
+        type: string
+        description: The AMI ID to launch the instance from.
+      instanceType:
+        type: string
+        description: The EC2 instance type to launch.
+      subnetId:
+        type: string
+        description: Optional subnet ID identifying the target zone placement.
+  steps:
+  - stepId: listRegions
+    description: List the regions enabled for the account.
+    operationId: describeRegions
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeRegions
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      regionsStatus: $statusCode
+  - stepId: listZones
+    description: List the availability zones in the current region.
+    operationId: describeAvailabilityZones
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeAvailabilityZones
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      zonesStatus: $statusCode
+  - stepId: launchInZone
+    description: Launch an instance into the selected placement.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    - name: SubnetId
+      in: query
+      value: $inputs.subnetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/instances/0/instanceId
+  outputs:
+    instanceId: $steps.launchInZone.outputs.instanceId

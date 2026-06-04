@@ -1,0 +1,141 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Bind Elastic IP to a New Instance
+  summary: Launch an instance, poll until running, allocate an Elastic IP, then associate it.
+  description: >-
+    Stands up a publicly addressable instance end to end. The workflow launches
+    an instance, polls DescribeInstances until it reports running, allocates a
+    VPC Elastic IP, and associates the address with the new instance. The poll
+    step branches on the instance state name, looping while pending. Every step
+    spells out its request inline using the Amazon EC2 query protocol (Action and
+    Version parameters) so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bind-eip-to-new-instance
+  summary: Launch an instance, wait for running, and attach a fresh Elastic IP.
+  description: >-
+    Chains RunInstances, a DescribeInstances running-state poll branching on the
+    instance state, AllocateAddress, and AssociateAddress to deliver a launched
+    instance with a stable public IP.
+  inputs:
+    type: object
+    required:
+    - imageId
+    - instanceType
+    - allocationId
+    properties:
+      imageId:
+        type: string
+        description: The AMI ID to launch the instance from.
+      instanceType:
+        type: string
+        description: The EC2 instance type to launch.
+      allocationId:
+        type: string
+        description: The allocation ID of the Elastic IP to associate.
+  steps:
+  - stepId: launchInstance
+    description: Launch a single instance from the supplied AMI.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/instances/0/instanceId
+  - stepId: pollRunning
+    description: >-
+      Describe the launched instance and branch on its state, looping while
+      pending and proceeding once it reports running.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $steps.launchInstance.outputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillPending
+      type: goto
+      stepId: pollRunning
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'pending'
+        type: jsonpath
+    - name: nowRunning
+      type: goto
+      stepId: allocateAddress
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'running'
+        type: jsonpath
+  - stepId: allocateAddress
+    description: Allocate a VPC Elastic IP address.
+    operationId: allocateAddress
+    parameters:
+    - name: Action
+      in: query
+      value: AllocateAddress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: Domain
+      in: query
+      value: vpc
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      allocateStatus: $statusCode
+  - stepId: associateAddress
+    description: Associate the Elastic IP allocation with the running instance.
+    operationId: associateAddress
+    parameters:
+    - name: Action
+      in: query
+      value: AssociateAddress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: AllocationId
+      in: query
+      value: $inputs.allocationId
+    - name: InstanceId
+      in: query
+      value: $steps.launchInstance.outputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      associateStatus: $statusCode
+  outputs:
+    instanceId: $steps.launchInstance.outputs.instanceId
+    associateStatus: $steps.associateAddress.outputs.associateStatus

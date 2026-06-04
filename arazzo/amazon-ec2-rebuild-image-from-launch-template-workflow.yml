@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Create a Launch Template and Boot From It
+  summary: Create a launch template, confirm it, then launch an instance referencing the template parameters.
+  description: >-
+    Establishes a reusable launch configuration and immediately boots from it.
+    The workflow creates a launch template, confirms it via
+    DescribeLaunchTemplates, and then launches an instance using the same image
+    and instance type captured in the template. Every step spells out its
+    request inline using the Amazon EC2 query protocol (Action and Version
+    parameters) so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-launch-template-and-boot
+  summary: Create a launch template, verify it, and launch an instance from it.
+  description: >-
+    Chains CreateLaunchTemplate, DescribeLaunchTemplates, and RunInstances so a
+    reusable launch configuration is created, confirmed, and exercised in one
+    run.
+  inputs:
+    type: object
+    required:
+    - launchTemplateName
+    - imageId
+    - instanceType
+    properties:
+      launchTemplateName:
+        type: string
+        description: A name for the new launch template.
+      versionDescription:
+        type: string
+        description: An optional description for the first template version.
+      imageId:
+        type: string
+        description: The AMI ID the launched instance should use.
+      instanceType:
+        type: string
+        description: The EC2 instance type to launch.
+  steps:
+  - stepId: createTemplate
+    description: Create the launch template that captures the launch parameters.
+    operationId: createLaunchTemplate
+    parameters:
+    - name: Action
+      in: query
+      value: CreateLaunchTemplate
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: LaunchTemplateName
+      in: query
+      value: $inputs.launchTemplateName
+    - name: VersionDescription
+      in: query
+      value: $inputs.versionDescription
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createStatus: $statusCode
+  - stepId: confirmTemplate
+    description: Confirm the launch template exists before launching from it.
+    operationId: describeLaunchTemplates
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeLaunchTemplates
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: LaunchTemplateName
+      in: query
+      value: $inputs.launchTemplateName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmStatus: $statusCode
+  - stepId: launchFromTemplate
+    description: Launch an instance using the template's image and instance type.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/instances/0/instanceId
+  outputs:
+    instanceId: $steps.launchFromTemplate.outputs.instanceId

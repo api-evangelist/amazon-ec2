@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Allocate and Associate Elastic IP
+  summary: Allocate a VPC Elastic IP, confirm the instance is running, then associate the address.
+  description: >-
+    Gives a running instance a stable public address by allocating a VPC Elastic
+    IP, confirming the target instance is in the running state via
+    DescribeInstances, and then associating the allocated address with the
+    instance. Every step spells out its request inline using the Amazon EC2
+    query protocol (Action and Version parameters) so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: allocate-and-associate-eip
+  summary: Allocate a VPC Elastic IP and bind it to a running instance.
+  description: >-
+    Chains AllocateAddress, a DescribeInstances running-state confirmation that
+    branches on the instance state, and AssociateAddress to attach a stable
+    public IP to the instance.
+  inputs:
+    type: object
+    required:
+    - allocationId
+    - instanceId
+    properties:
+      allocationId:
+        type: string
+        description: The allocation ID to associate (supplied or captured from a prior allocate).
+      instanceId:
+        type: string
+        description: The ID of the instance to associate the Elastic IP with.
+  steps:
+  - stepId: allocateAddress
+    description: Allocate an Elastic IP address scoped to a VPC.
+    operationId: allocateAddress
+    parameters:
+    - name: Action
+      in: query
+      value: AllocateAddress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: Domain
+      in: query
+      value: vpc
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      allocateStatus: $statusCode
+  - stepId: confirmRunning
+    description: >-
+      Describe the instance and branch on its state, only associating once the
+      instance reports running.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: notReadyYet
+      type: goto
+      stepId: confirmRunning
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'pending'
+        type: jsonpath
+    - name: ready
+      type: goto
+      stepId: associateAddress
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'running'
+        type: jsonpath
+  - stepId: associateAddress
+    description: Associate the Elastic IP allocation with the running instance.
+    operationId: associateAddress
+    parameters:
+    - name: Action
+      in: query
+      value: AssociateAddress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: AllocationId
+      in: query
+      value: $inputs.allocationId
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      associateStatus: $statusCode
+  outputs:
+    associateStatus: $steps.associateAddress.outputs.associateStatus
+    instanceState: $steps.confirmRunning.outputs.state

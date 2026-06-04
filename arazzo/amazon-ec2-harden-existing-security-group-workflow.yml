@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Harden an Existing Security Group
+  summary: Look up a security group by name and add a scoped inbound rule to it.
+  description: >-
+    Adds a tightly scoped inbound rule to an existing security group. The
+    workflow resolves the security group by name to confirm it exists, then
+    authorizes a single inbound rule for the requested protocol, port range, and
+    CIDR. Every step spells out its request inline using the Amazon EC2 query
+    protocol (Action and Version parameters) so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: harden-existing-security-group
+  summary: Resolve a security group and authorize one scoped inbound rule.
+  description: >-
+    Chains DescribeSecurityGroups and AuthorizeSecurityGroupIngress to add a
+    single inbound rule to an already-existing security group.
+  inputs:
+    type: object
+    required:
+    - groupId
+    - ipProtocol
+    - fromPort
+    - toPort
+    - cidrIp
+    properties:
+      groupId:
+        type: string
+        description: The ID of the security group to harden.
+      ipProtocol:
+        type: string
+        description: The IP protocol name (tcp, udp, icmp) or number.
+      fromPort:
+        type: integer
+        description: The start of the port range.
+      toPort:
+        type: integer
+        description: The end of the port range.
+      cidrIp:
+        type: string
+        description: The IPv4 CIDR range allowed by the new rule.
+  steps:
+  - stepId: resolveGroup
+    description: Confirm the target security group exists before adding a rule.
+    operationId: describeSecurityGroups
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeSecurityGroups
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: GroupId
+      in: query
+      value: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resolveStatus: $statusCode
+  - stepId: authorizeRule
+    description: Authorize the requested scoped inbound rule on the security group.
+    operationId: authorizeSecurityGroupIngress
+    parameters:
+    - name: Action
+      in: query
+      value: AuthorizeSecurityGroupIngress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: GroupId
+      in: query
+      value: $inputs.groupId
+    - name: IpProtocol
+      in: query
+      value: $inputs.ipProtocol
+    - name: FromPort
+      in: query
+      value: $inputs.fromPort
+    - name: ToPort
+      in: query
+      value: $inputs.toPort
+    - name: CidrIp
+      in: query
+      value: $inputs.cidrIp
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authorizeStatus: $statusCode
+  outputs:
+    authorizeStatus: $steps.authorizeRule.outputs.authorizeStatus

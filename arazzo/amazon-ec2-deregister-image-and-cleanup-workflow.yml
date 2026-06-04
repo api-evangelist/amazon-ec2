@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Deregister an AMI After Confirmation
+  summary: Confirm an AMI exists, deregister it, then verify it is gone.
+  description: >-
+    Safely retires an AMI. The workflow describes the image to confirm it is
+    available, deregisters it, and describes it again to verify the deregister
+    took effect. Every step spells out its request inline using the Amazon EC2
+    query protocol (Action and Version parameters) so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deregister-image-and-cleanup
+  summary: Confirm, deregister, and re-verify an AMI.
+  description: >-
+    Chains DescribeImages, DeregisterImage, and a second DescribeImages so an
+    AMI is verified present, removed, and confirmed gone.
+  inputs:
+    type: object
+    required:
+    - imageId
+    properties:
+      imageId:
+        type: string
+        description: The ID of the AMI to deregister.
+  steps:
+  - stepId: confirmImage
+    description: Confirm the AMI is available before deregistering it.
+    operationId: describeImages
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeImages
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmStatus: $statusCode
+  - stepId: deregisterImage
+    description: Deregister the AMI so it can no longer launch instances.
+    operationId: deregisterImage
+    parameters:
+    - name: Action
+      in: query
+      value: DeregisterImage
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deregisterStatus: $statusCode
+  - stepId: verifyGone
+    description: Describe the AMI again to verify the deregister took effect.
+    operationId: describeImages
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeImages
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifyStatus: $statusCode
+  outputs:
+    deregisterStatus: $steps.deregisterImage.outputs.deregisterStatus
+    verifyStatus: $steps.verifyGone.outputs.verifyStatus

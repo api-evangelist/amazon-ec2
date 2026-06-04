@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Rotate Key Pair
+  summary: Verify a key pair exists, create its replacement, then delete the old key pair.
+  description: >-
+    Rotates an SSH key pair without leaving a gap in coverage. The workflow
+    confirms the existing key pair is present, creates a new replacement key
+    pair, and only then deletes the old key pair. Every step spells out its
+    request inline using the Amazon EC2 query protocol (Action and Version
+    parameters) so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: rotate-key-pair
+  summary: Replace an existing SSH key pair with a freshly created one.
+  description: >-
+    Chains DescribeKeyPairs, CreateKeyPair, and DeleteKeyPair so the new key is
+    in place before the old key is removed.
+  inputs:
+    type: object
+    required:
+    - oldKeyName
+    - newKeyName
+    properties:
+      oldKeyName:
+        type: string
+        description: The name of the existing key pair to retire.
+      newKeyName:
+        type: string
+        description: The name for the replacement key pair.
+  steps:
+  - stepId: verifyOldKey
+    description: Confirm the existing key pair is present before rotating.
+    operationId: describeKeyPairs
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeKeyPairs
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: KeyName
+      in: query
+      value: $inputs.oldKeyName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifyStatus: $statusCode
+  - stepId: createNewKey
+    description: Create the replacement key pair.
+    operationId: createKeyPair
+    parameters:
+    - name: Action
+      in: query
+      value: CreateKeyPair
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: KeyName
+      in: query
+      value: $inputs.newKeyName
+    - name: KeyType
+      in: query
+      value: ed25519
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createStatus: $statusCode
+  - stepId: deleteOldKey
+    description: Delete the retired key pair now that its replacement exists.
+    operationId: deleteKeyPair
+    parameters:
+    - name: Action
+      in: query
+      value: DeleteKeyPair
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: KeyName
+      in: query
+      value: $inputs.oldKeyName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deleteStatus: $statusCode
+  outputs:
+    createStatus: $steps.createNewKey.outputs.createStatus
+    deleteStatus: $steps.deleteOldKey.outputs.deleteStatus

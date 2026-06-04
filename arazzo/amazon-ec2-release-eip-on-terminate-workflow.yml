@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Release Elastic IP on Terminate
+  summary: Terminate an instance, wait until terminated, then release its Elastic IP.
+  description: >-
+    Avoids paying for an idle Elastic IP after an instance is gone. The workflow
+    terminates the instance, polls DescribeInstances until the instance reports
+    the terminated state, and then releases the Elastic IP allocation. The poll
+    step branches on the instance state name, looping while shutting-down and
+    releasing once terminated. Every step spells out its request inline using the
+    Amazon EC2 query protocol (Action and Version parameters) so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: release-eip-on-terminate
+  summary: Terminate an instance and release its Elastic IP once it is gone.
+  description: >-
+    Chains TerminateInstances, a DescribeInstances poll loop branching on the
+    terminated state, and ReleaseAddress to reclaim the Elastic IP allocation.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - allocationId
+    properties:
+      instanceId:
+        type: string
+        description: The ID of the instance to terminate.
+      allocationId:
+        type: string
+        description: The allocation ID of the Elastic IP to release.
+  steps:
+  - stepId: terminateInstance
+    description: Terminate the target instance.
+    operationId: terminateInstances
+    parameters:
+    - name: Action
+      in: query
+      value: TerminateInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      terminateStatus: $statusCode
+  - stepId: pollTerminated
+    description: >-
+      Describe the instance and branch on its state, looping while shutting-down
+      and proceeding to release once it reports terminated.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillShuttingDown
+      type: goto
+      stepId: pollTerminated
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'shutting-down'
+        type: jsonpath
+    - name: gone
+      type: goto
+      stepId: releaseAddress
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'terminated'
+        type: jsonpath
+  - stepId: releaseAddress
+    description: Release the Elastic IP allocation back to the pool.
+    operationId: releaseAddress
+    parameters:
+    - name: Action
+      in: query
+      value: ReleaseAddress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: AllocationId
+      in: query
+      value: $inputs.allocationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      releaseStatus: $statusCode
+  outputs:
+    finalState: $steps.pollTerminated.outputs.state
+    releaseStatus: $steps.releaseAddress.outputs.releaseStatus

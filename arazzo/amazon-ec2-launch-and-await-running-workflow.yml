@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Launch and Await Running
+  summary: Launch an instance, then poll DescribeInstances until it reaches the running state.
+  description: >-
+    Launches a single EC2 instance and then polls its state until it transitions
+    out of pending into running. The poll step branches on the reported instance
+    state name: while pending it loops back to describe again, and once running
+    it ends the workflow. Every step spells out its request inline using the
+    Amazon EC2 query protocol (Action and Version parameters) so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: launch-and-await-running
+  summary: Launch one instance and wait for it to become running before returning.
+  description: >-
+    Chains RunInstances with a DescribeInstances poll loop that branches on the
+    instance state name, looping while pending and ending once running.
+  inputs:
+    type: object
+    required:
+    - imageId
+    - instanceType
+    properties:
+      imageId:
+        type: string
+        description: The AMI ID to launch the instance from.
+      instanceType:
+        type: string
+        description: The EC2 instance type (e.g. t3.micro).
+      keyName:
+        type: string
+        description: Optional name of the key pair to use for SSH access.
+  steps:
+  - stepId: runInstance
+    description: Launch a single instance from the supplied AMI.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    - name: KeyName
+      in: query
+      value: $inputs.keyName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/instances/0/instanceId
+  - stepId: pollState
+    description: >-
+      Describe the launched instance and branch on its state, looping while
+      pending and ending once it reports running.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $steps.runInstance.outputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+      instanceId: $response.body#/reservationSet/0/instancesSet/0/instanceId
+    onSuccess:
+    - name: stillPending
+      type: goto
+      stepId: pollState
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'pending'
+        type: jsonpath
+    - name: nowRunning
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'running'
+        type: jsonpath
+  outputs:
+    instanceId: $steps.pollState.outputs.instanceId
+    finalState: $steps.pollState.outputs.state

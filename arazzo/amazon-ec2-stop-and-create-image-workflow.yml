@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Stop and Create Image
+  summary: Stop an instance, wait until stopped, then create an AMI from it.
+  description: >-
+    Captures a clean AMI from a running instance by first stopping it, polling
+    DescribeInstances until the instance reports the stopped state, and then
+    creating an image from the now-quiesced instance. The poll step branches on
+    the instance state name, looping while stopping and proceeding once stopped.
+    Every step spells out its request inline using the Amazon EC2 query protocol
+    (Action and Version parameters) so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stop-and-create-image
+  summary: Quiesce an instance and snapshot it into a reusable AMI.
+  description: >-
+    Chains StopInstances, a DescribeInstances poll loop branching on the stopped
+    state, and CreateImage to produce an AMI from a cleanly stopped instance.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - imageName
+    properties:
+      instanceId:
+        type: string
+        description: The ID of the instance to stop and image.
+      imageName:
+        type: string
+        description: A name for the new AMI.
+      imageDescription:
+        type: string
+        description: An optional description for the new AMI.
+  steps:
+  - stepId: stopInstance
+    description: Stop the target instance ahead of imaging.
+    operationId: stopInstances
+    parameters:
+    - name: Action
+      in: query
+      value: StopInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stopStatus: $statusCode
+  - stepId: pollStopped
+    description: >-
+      Describe the instance and branch on its state, looping while stopping and
+      proceeding once it reports stopped.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillStopping
+      type: goto
+      stepId: pollStopped
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'stopping'
+        type: jsonpath
+    - name: nowStopped
+      type: goto
+      stepId: createImage
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'stopped'
+        type: jsonpath
+  - stepId: createImage
+    description: Create an AMI from the stopped instance.
+    operationId: createImage
+    parameters:
+    - name: Action
+      in: query
+      value: CreateImage
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    - name: Name
+      in: query
+      value: $inputs.imageName
+    - name: Description
+      in: query
+      value: $inputs.imageDescription
+    - name: NoReboot
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageId: $response.body#/imageId
+  outputs:
+    imageId: $steps.createImage.outputs.imageId

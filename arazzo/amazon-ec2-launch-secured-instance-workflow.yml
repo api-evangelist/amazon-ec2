@@ -1,0 +1,164 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Launch a Secured Instance
+  summary: Create a security group, open SSH ingress, create a key pair, and launch an instance.
+  description: >-
+    Provisions the minimal footprint needed to launch a reachable EC2 instance.
+    The workflow creates a security group, authorizes an inbound SSH rule on it,
+    creates an SSH key pair for access, and then launches an instance wired to
+    both the new security group and key pair. Every step spells out its request
+    inline using the Amazon EC2 query protocol (Action and Version parameters)
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: launch-secured-instance
+  summary: Stand up a security group, key pair, and a launched EC2 instance in one flow.
+  description: >-
+    Chains CreateSecurityGroup, AuthorizeSecurityGroupIngress, CreateKeyPair,
+    and RunInstances so a single run yields a network-reachable instance bound
+    to a fresh security group and SSH key pair.
+  inputs:
+    type: object
+    required:
+    - groupName
+    - groupDescription
+    - keyName
+    - imageId
+    - instanceType
+    properties:
+      groupName:
+        type: string
+        description: The name for the new security group.
+      groupDescription:
+        type: string
+        description: A description for the new security group.
+      vpcId:
+        type: string
+        description: Optional VPC ID to create the security group in.
+      sshCidr:
+        type: string
+        description: The IPv4 CIDR range allowed to reach SSH (e.g. 203.0.113.0/24).
+        default: 0.0.0.0/0
+      keyName:
+        type: string
+        description: A unique name for the SSH key pair.
+      imageId:
+        type: string
+        description: The AMI ID to launch the instance from.
+      instanceType:
+        type: string
+        description: The EC2 instance type (e.g. t3.micro).
+  steps:
+  - stepId: createSecurityGroup
+    description: Create a security group to act as the virtual firewall for the instance.
+    operationId: createSecurityGroup
+    parameters:
+    - name: Action
+      in: query
+      value: CreateSecurityGroup
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: GroupName
+      in: query
+      value: $inputs.groupName
+    - name: GroupDescription
+      in: query
+      value: $inputs.groupDescription
+    - name: VpcId
+      in: query
+      value: $inputs.vpcId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createStatus: $statusCode
+  - stepId: authorizeIngress
+    description: Authorize inbound SSH (TCP 22) on the new security group.
+    operationId: authorizeSecurityGroupIngress
+    parameters:
+    - name: Action
+      in: query
+      value: AuthorizeSecurityGroupIngress
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: GroupId
+      in: query
+      value: $inputs.groupName
+    - name: IpProtocol
+      in: query
+      value: tcp
+    - name: FromPort
+      in: query
+      value: 22
+    - name: ToPort
+      in: query
+      value: 22
+    - name: CidrIp
+      in: query
+      value: $inputs.sshCidr
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      ingressStatus: $statusCode
+  - stepId: createKeyPair
+    description: Create an SSH key pair to use for instance access.
+    operationId: createKeyPair
+    parameters:
+    - name: Action
+      in: query
+      value: CreateKeyPair
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: KeyName
+      in: query
+      value: $inputs.keyName
+    - name: KeyType
+      in: query
+      value: rsa
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      keyStatus: $statusCode
+  - stepId: runInstance
+    description: Launch a single instance bound to the new security group and key pair.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    - name: KeyName
+      in: query
+      value: $inputs.keyName
+    - name: SecurityGroupId
+      in: query
+      value: $inputs.groupName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reservationId: $response.body#/reservationId
+      instanceId: $response.body#/instances/0/instanceId
+  outputs:
+    reservationId: $steps.runInstance.outputs.reservationId
+    instanceId: $steps.runInstance.outputs.instanceId

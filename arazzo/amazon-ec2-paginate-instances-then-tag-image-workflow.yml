@@ -1,0 +1,97 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Inventory Instances Then Image First
+  summary: Describe instances, page through with NextToken, then image the first instance found.
+  description: >-
+    Builds an instance inventory and captures an image of the first instance it
+    finds. The workflow describes instances, follows the NextToken pagination
+    cursor by looping while a token is present, and once paging is complete
+    creates an AMI from the first discovered instance. The pagination step
+    branches on whether a NextToken remains. Every step spells out its request
+    inline using the Amazon EC2 query protocol (Action and Version parameters) so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: paginate-instances-then-image
+  summary: Page through described instances and image the first one found.
+  description: >-
+    Chains a DescribeInstances pagination loop branching on the NextToken cursor
+    with a CreateImage call against the first discovered instance.
+  inputs:
+    type: object
+    required:
+    - imageName
+    properties:
+      imageName:
+        type: string
+        description: A name for the AMI captured from the first discovered instance.
+      maxResults:
+        type: integer
+        description: The maximum number of instances to return per page.
+        default: 100
+  steps:
+  - stepId: pageInstances
+    description: >-
+      Describe instances and branch on the NextToken cursor, looping while more
+      pages remain and proceeding once the listing is complete.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: MaxResults
+      in: query
+      value: $inputs.maxResults
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      nextToken: $response.body#/nextToken
+      firstInstanceId: $response.body#/reservationSet/0/instancesSet/0/instanceId
+    onSuccess:
+    - name: morePages
+      type: goto
+      stepId: pageInstances
+      criteria:
+      - context: $response.body
+        condition: $.nextToken != null && $.nextToken != ''
+        type: jsonpath
+    - name: lastPage
+      type: goto
+      stepId: imageFirst
+      criteria:
+      - context: $response.body
+        condition: $.nextToken == null || $.nextToken == ''
+        type: jsonpath
+  - stepId: imageFirst
+    description: Create an AMI from the first instance discovered during paging.
+    operationId: createImage
+    parameters:
+    - name: Action
+      in: query
+      value: CreateImage
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $steps.pageInstances.outputs.firstInstanceId
+    - name: Name
+      in: query
+      value: $inputs.imageName
+    - name: NoReboot
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageId: $response.body#/imageId
+  outputs:
+    imageId: $steps.imageFirst.outputs.imageId

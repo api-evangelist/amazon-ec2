@@ -1,0 +1,135 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Stop and Start Instance Cycle
+  summary: Stop an instance, wait until stopped, then start it again and confirm running.
+  description: >-
+    Performs a full stop and start cycle, useful for changing instance
+    attributes that require a stop. The workflow stops the instance, polls
+    DescribeInstances until it reports stopped, starts it again, and confirms it
+    returns to running. The poll steps branch on the instance state name. Every
+    step spells out its request inline using the Amazon EC2 query protocol
+    (Action and Version parameters) so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stop-start-instance-cycle
+  summary: Cycle an instance through stopped and back to running.
+  description: >-
+    Chains StopInstances, a stopped-state poll, StartInstances, and a
+    running-state poll, each branching on the instance state name.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    properties:
+      instanceId:
+        type: string
+        description: The ID of the instance to stop and restart.
+  steps:
+  - stepId: stopInstance
+    description: Stop the target instance.
+    operationId: stopInstances
+    parameters:
+    - name: Action
+      in: query
+      value: StopInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stopStatus: $statusCode
+  - stepId: pollStopped
+    description: >-
+      Describe the instance and branch on its state, looping while stopping and
+      proceeding once it reports stopped.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillStopping
+      type: goto
+      stepId: pollStopped
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'stopping'
+        type: jsonpath
+    - name: nowStopped
+      type: goto
+      stepId: startInstance
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'stopped'
+        type: jsonpath
+  - stepId: startInstance
+    description: Start the stopped instance again.
+    operationId: startInstances
+    parameters:
+    - name: Action
+      in: query
+      value: StartInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      startStatus: $statusCode
+  - stepId: pollRunning
+    description: >-
+      Describe the instance and branch on its state, looping while pending and
+      ending once it reports running.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollRunning
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'pending'
+        type: jsonpath
+    - name: nowRunning
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'running'
+        type: jsonpath
+  outputs:
+    finalState: $steps.pollRunning.outputs.state

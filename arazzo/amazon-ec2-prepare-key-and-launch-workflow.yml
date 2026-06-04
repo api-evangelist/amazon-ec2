@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Prepare Key and Launch
+  summary: Create a key pair, confirm it via describe, then launch an instance using it.
+  description: >-
+    Ensures an SSH key pair is in place before launching. The workflow creates a
+    key pair, confirms it via DescribeKeyPairs, and launches an instance bound to
+    that key pair so the instance is reachable from first boot. Every step spells
+    out its request inline using the Amazon EC2 query protocol (Action and
+    Version parameters) so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: prepare-key-and-launch
+  summary: Create and confirm a key pair, then launch an instance using it.
+  description: >-
+    Chains CreateKeyPair, DescribeKeyPairs, and RunInstances so an instance is
+    launched with a confirmed, freshly created SSH key pair.
+  inputs:
+    type: object
+    required:
+    - keyName
+    - imageId
+    - instanceType
+    properties:
+      keyName:
+        type: string
+        description: A unique name for the new key pair.
+      imageId:
+        type: string
+        description: The AMI ID to launch the instance from.
+      instanceType:
+        type: string
+        description: The EC2 instance type to launch.
+  steps:
+  - stepId: createKey
+    description: Create the SSH key pair for instance access.
+    operationId: createKeyPair
+    parameters:
+    - name: Action
+      in: query
+      value: CreateKeyPair
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: KeyName
+      in: query
+      value: $inputs.keyName
+    - name: KeyType
+      in: query
+      value: rsa
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createStatus: $statusCode
+  - stepId: confirmKey
+    description: Confirm the key pair exists before launching with it.
+    operationId: describeKeyPairs
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeKeyPairs
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: KeyName
+      in: query
+      value: $inputs.keyName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmStatus: $statusCode
+  - stepId: launchWithKey
+    description: Launch an instance bound to the confirmed key pair.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $inputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    - name: KeyName
+      in: query
+      value: $inputs.keyName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      instanceId: $response.body#/instances/0/instanceId
+  outputs:
+    instanceId: $steps.launchWithKey.outputs.instanceId

@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Restart and Verify Instance
+  summary: Reboot an instance and poll its status until checks report passed.
+  description: >-
+    Reboots an instance and waits for it to come back healthy. The workflow
+    issues a reboot, confirms the instance reports the running state, and polls
+    DescribeInstanceStatus until the call succeeds for the rebooted instance. The
+    verification step branches on the running state, looping while the instance
+    is still pending its return. Every step spells out its request inline using
+    the Amazon EC2 query protocol (Action and Version parameters) so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: restart-and-verify-instance
+  summary: Reboot an instance and confirm it returns to a running, status-checked state.
+  description: >-
+    Chains RebootInstances, a DescribeInstances running-state poll that branches
+    on the instance state, and DescribeInstanceStatus to confirm the instance is
+    back and reporting status.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    properties:
+      instanceId:
+        type: string
+        description: The ID of the instance to reboot and verify.
+  steps:
+  - stepId: rebootInstance
+    description: Request a reboot of the target instance.
+    operationId: rebootInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RebootInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rebootStatus: $statusCode
+  - stepId: pollRunning
+    description: >-
+      Describe the instance and branch on its state, looping while pending and
+      proceeding once it reports running again.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillRebooting
+      type: goto
+      stepId: pollRunning
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'pending'
+        type: jsonpath
+    - name: backUp
+      type: goto
+      stepId: verifyStatus
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'running'
+        type: jsonpath
+  - stepId: verifyStatus
+    description: Confirm the rebooted instance reports status information.
+    operationId: describeInstanceStatus
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstanceStatus
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    - name: IncludeAllInstances
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      statusCheck: $statusCode
+  outputs:
+    finalState: $steps.pollRunning.outputs.state
+    statusCheck: $steps.verifyStatus.outputs.statusCheck

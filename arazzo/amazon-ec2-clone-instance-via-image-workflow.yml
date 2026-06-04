@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Clone an Instance via Image
+  summary: Create an AMI from a source instance, confirm it, then launch a clone from that AMI.
+  description: >-
+    Duplicates a running instance through a captured image. The workflow creates
+    an AMI from the source instance, confirms the image is available via
+    DescribeImages, and launches a new instance from the captured AMI. Every
+    step spells out its request inline using the Amazon EC2 query protocol
+    (Action and Version parameters) so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: clone-instance-via-image
+  summary: Image a source instance and launch a clone from the captured AMI.
+  description: >-
+    Chains CreateImage, DescribeImages, and RunInstances so a source instance is
+    captured into an AMI, the AMI is confirmed, and a clone is launched from it.
+  inputs:
+    type: object
+    required:
+    - sourceInstanceId
+    - imageName
+    - instanceType
+    properties:
+      sourceInstanceId:
+        type: string
+        description: The ID of the source instance to clone.
+      imageName:
+        type: string
+        description: A name for the AMI captured from the source instance.
+      instanceType:
+        type: string
+        description: The instance type for the cloned instance.
+  steps:
+  - stepId: captureImage
+    description: Create an AMI from the source instance without rebooting it.
+    operationId: createImage
+    parameters:
+    - name: Action
+      in: query
+      value: CreateImage
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.sourceInstanceId
+    - name: Name
+      in: query
+      value: $inputs.imageName
+    - name: NoReboot
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageId: $response.body#/imageId
+  - stepId: confirmImage
+    description: Confirm the captured AMI is available before cloning.
+    operationId: describeImages
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeImages
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $steps.captureImage.outputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmStatus: $statusCode
+  - stepId: launchClone
+    description: Launch a clone instance from the captured AMI.
+    operationId: runInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RunInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: ImageId
+      in: query
+      value: $steps.captureImage.outputs.imageId
+    - name: InstanceType
+      in: query
+      value: $inputs.instanceType
+    - name: MinCount
+      in: query
+      value: 1
+    - name: MaxCount
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      cloneInstanceId: $response.body#/instances/0/instanceId
+  outputs:
+    imageId: $steps.captureImage.outputs.imageId
+    cloneInstanceId: $steps.launchClone.outputs.cloneInstanceId

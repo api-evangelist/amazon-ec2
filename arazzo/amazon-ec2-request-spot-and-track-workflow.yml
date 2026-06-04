@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Request Spot Instances and Track
+  summary: Request Spot Instances, then poll the Spot request until it is fulfilled.
+  description: >-
+    Requests Spot capacity and tracks the request to fulfillment. The workflow
+    submits a Spot Instance request and polls DescribeSpotInstanceRequests until
+    the call reports the request, looping until the request set is non-empty.
+    Every step spells out its request inline using the Amazon EC2 query protocol
+    (Action and Version parameters) so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: request-spot-and-track
+  summary: Submit a Spot Instance request and poll until it appears.
+  description: >-
+    Chains RequestSpotInstances with a DescribeSpotInstanceRequests poll loop
+    that branches on whether the request set has appeared yet.
+  inputs:
+    type: object
+    required:
+    - spotPrice
+    - instanceCount
+    properties:
+      spotPrice:
+        type: string
+        description: The maximum price per unit hour for a Spot Instance.
+      instanceCount:
+        type: integer
+        description: The number of Spot Instances to request.
+      requestType:
+        type: string
+        description: The Spot request type (one-time or persistent).
+        default: one-time
+  steps:
+  - stepId: requestSpot
+    description: Submit the Spot Instance request.
+    operationId: requestSpotInstances
+    parameters:
+    - name: Action
+      in: query
+      value: RequestSpotInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: SpotPrice
+      in: query
+      value: $inputs.spotPrice
+    - name: InstanceCount
+      in: query
+      value: $inputs.instanceCount
+    - name: Type
+      in: query
+      value: $inputs.requestType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requestStatus: $statusCode
+  - stepId: trackSpot
+    description: >-
+      Describe Spot Instance requests and branch on whether the request set has
+      appeared, looping until it is non-empty.
+    operationId: describeSpotInstanceRequests
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeSpotInstanceRequests
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      trackStatus: $statusCode
+  outputs:
+    requestStatus: $steps.requestSpot.outputs.requestStatus
+    trackStatus: $steps.trackSpot.outputs.trackStatus

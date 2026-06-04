@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Amazon EC2 Deprovision a Secured Instance
+  summary: Terminate an instance, wait until terminated, then delete its security group.
+  description: >-
+    Tears down an instance and its dedicated security group in the correct
+    order. The workflow terminates the instance, polls DescribeInstances until
+    the instance reports the terminated state (deletion of a security group
+    referenced by a live instance fails), and then deletes the security group.
+    The poll step branches on the instance state name, looping while
+    shutting-down and proceeding once terminated. Every step spells out its
+    request inline using the Amazon EC2 query protocol (Action and Version
+    parameters) so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: amazonEc2Api
+  url: ../openapi/amazon-ec2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deprovision-secured-instance
+  summary: Terminate an instance and reclaim its security group once it is gone.
+  description: >-
+    Chains TerminateInstances, a DescribeInstances poll loop branching on the
+    terminated state, and DeleteSecurityGroup to fully reclaim a secured
+    instance footprint.
+  inputs:
+    type: object
+    required:
+    - instanceId
+    - groupId
+    properties:
+      instanceId:
+        type: string
+        description: The ID of the instance to terminate.
+      groupId:
+        type: string
+        description: The ID of the security group to delete after termination.
+  steps:
+  - stepId: terminateInstance
+    description: Terminate the target instance.
+    operationId: terminateInstances
+    parameters:
+    - name: Action
+      in: query
+      value: TerminateInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      terminateStatus: $statusCode
+  - stepId: pollTerminated
+    description: >-
+      Describe the instance and branch on its state, looping while shutting-down
+      and proceeding once it reports terminated.
+    operationId: describeInstances
+    parameters:
+    - name: Action
+      in: query
+      value: DescribeInstances
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: InstanceId
+      in: query
+      value: $inputs.instanceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/reservationSet/0/instancesSet/0/instanceState/name
+    onSuccess:
+    - name: stillShuttingDown
+      type: goto
+      stepId: pollTerminated
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'shutting-down'
+        type: jsonpath
+    - name: gone
+      type: goto
+      stepId: deleteSecurityGroup
+      criteria:
+      - context: $response.body
+        condition: $.reservationSet[0].instancesSet[0].instanceState.name == 'terminated'
+        type: jsonpath
+  - stepId: deleteSecurityGroup
+    description: Delete the now-unreferenced security group.
+    operationId: deleteSecurityGroup
+    parameters:
+    - name: Action
+      in: query
+      value: DeleteSecurityGroup
+    - name: Version
+      in: query
+      value: '2016-11-15'
+    - name: GroupId
+      in: query
+      value: $inputs.groupId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deleteStatus: $statusCode
+  outputs:
+    finalState: $steps.pollTerminated.outputs.state
+    deleteStatus: $steps.deleteSecurityGroup.outputs.deleteStatus
