@@ -1,0 +1,786 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Launch EC2 Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=RunInstances",
+            "params": [
+              {
+                "name": "ImageId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the AMI to launch"
+              },
+              {
+                "name": "InstanceType",
+                "value": "",
+                "type": "query",
+                "description": "The instance type such as t2.micro, m5.large, c5.xlarge"
+              },
+              {
+                "name": "MinCount",
+                "value": "1",
+                "type": "query",
+                "description": "The minimum number of instances to launch"
+              },
+              {
+                "name": "MaxCount",
+                "value": "1",
+                "type": "query",
+                "description": "The maximum number of instances to launch"
+              },
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The name of the key pair to use for SSH access"
+              },
+              {
+                "name": "SecurityGroupId",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The IDs of the security groups"
+              },
+              {
+                "name": "SubnetId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the subnet to launch the instance into"
+              }
+            ]
+          },
+          "docs": "Launches the specified number of instances using an AMI for which you have permissions. You can specify a number of options, or leave the default options. When you launch an instance, it enters the pending state, then the running state."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe EC2 Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The instance IDs to describe"
+              },
+              {
+                "name": "Filter",
+                "value": "example-string",
+                "type": "query",
+                "description": "Filters to apply to the results"
+              },
+              {
+                "name": "MaxResults",
+                "value": "1",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "NextToken",
+                "value": "example-string",
+                "type": "query",
+                "description": "Token for the next page of results"
+              }
+            ]
+          },
+          "docs": "Describes the specified instances or all instances. Returns information about the instances including instance ID, instance type, launch time, placement, monitoring state, and more."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Start Stopped Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=StartInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to start"
+              }
+            ]
+          },
+          "docs": "Starts an Amazon EBS-backed instance that you have previously stopped. Instances that use Amazon EBS volumes as their root devices can be quickly stopped and started."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Stop Running Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=StopInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to stop"
+              },
+              {
+                "name": "Force",
+                "value": "true",
+                "type": "query",
+                "description": "Forces the instances to stop without graceful shutdown"
+              }
+            ]
+          },
+          "docs": "Stops an Amazon EBS-backed instance. You can use the stopped instance to modify the root volume, change instance type, or attach additional EBS volumes."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Terminate Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=TerminateInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to terminate"
+              }
+            ]
+          },
+          "docs": "Shuts down the specified instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds. Terminated instances remain visible for a short period after termination."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Reboot Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=RebootInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to reboot"
+              }
+            ]
+          },
+          "docs": "Requests a reboot of the specified instances. This operation is asynchronous; it only queues a request to reboot the specified instances."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Instance Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeInstanceStatus",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The instance IDs to describe"
+              },
+              {
+                "name": "IncludeAllInstances",
+                "value": "true",
+                "type": "query",
+                "description": "Include all instances regardless of running state"
+              }
+            ]
+          },
+          "docs": "Describes the status of the specified instances or all of your instances. Instance status includes status checks, scheduled events, and instance state information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AMIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create an AMI from an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateImage",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The ID of the instance to create the image from"
+              },
+              {
+                "name": "Name",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "A name for the new image"
+              },
+              {
+                "name": "Description",
+                "value": "example-string",
+                "type": "query",
+                "description": "A description for the new image"
+              },
+              {
+                "name": "NoReboot",
+                "value": "true",
+                "type": "query",
+                "description": "If true, Amazon EC2 does not shut down the instance before creating the image"
+              }
+            ]
+          },
+          "docs": "Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance that is either running or stopped. The AMI is created with the root volume and any additional EBS volumes attached to the instance."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe AMIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeImages",
+            "params": [
+              {
+                "name": "ImageId",
+                "value": "ami-0abc123def456789",
+                "type": "query",
+                "description": "The image IDs to describe"
+              },
+              {
+                "name": "Owner",
+                "value": "example-string",
+                "type": "query",
+                "description": "Scopes the results to images with the specified owners"
+              },
+              {
+                "name": "Filter",
+                "value": "example-string",
+                "type": "query",
+                "description": "Filters to apply to the results"
+              }
+            ]
+          },
+          "docs": "Describes the specified images (AMIs, AKIs, and ARIs) available to you or all of the images available to you. Images available include public images, private images owned by you, and private images owned by others for which you have explicit launch permissions."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Deregister an AMI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DeregisterImage",
+            "params": [
+              {
+                "name": "ImageId",
+                "value": "ami-0abc123def456789",
+                "type": "query",
+                "description": "The ID of the AMI to deregister"
+              }
+            ]
+          },
+          "docs": "Deregisters the specified AMI. After you deregister an AMI, it cannot be used to launch new instances. Deregistering does not delete the AMI."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Security Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create a Security Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateSecurityGroup",
+            "params": [
+              {
+                "name": "GroupName",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The name of the security group"
+              },
+              {
+                "name": "GroupDescription",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "A description for the security group"
+              },
+              {
+                "name": "VpcId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the VPC for the security group"
+              }
+            ]
+          },
+          "docs": "Creates a security group. A security group acts as a virtual firewall for your instances to control inbound and outbound traffic."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Security Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeSecurityGroups",
+            "params": [
+              {
+                "name": "GroupId",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The IDs of the security groups to describe"
+              },
+              {
+                "name": "GroupName",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The names of the security groups to describe"
+              }
+            ]
+          },
+          "docs": "Describes the specified security groups or all of your security groups. A security group is for use with instances either in the EC2-Classic platform or in a specific VPC."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Add Inbound Security Group Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=AuthorizeSecurityGroupIngress",
+            "params": [
+              {
+                "name": "GroupId",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The ID of the security group"
+              },
+              {
+                "name": "IpProtocol",
+                "value": "example-string",
+                "type": "query",
+                "description": "The IP protocol name (tcp, udp, icmp) or number"
+              },
+              {
+                "name": "FromPort",
+                "value": "27017",
+                "type": "query",
+                "description": "The start of port range for TCP and UDP protocols"
+              },
+              {
+                "name": "ToPort",
+                "value": "27017",
+                "type": "query",
+                "description": "The end of port range for TCP and UDP protocols"
+              },
+              {
+                "name": "CidrIp",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IPv4 CIDR range"
+              }
+            ]
+          },
+          "docs": "Adds the specified inbound (ingress) rules to a security group. An inbound rule permits instances to receive traffic from the specified IPv4 or IPv6 CIDR address range, or from the instances associated with the specified security group."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Delete a Security Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DeleteSecurityGroup",
+            "params": [
+              {
+                "name": "GroupId",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The ID of the security group to delete"
+              },
+              {
+                "name": "GroupName",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The name of the security group to delete"
+              }
+            ]
+          },
+          "docs": "Deletes a security group. If you attempt to delete a security group that is associated with an instance, or is referenced by another security group, the operation fails."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Key Pairs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create a Key Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateKeyPair",
+            "params": [
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "A unique name for the key pair"
+              },
+              {
+                "name": "KeyType",
+                "value": "rsa",
+                "type": "query",
+                "description": "The type of key pair (rsa or ed25519)"
+              }
+            ]
+          },
+          "docs": "Creates an ED25519 or 2048-bit RSA key pair with the specified name. Amazon EC2 stores the public key and displays the private key for you to save to a file."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Key Pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeKeyPairs",
+            "params": [
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The key pair names to describe"
+              },
+              {
+                "name": "KeyPairId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IDs of the key pairs"
+              }
+            ]
+          },
+          "docs": "Describes the specified key pairs or all of your key pairs."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Delete a Key Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DeleteKeyPair",
+            "params": [
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The name of the key pair to delete"
+              },
+              {
+                "name": "KeyPairId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the key pair to delete"
+              }
+            ]
+          },
+          "docs": "Deletes the specified key pair by removing the public key from Amazon EC2."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Elastic IPs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Allocate an Elastic IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=AllocateAddress",
+            "params": [
+              {
+                "name": "Domain",
+                "value": "vpc",
+                "type": "query",
+                "description": "Set to vpc to allocate the address for use with instances in a VPC"
+              }
+            ]
+          },
+          "docs": "Allocates an Elastic IP address to your AWS account. After you allocate the Elastic IP address you can associate it with an instance or network interface."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Associate an Elastic IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=AssociateAddress",
+            "params": [
+              {
+                "name": "AllocationId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The allocation ID for the Elastic IP address"
+              },
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The ID of the instance to associate with"
+              },
+              {
+                "name": "NetworkInterfaceId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the network interface"
+              }
+            ]
+          },
+          "docs": "Associates an Elastic IP address with an instance or a network interface. This is an idempotent operation."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Release an Elastic IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=ReleaseAddress",
+            "params": [
+              {
+                "name": "AllocationId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The allocation ID of the Elastic IP address"
+              }
+            ]
+          },
+          "docs": "Releases the specified Elastic IP address. After releasing an Elastic IP address, it is released to the IP address pool."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Launch Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create a Launch Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateLaunchTemplate",
+            "params": [
+              {
+                "name": "LaunchTemplateName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "A name for the launch template"
+              },
+              {
+                "name": "VersionDescription",
+                "value": "5.0.0",
+                "type": "query",
+                "description": "A description for the first version of the launch template"
+              }
+            ]
+          },
+          "docs": "Creates a launch template. A launch template contains the parameters to launch an instance. When you launch an instance using RunInstances, you can specify a launch template instead of providing the launch parameters in the request."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Launch Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeLaunchTemplates",
+            "params": [
+              {
+                "name": "LaunchTemplateId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IDs of the launch templates"
+              },
+              {
+                "name": "LaunchTemplateName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The names of the launch templates"
+              }
+            ]
+          },
+          "docs": "Describes one or more launch templates."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Spot Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Request Spot Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=RequestSpotInstances",
+            "params": [
+              {
+                "name": "SpotPrice",
+                "value": "example-string",
+                "type": "query",
+                "description": "The maximum price per unit hour for a Spot Instance"
+              },
+              {
+                "name": "InstanceCount",
+                "value": "1",
+                "type": "query",
+                "description": "The maximum number of Spot Instances to launch"
+              },
+              {
+                "name": "Type",
+                "value": "one-time",
+                "type": "query",
+                "description": "The Spot Instance request type"
+              }
+            ]
+          },
+          "docs": "Creates a Spot Instance request. For more information about Spot Instances, see Spot Instances in the Amazon EC2 User Guide."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Spot Instance Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeSpotInstanceRequests",
+            "params": [
+              {
+                "name": "SpotInstanceRequestId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the Spot Instance requests"
+              }
+            ]
+          },
+          "docs": "Describes the specified Spot Instance requests. You can use DescribeSpotInstanceRequests to find a running Spot Instance by querying for the Spot Instance request ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Describe AWS Regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeRegions",
+            "params": [
+              {
+                "name": "RegionName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The names of the Regions"
+              },
+              {
+                "name": "AllRegions",
+                "value": "true",
+                "type": "query",
+                "description": "Indicates whether to display all Regions including disabled"
+              }
+            ]
+          },
+          "docs": "Describes the Regions that are enabled for your account, or all Regions. For a list of the Regions supported by Amazon EC2, see the Amazon EC2 Regions and Endpoints."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Availability Zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeAvailabilityZones",
+            "params": [
+              {
+                "name": "ZoneName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The names of the Availability Zones"
+              },
+              {
+                "name": "ZoneId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IDs of the Availability Zones"
+              }
+            ]
+          },
+          "docs": "Describes the Availability Zones, Local Zones, and Wavelength Zones that are available to you. The results include zones only for the Region you are currently using."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,4352 @@
+{
+  "info": {
+    "_postman_id": "41ef7038-589c-448c-a2b5-3fe4f2c75b23",
+    "name": "Amazon EC2 API",
+    "description": "Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.\n\nContact Support:\n Name: Amazon Web Services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:03:03.000Z",
+    "updatedAt": "2026-06-05T15:03:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-41ef7038-589c-448c-a2b5-3fe4f2c75b23"
+  },
+  "item": [
+    {
+      "name": "?Action=RunInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Launch EC2 Instances",
+          "id": "84f2b8a9-ab83-4492-bbf9-adee293cfc38",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=RunInstances&ImageId=<string>&InstanceType=<string>&MinCount=<integer>&MaxCount=<integer>&KeyName=<string>&SecurityGroupId=<string>&SecurityGroupId=<string>&SubnetId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "RunInstances"
+                },
+                {
+                  "description": "(Required) The ID of the AMI to launch",
+                  "key": "ImageId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The instance type such as t2.micro, m5.large, c5.xlarge",
+                  "key": "InstanceType",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The minimum number of instances to launch",
+                  "key": "MinCount",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "(Required) The maximum number of instances to launch",
+                  "key": "MaxCount",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The name of the key pair to use for SSH access",
+                  "key": "KeyName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the security groups",
+                  "key": "SecurityGroupId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the security groups",
+                  "key": "SecurityGroupId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The ID of the subnet to launch the instance into",
+                  "key": "SubnetId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Launches the specified number of instances using an AMI for which you have permissions. You can specify a number of options, or leave the default options. When you launch an instance, it enters the pending state, then the running state."
+          },
+          "response": [
+            {
+              "id": "a223dce4-04d0-4710-ae78-29b873030797",
+              "name": "Successfully launched instances",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>&InstanceType=<string>&MinCount=<integer>&MaxCount=<integer>&KeyName=<string>&SecurityGroupId=<string>&SubnetId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the AMI to launch",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The instance type such as t2.micro, m5.large, c5.xlarge",
+                      "key": "InstanceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The minimum number of instances to launch",
+                      "key": "MinCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) The maximum number of instances to launch",
+                      "key": "MaxCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The name of the key pair to use for SSH access",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the security groups",
+                      "key": "SecurityGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the subnet to launch the instance into",
+                      "key": "SubnetId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <reservationId>(string)</reservationId>\n  <ownerId>(string)</ownerId>\n  <instances>\n    <instanceId>(string)</instanceId>\n    <imageId>(string)</imageId>\n    <instanceType>(string)</instanceType>\n    <keyName>(string)</keyName>\n    <launchTime>(string)</launchTime>\n    <placement>\n      <availabilityZone>(string)</availabilityZone>\n    </placement>\n    <monitoring>\n      <state>(string)</state>\n    </monitoring>\n    <instanceState>\n      <code>(integer)</code>\n      <name>(string)</name>\n    </instanceState>\n    <subnetId>(string)</subnetId>\n    <vpcId>(string)</vpcId>\n    <privateIpAddress>(string)</privateIpAddress>\n    <publicIpAddress>(string)</publicIpAddress>\n    <architecture>(string)</architecture>\n    <rootDeviceType>(string)</rootDeviceType>\n    <tags>\n      <key>(string)</key>\n      <value>(string)</value>\n    </tags>\n    <tags>\n      <key>(string)</key>\n      <value>(string)</value>\n    </tags>\n    <securityGroups>\n      <groupId>(string)</groupId>\n      <groupName>(string)</groupName>\n    </securityGroups>\n    <securityGroups>\n      <groupId>(string)</groupId>\n      <groupName>(string)</groupName>\n    </securityGroups>\n  </instances>\n  <instances>\n    <instanceId>(string)</instanceId>\n    <imageId>(string)</imageId>\n    <instanceType>(string)</instanceType>\n    <keyName>(string)</keyName>\n    <launchTime>(string)</launchTime>\n    <placement>\n      <availabilityZone>(string)</availabilityZone>\n    </placement>\n    <monitoring>\n      <state>(string)</state>\n    </monitoring>\n    <instanceState>\n      <code>(integer)</code>\n      <name>(string)</name>\n    </instanceState>\n    <subnetId>(string)</subnetId>\n    <vpcId>(string)</vpcId>\n    <privateIpAddress>(string)</privateIpAddress>\n    <publicIpAddress>(string)</publicIpAddress>\n    <architecture>(string)</architecture>\n    <rootDeviceType>(string)</rootDeviceType>\n    <tags>\n      <key>(string)</key>\n      <value>(string)</value>\n    </tags>\n    <tags>\n      <key>(string)</key>\n      <value>(string)</value>\n    </tags>\n    <securityGroups>\n      <groupId>(string)</groupId>\n      <groupName>(string)</groupName>\n    </securityGroups>\n    <securityGroups>\n      <groupId>(string)</groupId>\n      <groupName>(string)</groupName>\n    </securityGroups>\n  </instances>\n</element>",
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-a223dce4-04d0-4710-ae78-29b873030797"
+            },
+            {
+              "id": "ea11c077-0057-4944-bef4-8473a342cb55",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>&InstanceType=<string>&MinCount=<integer>&MaxCount=<integer>&KeyName=<string>&SecurityGroupId=<string>&SubnetId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the AMI to launch",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The instance type such as t2.micro, m5.large, c5.xlarge",
+                      "key": "InstanceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The minimum number of instances to launch",
+                      "key": "MinCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) The maximum number of instances to launch",
+                      "key": "MaxCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The name of the key pair to use for SSH access",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the security groups",
+                      "key": "SecurityGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the subnet to launch the instance into",
+                      "key": "SubnetId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-ea11c077-0057-4944-bef4-8473a342cb55"
+            },
+            {
+              "id": "5049073b-4067-4404-9686-404665256d75",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>&InstanceType=<string>&MinCount=<integer>&MaxCount=<integer>&KeyName=<string>&SecurityGroupId=<string>&SubnetId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the AMI to launch",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The instance type such as t2.micro, m5.large, c5.xlarge",
+                      "key": "InstanceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The minimum number of instances to launch",
+                      "key": "MinCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) The maximum number of instances to launch",
+                      "key": "MaxCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The name of the key pair to use for SSH access",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the security groups",
+                      "key": "SecurityGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the subnet to launch the instance into",
+                      "key": "SubnetId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-5049073b-4067-4404-9686-404665256d75"
+            },
+            {
+              "id": "5172d42e-0107-4ac2-9e16-d13db9d4583e",
+              "name": "Authorization failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>&InstanceType=<string>&MinCount=<integer>&MaxCount=<integer>&KeyName=<string>&SecurityGroupId=<string>&SubnetId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the AMI to launch",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The instance type such as t2.micro, m5.large, c5.xlarge",
+                      "key": "InstanceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The minimum number of instances to launch",
+                      "key": "MinCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "(Required) The maximum number of instances to launch",
+                      "key": "MaxCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The name of the key pair to use for SSH access",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the security groups",
+                      "key": "SecurityGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the subnet to launch the instance into",
+                      "key": "SubnetId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-5172d42e-0107-4ac2-9e16-d13db9d4583e"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-84f2b8a9-ab83-4492-bbf9-adee293cfc38"
+        }
+      ],
+      "id": "d67d9dda-6670-475d-8e78-c076d154544d",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-d67d9dda-6670-475d-8e78-c076d154544d"
+    },
+    {
+      "name": "?Action=DescribeInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe EC2 Instances",
+          "id": "2b58622d-cafc-4206-b81c-7e81067fb5a4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeInstances&InstanceId=<string>&InstanceId=<string>&Filter=<string>&Filter=<string>&MaxResults=<integer>&NextToken=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeInstances"
+                },
+                {
+                  "description": "The instance IDs to describe",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The instance IDs to describe",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filters to apply to the results",
+                  "key": "Filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filters to apply to the results",
+                  "key": "Filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of results to return",
+                  "key": "MaxResults",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Token for the next page of results",
+                  "key": "NextToken",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes the specified instances or all instances. Returns information about the instances including instance ID, instance type, launch time, placement, monitoring state, and more."
+          },
+          "response": [
+            {
+              "id": "454cfd05-0e80-4304-96b2-23e374af9983",
+              "name": "Successfully described instances",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Filter=<string>&MaxResults=<integer>&NextToken=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The instance IDs to describe",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filters to apply to the results",
+                      "key": "Filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return",
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Token for the next page of results",
+                      "key": "NextToken",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <reservationSet>\n    <reservationId>(string)</reservationId>\n    <instancesSet>\n      <instanceId>(string)</instanceId>\n      <imageId>(string)</imageId>\n      <instanceType>(string)</instanceType>\n      <keyName>(string)</keyName>\n      <launchTime>(string)</launchTime>\n      <placement>\n        <availabilityZone>(string)</availabilityZone>\n      </placement>\n      <monitoring>\n        <state>(string)</state>\n      </monitoring>\n      <instanceState>\n        <code>(integer)</code>\n        <name>(string)</name>\n      </instanceState>\n      <subnetId>(string)</subnetId>\n      <vpcId>(string)</vpcId>\n      <privateIpAddress>(string)</privateIpAddress>\n      <publicIpAddress>(string)</publicIpAddress>\n      <architecture>(string)</architecture>\n      <rootDeviceType>(string)</rootDeviceType>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n    </instancesSet>\n    <instancesSet>\n      <instanceId>(string)</instanceId>\n      <imageId>(string)</imageId>\n      <instanceType>(string)</instanceType>\n      <keyName>(string)</keyName>\n      <launchTime>(string)</launchTime>\n      <placement>\n        <availabilityZone>(string)</availabilityZone>\n      </placement>\n      <monitoring>\n        <state>(string)</state>\n      </monitoring>\n      <instanceState>\n        <code>(integer)</code>\n        <name>(string)</name>\n      </instanceState>\n      <subnetId>(string)</subnetId>\n      <vpcId>(string)</vpcId>\n      <privateIpAddress>(string)</privateIpAddress>\n      <publicIpAddress>(string)</publicIpAddress>\n      <architecture>(string)</architecture>\n      <rootDeviceType>(string)</rootDeviceType>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n    </instancesSet>\n  </reservationSet>\n  <reservationSet>\n    <reservationId>(string)</reservationId>\n    <instancesSet>\n      <instanceId>(string)</instanceId>\n      <imageId>(string)</imageId>\n      <instanceType>(string)</instanceType>\n      <keyName>(string)</keyName>\n      <launchTime>(string)</launchTime>\n      <placement>\n        <availabilityZone>(string)</availabilityZone>\n      </placement>\n      <monitoring>\n        <state>(string)</state>\n      </monitoring>\n      <instanceState>\n        <code>(integer)</code>\n        <name>(string)</name>\n      </instanceState>\n      <subnetId>(string)</subnetId>\n      <vpcId>(string)</vpcId>\n      <privateIpAddress>(string)</privateIpAddress>\n      <publicIpAddress>(string)</publicIpAddress>\n      <architecture>(string)</architecture>\n      <rootDeviceType>(string)</rootDeviceType>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n    </instancesSet>\n    <instancesSet>\n      <instanceId>(string)</instanceId>\n      <imageId>(string)</imageId>\n      <instanceType>(string)</instanceType>\n      <keyName>(string)</keyName>\n      <launchTime>(string)</launchTime>\n      <placement>\n        <availabilityZone>(string)</availabilityZone>\n      </placement>\n      <monitoring>\n        <state>(string)</state>\n      </monitoring>\n      <instanceState>\n        <code>(integer)</code>\n        <name>(string)</name>\n      </instanceState>\n      <subnetId>(string)</subnetId>\n      <vpcId>(string)</vpcId>\n      <privateIpAddress>(string)</privateIpAddress>\n      <publicIpAddress>(string)</publicIpAddress>\n      <architecture>(string)</architecture>\n      <rootDeviceType>(string)</rootDeviceType>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <tags>\n        <key>(string)</key>\n        <value>(string)</value>\n      </tags>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n      <securityGroups>\n        <groupId>(string)</groupId>\n        <groupName>(string)</groupName>\n      </securityGroups>\n    </instancesSet>\n  </reservationSet>\n  <nextToken>(string)</nextToken>\n</element>",
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-454cfd05-0e80-4304-96b2-23e374af9983"
+            },
+            {
+              "id": "aea16274-fba9-41bb-8d3d-6bbd1fa84842",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Filter=<string>&MaxResults=<integer>&NextToken=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The instance IDs to describe",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filters to apply to the results",
+                      "key": "Filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return",
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Token for the next page of results",
+                      "key": "NextToken",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-aea16274-fba9-41bb-8d3d-6bbd1fa84842"
+            },
+            {
+              "id": "ae7144ff-949c-4c0f-ba9d-57be7fe3d22f",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Filter=<string>&MaxResults=<integer>&NextToken=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The instance IDs to describe",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filters to apply to the results",
+                      "key": "Filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results to return",
+                      "key": "MaxResults",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Token for the next page of results",
+                      "key": "NextToken",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-ae7144ff-949c-4c0f-ba9d-57be7fe3d22f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-2b58622d-cafc-4206-b81c-7e81067fb5a4"
+        }
+      ],
+      "id": "5376f3aa-4d21-43e2-8500-8c7771fc51d0",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-5376f3aa-4d21-43e2-8500-8c7771fc51d0"
+    },
+    {
+      "name": "?Action=StartInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Start Stopped Instances",
+          "id": "cd899ce0-d1a2-427e-a316-afa86c09922d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=StartInstances&InstanceId=<string>&InstanceId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "StartInstances"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to start",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to start",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Starts an Amazon EBS-backed instance that you have previously stopped. Instances that use Amazon EBS volumes as their root devices can be quickly stopped and started."
+          },
+          "response": [
+            {
+              "id": "7c9ec461-1944-4288-be43-e2efb370a02c",
+              "name": "Successfully started instances",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to start",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-7c9ec461-1944-4288-be43-e2efb370a02c"
+            },
+            {
+              "id": "198444c6-20d7-426d-80ef-38470eedb709",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to start",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-198444c6-20d7-426d-80ef-38470eedb709"
+            },
+            {
+              "id": "2cfabcf8-fde9-42dc-b7f7-97134f8b9dd9",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to start",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-2cfabcf8-fde9-42dc-b7f7-97134f8b9dd9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-cd899ce0-d1a2-427e-a316-afa86c09922d"
+        }
+      ],
+      "id": "69ba5acd-2938-49a9-bdcf-8ab5a84d916b",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-69ba5acd-2938-49a9-bdcf-8ab5a84d916b"
+    },
+    {
+      "name": "?Action=StopInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Stop Running Instances",
+          "id": "88c03831-46d9-4e3f-a54a-27e8b16579a4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=StopInstances&InstanceId=<string>&InstanceId=<string>&Force=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "StopInstances"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to stop",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to stop",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Forces the instances to stop without graceful shutdown",
+                  "key": "Force",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Stops an Amazon EBS-backed instance. You can use the stopped instance to modify the root volume, change instance type, or attach additional EBS volumes."
+          },
+          "response": [
+            {
+              "id": "09aaf958-c6fd-4ec2-a14e-4af3385926cc",
+              "name": "Successfully stopped instances",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Force=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to stop",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Forces the instances to stop without graceful shutdown",
+                      "key": "Force",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-09aaf958-c6fd-4ec2-a14e-4af3385926cc"
+            },
+            {
+              "id": "5f30994e-0425-4c45-8ad6-fe5101717296",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Force=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to stop",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Forces the instances to stop without graceful shutdown",
+                      "key": "Force",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-5f30994e-0425-4c45-8ad6-fe5101717296"
+            },
+            {
+              "id": "39bd3296-cd78-4c3c-a5c0-db606df6bac0",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Force=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to stop",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Forces the instances to stop without graceful shutdown",
+                      "key": "Force",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-39bd3296-cd78-4c3c-a5c0-db606df6bac0"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-88c03831-46d9-4e3f-a54a-27e8b16579a4"
+        }
+      ],
+      "id": "e685b8e2-c9f7-40ef-b715-14b09464dcfe",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-e685b8e2-c9f7-40ef-b715-14b09464dcfe"
+    },
+    {
+      "name": "?Action=TerminateInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Terminate Instances",
+          "id": "c5d9e2e9-1815-4ec7-a464-dc1155fad83c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=TerminateInstances&InstanceId=<string>&InstanceId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "TerminateInstances"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to terminate",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to terminate",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Shuts down the specified instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds. Terminated instances remain visible for a short period after termination."
+          },
+          "response": [
+            {
+              "id": "6ad01b77-4efe-446f-8a4c-417f5ef8d094",
+              "name": "Successfully terminated instances",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to terminate",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-6ad01b77-4efe-446f-8a4c-417f5ef8d094"
+            },
+            {
+              "id": "bcb5f3ad-4ee2-4d9c-8190-04696dbc678e",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to terminate",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-bcb5f3ad-4ee2-4d9c-8190-04696dbc678e"
+            },
+            {
+              "id": "baa86ebe-0031-4454-b827-25bb0b718e27",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to terminate",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-baa86ebe-0031-4454-b827-25bb0b718e27"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-c5d9e2e9-1815-4ec7-a464-dc1155fad83c"
+        }
+      ],
+      "id": "8c3a0b51-bb21-4338-a5bf-384ab210f7c4",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-8c3a0b51-bb21-4338-a5bf-384ab210f7c4"
+    },
+    {
+      "name": "?Action=RebootInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Reboot Instances",
+          "id": "4c7bd230-d531-4513-88d2-915b30db8ed2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=RebootInstances&InstanceId=<string>&InstanceId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "RebootInstances"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to reboot",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The IDs of the instances to reboot",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Requests a reboot of the specified instances. This operation is asynchronous; it only queues a request to reboot the specified instances."
+          },
+          "response": [
+            {
+              "id": "85967552-9782-4739-be72-e6b824dc7b37",
+              "name": "Successfully requested instance reboot",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to reboot",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-85967552-9782-4739-be72-e6b824dc7b37"
+            },
+            {
+              "id": "8ef8af8d-86dc-4511-816b-c6209eca25cf",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to reboot",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-8ef8af8d-86dc-4511-816b-c6209eca25cf"
+            },
+            {
+              "id": "82672d3d-8bf0-48bd-a17c-d32334521bdc",
+              "name": "Authentication failure",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The IDs of the instances to reboot",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-82672d3d-8bf0-48bd-a17c-d32334521bdc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-4c7bd230-d531-4513-88d2-915b30db8ed2"
+        }
+      ],
+      "id": "8805bb44-f721-4ac4-a264-f0447eba1c54",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-8805bb44-f721-4ac4-a264-f0447eba1c54"
+    },
+    {
+      "name": "?Action=DescribeInstanceStatus",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe Instance Status",
+          "id": "3a51fe52-a612-4441-8de2-9c11a6591cc6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeInstanceStatus&InstanceId=<string>&InstanceId=<string>&IncludeAllInstances=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeInstanceStatus"
+                },
+                {
+                  "description": "The instance IDs to describe",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The instance IDs to describe",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Include all instances regardless of running state",
+                  "key": "IncludeAllInstances",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Describes the status of the specified instances or all of your instances. Instance status includes status checks, scheduled events, and instance state information."
+          },
+          "response": [
+            {
+              "id": "7bbe34be-d476-44de-9d0a-4b81f846dc6d",
+              "name": "Successfully described instance status",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&IncludeAllInstances=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The instance IDs to describe",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include all instances regardless of running state",
+                      "key": "IncludeAllInstances",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-7bbe34be-d476-44de-9d0a-4b81f846dc6d"
+            },
+            {
+              "id": "1c70bf4a-aace-492b-83b4-70635910d992",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&IncludeAllInstances=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The instance IDs to describe",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Include all instances regardless of running state",
+                      "key": "IncludeAllInstances",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-1c70bf4a-aace-492b-83b4-70635910d992"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-3a51fe52-a612-4441-8de2-9c11a6591cc6"
+        }
+      ],
+      "id": "93c41c2a-5bf9-4d4e-b754-5be42774aee1",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-93c41c2a-5bf9-4d4e-b754-5be42774aee1"
+    },
+    {
+      "name": "?Action=CreateImage",
+      "item": [
+        {
+          "name": "Amazon EC2 Create an AMI from an Instance",
+          "id": "8d1420ce-3160-42a9-b118-426f5f1b89e9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=CreateImage&InstanceId=<string>&Name=<string>&Description=<string>&NoReboot=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateImage"
+                },
+                {
+                  "description": "(Required) The ID of the instance to create the image from",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) A name for the new image",
+                  "key": "Name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A description for the new image",
+                  "key": "Description",
+                  "value": "<string>"
+                },
+                {
+                  "description": "If true, Amazon EC2 does not shut down the instance before creating the image",
+                  "key": "NoReboot",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance that is either running or stopped. The AMI is created with the root volume and any additional EBS volumes attached to the instance."
+          },
+          "response": [
+            {
+              "id": "db426ff3-80c9-43a4-974e-c0bd7261ad61",
+              "name": "Successfully created image",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Name=<string>&Description=<string>&NoReboot=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the instance to create the image from",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A name for the new image",
+                      "key": "Name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A description for the new image",
+                      "key": "Description",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, Amazon EC2 does not shut down the instance before creating the image",
+                      "key": "NoReboot",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <imageId>(string)</imageId>\n</element>",
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-db426ff3-80c9-43a4-974e-c0bd7261ad61"
+            },
+            {
+              "id": "2b63db8a-ca40-4056-a340-755f63744b72",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?InstanceId=<string>&Name=<string>&Description=<string>&NoReboot=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the instance to create the image from",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A name for the new image",
+                      "key": "Name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A description for the new image",
+                      "key": "Description",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, Amazon EC2 does not shut down the instance before creating the image",
+                      "key": "NoReboot",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-2b63db8a-ca40-4056-a340-755f63744b72"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-8d1420ce-3160-42a9-b118-426f5f1b89e9"
+        }
+      ],
+      "id": "966779c9-1c26-40a5-9c07-bcb7d58855bd",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-966779c9-1c26-40a5-9c07-bcb7d58855bd"
+    },
+    {
+      "name": "?Action=DescribeImages",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe AMIs",
+          "id": "86b26e5f-1176-48fa-b406-c1f4c256a427",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeImages&ImageId=<string>&ImageId=<string>&Owner=<string>&Owner=<string>&Filter=<string>&Filter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeImages"
+                },
+                {
+                  "description": "The image IDs to describe",
+                  "key": "ImageId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The image IDs to describe",
+                  "key": "ImageId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Scopes the results to images with the specified owners",
+                  "key": "Owner",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Scopes the results to images with the specified owners",
+                  "key": "Owner",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filters to apply to the results",
+                  "key": "Filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filters to apply to the results",
+                  "key": "Filter",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes the specified images (AMIs, AKIs, and ARIs) available to you or all of the images available to you. Images available include public images, private images owned by you, and private images owned by others for which you have explicit launch permissions."
+          },
+          "response": [
+            {
+              "id": "e23fcbae-5fb8-470a-8a07-18c245fecdb1",
+              "name": "Successfully described images",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>&Owner=<string>&Filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The image IDs to describe",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Scopes the results to images with the specified owners",
+                      "key": "Owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filters to apply to the results",
+                      "key": "Filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-e23fcbae-5fb8-470a-8a07-18c245fecdb1"
+            },
+            {
+              "id": "35733d67-a235-4699-b71c-c6ae167a9f54",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>&Owner=<string>&Filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The image IDs to describe",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Scopes the results to images with the specified owners",
+                      "key": "Owner",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filters to apply to the results",
+                      "key": "Filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-35733d67-a235-4699-b71c-c6ae167a9f54"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-86b26e5f-1176-48fa-b406-c1f4c256a427"
+        }
+      ],
+      "id": "dd09ed53-a1f9-410f-8499-04b9264086bb",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-dd09ed53-a1f9-410f-8499-04b9264086bb"
+    },
+    {
+      "name": "?Action=DeregisterImage",
+      "item": [
+        {
+          "name": "Amazon EC2 Deregister an AMI",
+          "id": "69d3d975-a385-48d9-800a-52770d16260d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DeregisterImage&ImageId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DeregisterImage"
+                },
+                {
+                  "description": "(Required) The ID of the AMI to deregister",
+                  "key": "ImageId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Deregisters the specified AMI. After you deregister an AMI, it cannot be used to launch new instances. Deregistering does not delete the AMI."
+          },
+          "response": [
+            {
+              "id": "0290c972-1016-436c-af8e-85acfb6ec5be",
+              "name": "Successfully deregistered image",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the AMI to deregister",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-0290c972-1016-436c-af8e-85acfb6ec5be"
+            },
+            {
+              "id": "8dd218c4-2c06-47f2-a567-e3d194b944ed",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ImageId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the AMI to deregister",
+                      "key": "ImageId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-8dd218c4-2c06-47f2-a567-e3d194b944ed"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-69d3d975-a385-48d9-800a-52770d16260d"
+        }
+      ],
+      "id": "6832ead5-18cc-4cf6-a094-30c03ae6d3f2",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-6832ead5-18cc-4cf6-a094-30c03ae6d3f2"
+    },
+    {
+      "name": "?Action=CreateSecurityGroup",
+      "item": [
+        {
+          "name": "Amazon EC2 Create a Security Group",
+          "id": "e950e07b-94f5-4418-9846-f01e49ea9e75",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=CreateSecurityGroup&GroupName=<string>&GroupDescription=<string>&VpcId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateSecurityGroup"
+                },
+                {
+                  "description": "(Required) The name of the security group",
+                  "key": "GroupName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) A description for the security group",
+                  "key": "GroupDescription",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The ID of the VPC for the security group",
+                  "key": "VpcId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Creates a security group. A security group acts as a virtual firewall for your instances to control inbound and outbound traffic."
+          },
+          "response": [
+            {
+              "id": "ae3ae6d4-62a2-443e-8b11-28f0ede1e307",
+              "name": "Successfully created security group",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupName=<string>&GroupDescription=<string>&VpcId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The name of the security group",
+                      "key": "GroupName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A description for the security group",
+                      "key": "GroupDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the VPC for the security group",
+                      "key": "VpcId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-ae3ae6d4-62a2-443e-8b11-28f0ede1e307"
+            },
+            {
+              "id": "cb7c8ca4-78e5-4f20-ab41-8990aaca114f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupName=<string>&GroupDescription=<string>&VpcId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The name of the security group",
+                      "key": "GroupName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) A description for the security group",
+                      "key": "GroupDescription",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the VPC for the security group",
+                      "key": "VpcId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-cb7c8ca4-78e5-4f20-ab41-8990aaca114f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-e950e07b-94f5-4418-9846-f01e49ea9e75"
+        }
+      ],
+      "id": "5c286f44-67e9-4c96-8482-2c76891dc01a",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-5c286f44-67e9-4c96-8482-2c76891dc01a"
+    },
+    {
+      "name": "?Action=DescribeSecurityGroups",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe Security Groups",
+          "id": "0b52aee0-c7d1-4080-bd1d-453560310c4b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeSecurityGroups&GroupId=<string>&GroupId=<string>&GroupName=<string>&GroupName=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeSecurityGroups"
+                },
+                {
+                  "description": "The IDs of the security groups to describe",
+                  "key": "GroupId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the security groups to describe",
+                  "key": "GroupId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of the security groups to describe",
+                  "key": "GroupName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of the security groups to describe",
+                  "key": "GroupName",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes the specified security groups or all of your security groups. A security group is for use with instances either in the EC2-Classic platform or in a specific VPC."
+          },
+          "response": [
+            {
+              "id": "0c0dc1df-96ed-4946-b205-b386c99ba044",
+              "name": "Successfully described security groups",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupId=<string>&GroupName=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The IDs of the security groups to describe",
+                      "key": "GroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of the security groups to describe",
+                      "key": "GroupName",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-0c0dc1df-96ed-4946-b205-b386c99ba044"
+            },
+            {
+              "id": "765b52a9-8f96-40a3-b65f-b5714b39c310",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupId=<string>&GroupName=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The IDs of the security groups to describe",
+                      "key": "GroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of the security groups to describe",
+                      "key": "GroupName",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-765b52a9-8f96-40a3-b65f-b5714b39c310"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-0b52aee0-c7d1-4080-bd1d-453560310c4b"
+        }
+      ],
+      "id": "50b8f54a-af3f-4e23-a5b4-43bc6a671b9f",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-50b8f54a-af3f-4e23-a5b4-43bc6a671b9f"
+    },
+    {
+      "name": "?Action=AuthorizeSecurityGroupIngress",
+      "item": [
+        {
+          "name": "Amazon EC2 Add Inbound Security Group Rules",
+          "id": "400461de-83f9-4aaa-bdc2-c80cd35b4a4b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=AuthorizeSecurityGroupIngress&GroupId=<string>&IpProtocol=<string>&FromPort=<integer>&ToPort=<integer>&CidrIp=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "AuthorizeSecurityGroupIngress"
+                },
+                {
+                  "description": "(Required) The ID of the security group",
+                  "key": "GroupId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IP protocol name (tcp, udp, icmp) or number",
+                  "key": "IpProtocol",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The start of port range for TCP and UDP protocols",
+                  "key": "FromPort",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The end of port range for TCP and UDP protocols",
+                  "key": "ToPort",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The IPv4 CIDR range",
+                  "key": "CidrIp",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Adds the specified inbound (ingress) rules to a security group. An inbound rule permits instances to receive traffic from the specified IPv4 or IPv6 CIDR address range, or from the instances associated with the specified security group."
+          },
+          "response": [
+            {
+              "id": "70351836-049f-407b-8eb6-eee56c7fae78",
+              "name": "Successfully authorized ingress rules",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupId=<string>&IpProtocol=<string>&FromPort=<integer>&ToPort=<integer>&CidrIp=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the security group",
+                      "key": "GroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IP protocol name (tcp, udp, icmp) or number",
+                      "key": "IpProtocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The start of port range for TCP and UDP protocols",
+                      "key": "FromPort",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The end of port range for TCP and UDP protocols",
+                      "key": "ToPort",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The IPv4 CIDR range",
+                      "key": "CidrIp",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-70351836-049f-407b-8eb6-eee56c7fae78"
+            },
+            {
+              "id": "20347620-be62-42ae-bbbe-167019b83458",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupId=<string>&IpProtocol=<string>&FromPort=<integer>&ToPort=<integer>&CidrIp=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The ID of the security group",
+                      "key": "GroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IP protocol name (tcp, udp, icmp) or number",
+                      "key": "IpProtocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The start of port range for TCP and UDP protocols",
+                      "key": "FromPort",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The end of port range for TCP and UDP protocols",
+                      "key": "ToPort",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The IPv4 CIDR range",
+                      "key": "CidrIp",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-20347620-be62-42ae-bbbe-167019b83458"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-400461de-83f9-4aaa-bdc2-c80cd35b4a4b"
+        }
+      ],
+      "id": "d700e65b-01ed-4bcb-8fd4-fce039141024",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-d700e65b-01ed-4bcb-8fd4-fce039141024"
+    },
+    {
+      "name": "?Action=DeleteSecurityGroup",
+      "item": [
+        {
+          "name": "Amazon EC2 Delete a Security Group",
+          "id": "4e17d3ad-9651-4767-8cdf-60720da1b673",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DeleteSecurityGroup&GroupId=<string>&GroupName=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DeleteSecurityGroup"
+                },
+                {
+                  "description": "The ID of the security group to delete",
+                  "key": "GroupId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The name of the security group to delete",
+                  "key": "GroupName",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Deletes a security group. If you attempt to delete a security group that is associated with an instance, or is referenced by another security group, the operation fails."
+          },
+          "response": [
+            {
+              "id": "7f736571-a07a-4c20-9181-0fbd8ff77549",
+              "name": "Successfully deleted security group",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupId=<string>&GroupName=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the security group to delete",
+                      "key": "GroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the security group to delete",
+                      "key": "GroupName",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-7f736571-a07a-4c20-9181-0fbd8ff77549"
+            },
+            {
+              "id": "4a40c56b-1860-4f89-93f1-b865db72096d",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?GroupId=<string>&GroupName=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The ID of the security group to delete",
+                      "key": "GroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name of the security group to delete",
+                      "key": "GroupName",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-4a40c56b-1860-4f89-93f1-b865db72096d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-4e17d3ad-9651-4767-8cdf-60720da1b673"
+        }
+      ],
+      "id": "e7865084-1b1d-411c-a848-bdb0c44a150b",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-e7865084-1b1d-411c-a848-bdb0c44a150b"
+    },
+    {
+      "name": "?Action=CreateKeyPair",
+      "item": [
+        {
+          "name": "Amazon EC2 Create a Key Pair",
+          "id": "f54aa0ae-deb8-4378-8713-03063a19b5cc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=CreateKeyPair&KeyName=<string>&KeyType=rsa",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateKeyPair"
+                },
+                {
+                  "description": "(Required) A unique name for the key pair",
+                  "key": "KeyName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The type of key pair (rsa or ed25519)",
+                  "key": "KeyType",
+                  "value": "rsa"
+                }
+              ]
+            },
+            "description": "Creates an ED25519 or 2048-bit RSA key pair with the specified name. Amazon EC2 stores the public key and displays the private key for you to save to a file."
+          },
+          "response": [
+            {
+              "id": "ca683451-34e9-433a-a40d-c9ec3b012f1a",
+              "name": "Successfully created key pair",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?KeyName=<string>&KeyType=rsa",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) A unique name for the key pair",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The type of key pair (rsa or ed25519)",
+                      "key": "KeyType",
+                      "value": "rsa"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-ca683451-34e9-433a-a40d-c9ec3b012f1a"
+            },
+            {
+              "id": "9c33c2b8-8873-4581-9c10-e1fbcace59b8",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?KeyName=<string>&KeyType=rsa",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) A unique name for the key pair",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The type of key pair (rsa or ed25519)",
+                      "key": "KeyType",
+                      "value": "rsa"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-9c33c2b8-8873-4581-9c10-e1fbcace59b8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-f54aa0ae-deb8-4378-8713-03063a19b5cc"
+        }
+      ],
+      "id": "3b0600b6-7615-4e2c-9512-e3f1886884d5",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-3b0600b6-7615-4e2c-9512-e3f1886884d5"
+    },
+    {
+      "name": "?Action=DescribeKeyPairs",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe Key Pairs",
+          "id": "a3894e9a-acf8-435b-9bd1-660670b34d42",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeKeyPairs&KeyName=<string>&KeyName=<string>&KeyPairId=<string>&KeyPairId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeKeyPairs"
+                },
+                {
+                  "description": "The key pair names to describe",
+                  "key": "KeyName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The key pair names to describe",
+                  "key": "KeyName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the key pairs",
+                  "key": "KeyPairId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the key pairs",
+                  "key": "KeyPairId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes the specified key pairs or all of your key pairs."
+          },
+          "response": [
+            {
+              "id": "27f34b87-02f5-42e8-a8cb-c92a00342446",
+              "name": "Successfully described key pairs",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?KeyName=<string>&KeyPairId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The key pair names to describe",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the key pairs",
+                      "key": "KeyPairId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-27f34b87-02f5-42e8-a8cb-c92a00342446"
+            },
+            {
+              "id": "94701a43-bd13-4728-9b0b-b7748d016919",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?KeyName=<string>&KeyPairId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The key pair names to describe",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the key pairs",
+                      "key": "KeyPairId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-94701a43-bd13-4728-9b0b-b7748d016919"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-a3894e9a-acf8-435b-9bd1-660670b34d42"
+        }
+      ],
+      "id": "b4560444-d6da-4489-b4df-c9544c93b1ff",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-b4560444-d6da-4489-b4df-c9544c93b1ff"
+    },
+    {
+      "name": "?Action=DeleteKeyPair",
+      "item": [
+        {
+          "name": "Amazon EC2 Delete a Key Pair",
+          "id": "716e4ef2-ecb2-4f6c-81df-12460a1d8a9c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DeleteKeyPair&KeyName=<string>&KeyPairId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DeleteKeyPair"
+                },
+                {
+                  "description": "The name of the key pair to delete",
+                  "key": "KeyName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The ID of the key pair to delete",
+                  "key": "KeyPairId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Deletes the specified key pair by removing the public key from Amazon EC2."
+          },
+          "response": [
+            {
+              "id": "c1cdfe86-b082-4846-be6c-1bef372886bc",
+              "name": "Successfully deleted key pair",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?KeyName=<string>&KeyPairId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The name of the key pair to delete",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the key pair to delete",
+                      "key": "KeyPairId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-c1cdfe86-b082-4846-be6c-1bef372886bc"
+            },
+            {
+              "id": "7f4b2887-c420-4710-ad12-c9286961f711",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?KeyName=<string>&KeyPairId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The name of the key pair to delete",
+                      "key": "KeyName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the key pair to delete",
+                      "key": "KeyPairId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-7f4b2887-c420-4710-ad12-c9286961f711"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-716e4ef2-ecb2-4f6c-81df-12460a1d8a9c"
+        }
+      ],
+      "id": "89f6951c-f25a-4b14-bdda-4023b939bc87",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-89f6951c-f25a-4b14-bdda-4023b939bc87"
+    },
+    {
+      "name": "?Action=AllocateAddress",
+      "item": [
+        {
+          "name": "Amazon EC2 Allocate an Elastic IP Address",
+          "id": "8be40c0c-a2f4-4533-886f-43bb11ad4117",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=AllocateAddress&Domain=standard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "AllocateAddress"
+                },
+                {
+                  "description": "Set to vpc to allocate the address for use with instances in a VPC",
+                  "key": "Domain",
+                  "value": "standard"
+                }
+              ]
+            },
+            "description": "Allocates an Elastic IP address to your AWS account. After you allocate the Elastic IP address you can associate it with an instance or network interface."
+          },
+          "response": [
+            {
+              "id": "7c23080f-02e4-44c2-b4bb-7173191e5a70",
+              "name": "Successfully allocated address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?Domain=standard",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Set to vpc to allocate the address for use with instances in a VPC",
+                      "key": "Domain",
+                      "value": "standard"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-7c23080f-02e4-44c2-b4bb-7173191e5a70"
+            },
+            {
+              "id": "ce10b068-3d90-4033-9789-a10b222fbf6c",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?Domain=standard",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "Set to vpc to allocate the address for use with instances in a VPC",
+                      "key": "Domain",
+                      "value": "standard"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-ce10b068-3d90-4033-9789-a10b222fbf6c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-8be40c0c-a2f4-4533-886f-43bb11ad4117"
+        }
+      ],
+      "id": "62a53674-c22d-4655-a45f-4e333f6de9cf",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-62a53674-c22d-4655-a45f-4e333f6de9cf"
+    },
+    {
+      "name": "?Action=AssociateAddress",
+      "item": [
+        {
+          "name": "Amazon EC2 Associate an Elastic IP Address",
+          "id": "71ae1d18-c158-4777-9dab-f2f7a4fed0d5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=AssociateAddress&AllocationId=<string>&InstanceId=<string>&NetworkInterfaceId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "AssociateAddress"
+                },
+                {
+                  "description": "The allocation ID for the Elastic IP address",
+                  "key": "AllocationId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The ID of the instance to associate with",
+                  "key": "InstanceId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The ID of the network interface",
+                  "key": "NetworkInterfaceId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Associates an Elastic IP address with an instance or a network interface. This is an idempotent operation."
+          },
+          "response": [
+            {
+              "id": "2a0b3ff6-cf91-46ef-aa80-dbfb59297260",
+              "name": "Successfully associated address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?AllocationId=<string>&InstanceId=<string>&NetworkInterfaceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The allocation ID for the Elastic IP address",
+                      "key": "AllocationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the instance to associate with",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the network interface",
+                      "key": "NetworkInterfaceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-2a0b3ff6-cf91-46ef-aa80-dbfb59297260"
+            },
+            {
+              "id": "b51aada4-e528-4a33-b78a-75dc3b87fb02",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?AllocationId=<string>&InstanceId=<string>&NetworkInterfaceId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The allocation ID for the Elastic IP address",
+                      "key": "AllocationId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the instance to associate with",
+                      "key": "InstanceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The ID of the network interface",
+                      "key": "NetworkInterfaceId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-b51aada4-e528-4a33-b78a-75dc3b87fb02"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-71ae1d18-c158-4777-9dab-f2f7a4fed0d5"
+        }
+      ],
+      "id": "d9e9169a-f3fb-4bce-9562-3fab0f993886",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-d9e9169a-f3fb-4bce-9562-3fab0f993886"
+    },
+    {
+      "name": "?Action=ReleaseAddress",
+      "item": [
+        {
+          "name": "Amazon EC2 Release an Elastic IP Address",
+          "id": "7dc7ad9b-50cf-42f8-9e54-c49f17335de7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=ReleaseAddress&AllocationId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "ReleaseAddress"
+                },
+                {
+                  "description": "The allocation ID of the Elastic IP address",
+                  "key": "AllocationId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Releases the specified Elastic IP address. After releasing an Elastic IP address, it is released to the IP address pool."
+          },
+          "response": [
+            {
+              "id": "d4671901-3e1b-4256-93a0-a4519da3b4e2",
+              "name": "Successfully released address",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?AllocationId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The allocation ID of the Elastic IP address",
+                      "key": "AllocationId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-d4671901-3e1b-4256-93a0-a4519da3b4e2"
+            },
+            {
+              "id": "b4a71ff4-4074-48d5-a140-98e235f6cedd",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?AllocationId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The allocation ID of the Elastic IP address",
+                      "key": "AllocationId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-b4a71ff4-4074-48d5-a140-98e235f6cedd"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-7dc7ad9b-50cf-42f8-9e54-c49f17335de7"
+        }
+      ],
+      "id": "cdf7c0b0-0ce9-4512-9e82-6abdc1171ed0",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-cdf7c0b0-0ce9-4512-9e82-6abdc1171ed0"
+    },
+    {
+      "name": "?Action=CreateLaunchTemplate",
+      "item": [
+        {
+          "name": "Amazon EC2 Create a Launch Template",
+          "id": "eef2cfb9-5a8a-4e1d-ab50-98ea6bf57d94",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=CreateLaunchTemplate&LaunchTemplateName=<string>&VersionDescription=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateLaunchTemplate"
+                },
+                {
+                  "description": "(Required) A name for the launch template",
+                  "key": "LaunchTemplateName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "A description for the first version of the launch template",
+                  "key": "VersionDescription",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Creates a launch template. A launch template contains the parameters to launch an instance. When you launch an instance using RunInstances, you can specify a launch template instead of providing the launch parameters in the request."
+          },
+          "response": [
+            {
+              "id": "cb86182d-1d09-49b7-ad9e-b952a9f1c556",
+              "name": "Successfully created launch template",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?LaunchTemplateName=<string>&VersionDescription=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) A name for the launch template",
+                      "key": "LaunchTemplateName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A description for the first version of the launch template",
+                      "key": "VersionDescription",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-cb86182d-1d09-49b7-ad9e-b952a9f1c556"
+            },
+            {
+              "id": "eb345764-c308-49c9-a496-838724437f02",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?LaunchTemplateName=<string>&VersionDescription=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) A name for the launch template",
+                      "key": "LaunchTemplateName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A description for the first version of the launch template",
+                      "key": "VersionDescription",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-eb345764-c308-49c9-a496-838724437f02"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-eef2cfb9-5a8a-4e1d-ab50-98ea6bf57d94"
+        }
+      ],
+      "id": "1ca0684e-89a7-46b5-ad3b-529312d0ab3e",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-1ca0684e-89a7-46b5-ad3b-529312d0ab3e"
+    },
+    {
+      "name": "?Action=DescribeLaunchTemplates",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe Launch Templates",
+          "id": "7ea7a700-dc43-442e-b98f-e7e10bb65827",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeLaunchTemplates&LaunchTemplateId=<string>&LaunchTemplateId=<string>&LaunchTemplateName=<string>&LaunchTemplateName=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeLaunchTemplates"
+                },
+                {
+                  "description": "The IDs of the launch templates",
+                  "key": "LaunchTemplateId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the launch templates",
+                  "key": "LaunchTemplateId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of the launch templates",
+                  "key": "LaunchTemplateName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of the launch templates",
+                  "key": "LaunchTemplateName",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes one or more launch templates."
+          },
+          "response": [
+            {
+              "id": "164e31ee-5c41-451f-8ab1-708310287ded",
+              "name": "Successfully described launch templates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?LaunchTemplateId=<string>&LaunchTemplateName=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The IDs of the launch templates",
+                      "key": "LaunchTemplateId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of the launch templates",
+                      "key": "LaunchTemplateName",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-164e31ee-5c41-451f-8ab1-708310287ded"
+            },
+            {
+              "id": "409094e7-a520-42b1-acc2-bf92ab269536",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?LaunchTemplateId=<string>&LaunchTemplateName=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The IDs of the launch templates",
+                      "key": "LaunchTemplateId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of the launch templates",
+                      "key": "LaunchTemplateName",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-409094e7-a520-42b1-acc2-bf92ab269536"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-7ea7a700-dc43-442e-b98f-e7e10bb65827"
+        }
+      ],
+      "id": "f927a21c-2e35-4268-a448-dc19ad4a1f7d",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-f927a21c-2e35-4268-a448-dc19ad4a1f7d"
+    },
+    {
+      "name": "?Action=RequestSpotInstances",
+      "item": [
+        {
+          "name": "Amazon EC2 Request Spot Instances",
+          "id": "08f5f9c1-587b-4ec0-9eff-ac55d4a04ae4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=RequestSpotInstances&SpotPrice=<string>&InstanceCount=<integer>&Type=persistent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "RequestSpotInstances"
+                },
+                {
+                  "description": "The maximum price per unit hour for a Spot Instance",
+                  "key": "SpotPrice",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The maximum number of Spot Instances to launch",
+                  "key": "InstanceCount",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "The Spot Instance request type",
+                  "key": "Type",
+                  "value": "persistent"
+                }
+              ]
+            },
+            "description": "Creates a Spot Instance request. For more information about Spot Instances, see Spot Instances in the Amazon EC2 User Guide."
+          },
+          "response": [
+            {
+              "id": "df57fb35-557d-45b7-a7dc-b082f9dcf134",
+              "name": "Successfully created Spot Instance request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?SpotPrice=<string>&InstanceCount=<integer>&Type=persistent",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The maximum price per unit hour for a Spot Instance",
+                      "key": "SpotPrice",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of Spot Instances to launch",
+                      "key": "InstanceCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The Spot Instance request type",
+                      "key": "Type",
+                      "value": "persistent"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-df57fb35-557d-45b7-a7dc-b082f9dcf134"
+            },
+            {
+              "id": "cd782efa-c117-4bca-ba0a-b349e76762b2",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?SpotPrice=<string>&InstanceCount=<integer>&Type=persistent",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The maximum price per unit hour for a Spot Instance",
+                      "key": "SpotPrice",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The maximum number of Spot Instances to launch",
+                      "key": "InstanceCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "The Spot Instance request type",
+                      "key": "Type",
+                      "value": "persistent"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-cd782efa-c117-4bca-ba0a-b349e76762b2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-08f5f9c1-587b-4ec0-9eff-ac55d4a04ae4"
+        }
+      ],
+      "id": "c59aaf08-5150-4971-953e-c6e77c758990",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-c59aaf08-5150-4971-953e-c6e77c758990"
+    },
+    {
+      "name": "?Action=DescribeSpotInstanceRequests",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe Spot Instance Requests",
+          "id": "dabeb7a6-da0e-4014-b41a-eeff1dd9f18f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeSpotInstanceRequests&SpotInstanceRequestId=<string>&SpotInstanceRequestId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeSpotInstanceRequests"
+                },
+                {
+                  "description": "The IDs of the Spot Instance requests",
+                  "key": "SpotInstanceRequestId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the Spot Instance requests",
+                  "key": "SpotInstanceRequestId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes the specified Spot Instance requests. You can use DescribeSpotInstanceRequests to find a running Spot Instance by querying for the Spot Instance request ID."
+          },
+          "response": [
+            {
+              "id": "d6f379e4-bdb3-4bae-b2f6-e8a442a2bb16",
+              "name": "Successfully described Spot Instance requests",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?SpotInstanceRequestId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The IDs of the Spot Instance requests",
+                      "key": "SpotInstanceRequestId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-d6f379e4-bdb3-4bae-b2f6-e8a442a2bb16"
+            },
+            {
+              "id": "6993f554-8e7f-48c5-8469-2a60d303843c",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?SpotInstanceRequestId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The IDs of the Spot Instance requests",
+                      "key": "SpotInstanceRequestId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-6993f554-8e7f-48c5-8469-2a60d303843c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-dabeb7a6-da0e-4014-b41a-eeff1dd9f18f"
+        }
+      ],
+      "id": "9699e278-6289-44cc-88d0-6c31b432dbff",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-9699e278-6289-44cc-88d0-6c31b432dbff"
+    },
+    {
+      "name": "?Action=DescribeRegions",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe AWS Regions",
+          "id": "78325286-97ae-4fe6-bbb6-06d6b849227b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeRegions&RegionName=<string>&RegionName=<string>&AllRegions=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeRegions"
+                },
+                {
+                  "description": "The names of the Regions",
+                  "key": "RegionName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of the Regions",
+                  "key": "RegionName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Indicates whether to display all Regions including disabled",
+                  "key": "AllRegions",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Describes the Regions that are enabled for your account, or all Regions. For a list of the Regions supported by Amazon EC2, see the Amazon EC2 Regions and Endpoints."
+          },
+          "response": [
+            {
+              "id": "1a0f3a74-6a10-41ff-bc69-47df4c1b665f",
+              "name": "Successfully described regions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?RegionName=<string>&AllRegions=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The names of the Regions",
+                      "key": "RegionName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Indicates whether to display all Regions including disabled",
+                      "key": "AllRegions",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-1a0f3a74-6a10-41ff-bc69-47df4c1b665f"
+            },
+            {
+              "id": "993419b2-eb2d-49b8-bf90-16d7b0396032",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?RegionName=<string>&AllRegions=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The names of the Regions",
+                      "key": "RegionName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Indicates whether to display all Regions including disabled",
+                      "key": "AllRegions",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-993419b2-eb2d-49b8-bf90-16d7b0396032"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-78325286-97ae-4fe6-bbb6-06d6b849227b"
+        }
+      ],
+      "id": "9dd0f6c1-9c45-4c47-95e6-fb8d2355532e",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-9dd0f6c1-9c45-4c47-95e6-fb8d2355532e"
+    },
+    {
+      "name": "?Action=DescribeAvailabilityZones",
+      "item": [
+        {
+          "name": "Amazon EC2 Describe Availability Zones",
+          "id": "291d9697-2db8-49d9-bc91-4fa7c13b32ed",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/?Action=DescribeAvailabilityZones&ZoneName=<string>&ZoneName=<string>&ZoneId=<string>&ZoneId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeAvailabilityZones"
+                },
+                {
+                  "description": "The names of the Availability Zones",
+                  "key": "ZoneName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of the Availability Zones",
+                  "key": "ZoneName",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the Availability Zones",
+                  "key": "ZoneId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The IDs of the Availability Zones",
+                  "key": "ZoneId",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Describes the Availability Zones, Local Zones, and Wavelength Zones that are available to you. The results include zones only for the Region you are currently using."
+          },
+          "response": [
+            {
+              "id": "bb6c2f08-afff-4468-9940-d45260214238",
+              "name": "Successfully described availability zones",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ZoneName=<string>&ZoneId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The names of the Availability Zones",
+                      "key": "ZoneName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the Availability Zones",
+                      "key": "ZoneId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-bb6c2f08-afff-4468-9940-d45260214238"
+            },
+            {
+              "id": "6c0bb0a4-0486-46cc-92f7-58562baea80d",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/?ZoneName=<string>&ZoneId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "The names of the Availability Zones",
+                      "key": "ZoneName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The IDs of the Availability Zones",
+                      "key": "ZoneId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:03:04.000Z",
+              "updatedAt": "2026-06-05T15:03:04.000Z",
+              "uid": "35240-6c0bb0a4-0486-46cc-92f7-58562baea80d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:03:04.000Z",
+          "updatedAt": "2026-06-05T15:03:04.000Z",
+          "uid": "35240-291d9697-2db8-49d9-bc91-4fa7c13b32ed"
+        }
+      ],
+      "id": "721be00a-bd9f-4941-9d8b-65e5621144fe",
+      "createdAt": "2026-06-05T15:03:04.000Z",
+      "updatedAt": "2026-06-05T15:03:04.000Z",
+      "uid": "35240-721be00a-bd9f-4941-9d8b-65e5621144fe"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://ec2.{{region}}.amazonaws.com"
+    }
+  ]
+}
