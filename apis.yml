@@ -37,7 +37,7 @@ apis:
         url: https://aws.amazon.com/ec2/getting-started/
       - type: Authentication
         url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
-      - type: SDK
+      - type: SDKs
         url: https://aws.amazon.com/tools/
       - type: StatusPage
         url: https://status.aws.amazon.com/
@@ -57,71 +57,68 @@ apis:
         url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
       - type: JSONStructure
         url: json-structure/amazon-ec2-instance-structure.json
-      - type: Example
+      - type: Examples
         url: examples/amazon-ec2-instance-example.json
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/amazon-ec2/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/amazon-ec2-allocate-and-associate-eip-workflow.yml
-        name: Amazon EC2 Allocate and Associate Elastic IP
-        summary: Allocate a VPC Elastic IP, confirm the instance is running, then associate the address.
-      - url: arazzo/amazon-ec2-audit-security-group-usage-workflow.yml
-        name: Amazon EC2 Audit Security Group Usage
-        summary: Describe a security group, then describe instances filtered by that group.
-      - url: arazzo/amazon-ec2-bind-eip-to-new-instance-workflow.yml
-        name: Amazon EC2 Bind Elastic IP to a New Instance
-        summary: Launch an instance, poll until running, allocate an Elastic IP, then associate it.
-      - url: arazzo/amazon-ec2-clone-instance-via-image-workflow.yml
-        name: Amazon EC2 Clone an Instance via Image
-        summary: Create an AMI from a source instance, confirm it, then launch a clone from that AMI.
-      - url: arazzo/amazon-ec2-deprovision-secured-instance-workflow.yml
-        name: Amazon EC2 Deprovision a Secured Instance
-        summary: Terminate an instance, wait until terminated, then delete its security group.
-      - url: arazzo/amazon-ec2-deregister-image-and-cleanup-workflow.yml
-        name: Amazon EC2 Deregister an AMI After Confirmation
-        summary: Confirm an AMI exists, deregister it, then verify it is gone.
-      - url: arazzo/amazon-ec2-harden-existing-security-group-workflow.yml
-        name: Amazon EC2 Harden an Existing Security Group
-        summary: Look up a security group by name and add a scoped inbound rule to it.
-      - url: arazzo/amazon-ec2-launch-and-await-running-workflow.yml
-        name: Amazon EC2 Launch and Await Running
-        summary: Launch an instance, then poll DescribeInstances until it reaches the running state.
-      - url: arazzo/amazon-ec2-launch-secured-instance-workflow.yml
-        name: Amazon EC2 Launch a Secured Instance
-        summary: Create a security group, open SSH ingress, create a key pair, and launch an instance.
-      - url: arazzo/amazon-ec2-paginate-instances-then-tag-image-workflow.yml
-        name: Amazon EC2 Inventory Instances Then Image First
-        summary: Describe instances, page through with NextToken, then image the first instance found.
-      - url: arazzo/amazon-ec2-place-instance-in-zone-workflow.yml
-        name: Amazon EC2 Place an Instance in an Availability Zone
-        summary: Describe regions and availability zones, then launch an instance in a chosen zone.
-      - url: arazzo/amazon-ec2-prepare-key-and-launch-workflow.yml
-        name: Amazon EC2 Prepare Key and Launch
-        summary: Create a key pair, confirm it via describe, then launch an instance using it.
-      - url: arazzo/amazon-ec2-rebuild-image-from-launch-template-workflow.yml
-        name: Amazon EC2 Create a Launch Template and Boot From It
-        summary: Create a launch template, confirm it, then launch an instance referencing the template parameters.
-      - url: arazzo/amazon-ec2-release-eip-on-terminate-workflow.yml
-        name: Amazon EC2 Release Elastic IP on Terminate
-        summary: Terminate an instance, wait until terminated, then release its Elastic IP.
-      - url: arazzo/amazon-ec2-request-spot-and-track-workflow.yml
-        name: Amazon EC2 Request Spot Instances and Track
-        summary: Request Spot Instances, then poll the Spot request until it is fulfilled.
-      - url: arazzo/amazon-ec2-restart-and-verify-instance-workflow.yml
-        name: Amazon EC2 Restart and Verify Instance
-        summary: Reboot an instance and poll its status until checks report passed.
-      - url: arazzo/amazon-ec2-rotate-key-pair-workflow.yml
-        name: Amazon EC2 Rotate Key Pair
-        summary: Verify a key pair exists, create its replacement, then delete the old key pair.
-      - url: arazzo/amazon-ec2-stop-and-create-image-workflow.yml
-        name: Amazon EC2 Stop and Create Image
-        summary: Stop an instance, wait until stopped, then create an AMI from it.
-      - url: arazzo/amazon-ec2-stop-start-instance-cycle-workflow.yml
-        name: Amazon EC2 Stop and Start Instance Cycle
-        summary: Stop an instance, wait until stopped, then start it again and confirm running.
+  - type: Arazzo
+    url: arazzo/amazon-ec2-allocate-and-associate-eip-workflow.yml
+    name: Amazon EC2 Allocate and Associate Elastic IP
+  - type: Arazzo
+    url: arazzo/amazon-ec2-audit-security-group-usage-workflow.yml
+    name: Amazon EC2 Audit Security Group Usage
+  - type: Arazzo
+    url: arazzo/amazon-ec2-bind-eip-to-new-instance-workflow.yml
+    name: Amazon EC2 Bind Elastic IP to a New Instance
+  - type: Arazzo
+    url: arazzo/amazon-ec2-clone-instance-via-image-workflow.yml
+    name: Amazon EC2 Clone an Instance via Image
+  - type: Arazzo
+    url: arazzo/amazon-ec2-deprovision-secured-instance-workflow.yml
+    name: Amazon EC2 Deprovision a Secured Instance
+  - type: Arazzo
+    url: arazzo/amazon-ec2-deregister-image-and-cleanup-workflow.yml
+    name: Amazon EC2 Deregister an AMI After Confirmation
+  - type: Arazzo
+    url: arazzo/amazon-ec2-harden-existing-security-group-workflow.yml
+    name: Amazon EC2 Harden an Existing Security Group
+  - type: Arazzo
+    url: arazzo/amazon-ec2-launch-and-await-running-workflow.yml
+    name: Amazon EC2 Launch and Await Running
+  - type: Arazzo
+    url: arazzo/amazon-ec2-launch-secured-instance-workflow.yml
+    name: Amazon EC2 Launch a Secured Instance
+  - type: Arazzo
+    url: arazzo/amazon-ec2-paginate-instances-then-tag-image-workflow.yml
+    name: Amazon EC2 Inventory Instances Then Image First
+  - type: Arazzo
+    url: arazzo/amazon-ec2-place-instance-in-zone-workflow.yml
+    name: Amazon EC2 Place an Instance in an Availability Zone
+  - type: Arazzo
+    url: arazzo/amazon-ec2-prepare-key-and-launch-workflow.yml
+    name: Amazon EC2 Prepare Key and Launch
+  - type: Arazzo
+    url: arazzo/amazon-ec2-rebuild-image-from-launch-template-workflow.yml
+    name: Amazon EC2 Create a Launch Template and Boot From It
+  - type: Arazzo
+    url: arazzo/amazon-ec2-release-eip-on-terminate-workflow.yml
+    name: Amazon EC2 Release Elastic IP on Terminate
+  - type: Arazzo
+    url: arazzo/amazon-ec2-request-spot-and-track-workflow.yml
+    name: Amazon EC2 Request Spot Instances and Track
+  - type: Arazzo
+    url: arazzo/amazon-ec2-restart-and-verify-instance-workflow.yml
+    name: Amazon EC2 Restart and Verify Instance
+  - type: Arazzo
+    url: arazzo/amazon-ec2-rotate-key-pair-workflow.yml
+    name: Amazon EC2 Rotate Key Pair
+  - type: Arazzo
+    url: arazzo/amazon-ec2-stop-and-create-image-workflow.yml
+    name: Amazon EC2 Stop and Create Image
+  - type: Arazzo
+    url: arazzo/amazon-ec2-stop-start-instance-cycle-workflow.yml
+    name: Amazon EC2 Stop and Start Instance Cycle
   - type: Portal
     url: https://aws.amazon.com/
   - type: DeveloperPortal
@@ -140,7 +137,7 @@ common:
     url: https://github.com/aws
   - type: Console
     url: https://console.aws.amazon.com/ec2/
-  - type: SignUp
+  - type: Signup
     url: https://signin.aws.amazon.com/signup?request_type=register
   - type: Login
     url: https://aws.amazon.com/console/
