@@ -1,0 +1,274 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/amazon-ec2-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 26
+  by_action_class:
+    connected: 26
+  by_consequence:
+    read: 26
+  human_in_the_loop_required: 0
+operations:
+- path: /?Action=RunInstances
+  method: get
+  operationId: runInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeInstances
+  method: get
+  operationId: describeInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=StartInstances
+  method: get
+  operationId: startInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=StopInstances
+  method: get
+  operationId: stopInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=TerminateInstances
+  method: get
+  operationId: terminateInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=RebootInstances
+  method: get
+  operationId: rebootInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeInstanceStatus
+  method: get
+  operationId: describeInstanceStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=CreateImage
+  method: get
+  operationId: createImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeImages
+  method: get
+  operationId: describeImages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DeregisterImage
+  method: get
+  operationId: deregisterImage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=CreateSecurityGroup
+  method: get
+  operationId: createSecurityGroup
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeSecurityGroups
+  method: get
+  operationId: describeSecurityGroups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=AuthorizeSecurityGroupIngress
+  method: get
+  operationId: authorizeSecurityGroupIngress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DeleteSecurityGroup
+  method: get
+  operationId: deleteSecurityGroup
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=CreateKeyPair
+  method: get
+  operationId: createKeyPair
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeKeyPairs
+  method: get
+  operationId: describeKeyPairs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DeleteKeyPair
+  method: get
+  operationId: deleteKeyPair
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=AllocateAddress
+  method: get
+  operationId: allocateAddress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=AssociateAddress
+  method: get
+  operationId: associateAddress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=ReleaseAddress
+  method: get
+  operationId: releaseAddress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=CreateLaunchTemplate
+  method: get
+  operationId: createLaunchTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeLaunchTemplates
+  method: get
+  operationId: describeLaunchTemplates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=RequestSpotInstances
+  method: get
+  operationId: requestSpotInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeSpotInstanceRequests
+  method: get
+  operationId: describeSpotInstanceRequests
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeRegions
+  method: get
+  operationId: describeRegions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /?Action=DescribeAvailabilityZones
+  method: get
+  operationId: describeAvailabilityZones
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
