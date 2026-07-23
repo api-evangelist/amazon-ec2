@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs Elastic IPs API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Elastic IPs
+  description: Operations for allocating and managing static IP addresses
+paths:
+  /?Action=AllocateAddress:
+    get:
+      operationId: allocateAddress
+      summary: Amazon EC2 Allocate an Elastic IP Address
+      description: Allocates an Elastic IP address to your AWS account. After you allocate the Elastic IP address you can associate it with an instance or network interface.
+      tags:
+      - Elastic IPs
+      parameters:
+      - name: Domain
+        in: query
+        description: Set to vpc to allocate the address for use with instances in a VPC
+        schema:
+          type: string
+          enum:
+          - vpc
+          - standard
+        example: vpc
+      responses:
+        '200':
+          description: Successfully allocated address
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=AssociateAddress:
+    get:
+      operationId: associateAddress
+      summary: Amazon EC2 Associate an Elastic IP Address
+      description: Associates an Elastic IP address with an instance or a network interface. This is an idempotent operation.
+      tags:
+      - Elastic IPs
+      parameters:
+      - name: AllocationId
+        in: query
+        description: The allocation ID for the Elastic IP address
+        schema:
+          type: string
+        example: example-id-1234
+      - name: InstanceId
+        in: query
+        description: The ID of the instance to associate with
+        schema:
+          type: string
+        example: i-0abc123def456789
+      - name: NetworkInterfaceId
+        in: query
+        description: The ID of the network interface
+        schema:
+          type: string
+        example: example-id-1234
+      responses:
+        '200':
+          description: Successfully associated address
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=ReleaseAddress:
+    get:
+      operationId: releaseAddress
+      summary: Amazon EC2 Release an Elastic IP Address
+      description: Releases the specified Elastic IP address. After releasing an Elastic IP address, it is released to the IP address pool.
+      tags:
+      - Elastic IPs
+      parameters:
+      - name: AllocationId
+        in: query
+        description: The allocation ID of the Elastic IP address
+        schema:
+          type: string
+        example: example-id-1234
+      responses:
+        '200':
+          description: Successfully released address
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/

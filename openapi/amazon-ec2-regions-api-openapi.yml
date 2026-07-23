@@ -1,0 +1,97 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs Regions API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Regions
+  description: Operations for describing AWS regions and availability zones
+paths:
+  /?Action=DescribeRegions:
+    get:
+      operationId: describeRegions
+      summary: Amazon EC2 Describe AWS Regions
+      description: Describes the Regions that are enabled for your account, or all Regions. For a list of the Regions supported by Amazon EC2, see the Amazon EC2 Regions and Endpoints.
+      tags:
+      - Regions
+      parameters:
+      - name: RegionName
+        in: query
+        description: The names of the Regions
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      - name: AllRegions
+        in: query
+        description: Indicates whether to display all Regions including disabled
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: Successfully described regions
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DescribeAvailabilityZones:
+    get:
+      operationId: describeAvailabilityZones
+      summary: Amazon EC2 Describe Availability Zones
+      description: Describes the Availability Zones, Local Zones, and Wavelength Zones that are available to you. The results include zones only for the Region you are currently using.
+      tags:
+      - Regions
+      parameters:
+      - name: ZoneName
+        in: query
+        description: The names of the Availability Zones
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      - name: ZoneId
+        in: query
+        description: The IDs of the Availability Zones
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-id-1234
+      responses:
+        '200':
+          description: Successfully described availability zones
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/

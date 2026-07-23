@@ -1,0 +1,177 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs Security Groups API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Security Groups
+  description: Operations for managing security group rules and firewall settings
+paths:
+  /?Action=CreateSecurityGroup:
+    get:
+      operationId: createSecurityGroup
+      summary: Amazon EC2 Create a Security Group
+      description: Creates a security group. A security group acts as a virtual firewall for your instances to control inbound and outbound traffic.
+      tags:
+      - Security Groups
+      parameters:
+      - name: GroupName
+        in: query
+        required: true
+        description: The name of the security group
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: GroupDescription
+        in: query
+        required: true
+        description: A description for the security group
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: VpcId
+        in: query
+        description: The ID of the VPC for the security group
+        schema:
+          type: string
+        example: example-id-1234
+      responses:
+        '200':
+          description: Successfully created security group
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DescribeSecurityGroups:
+    get:
+      operationId: describeSecurityGroups
+      summary: Amazon EC2 Describe Security Groups
+      description: Describes the specified security groups or all of your security groups. A security group is for use with instances either in the EC2-Classic platform or in a specific VPC.
+      tags:
+      - Security Groups
+      parameters:
+      - name: GroupId
+        in: query
+        description: The IDs of the security groups to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-cluster-01
+      - name: GroupName
+        in: query
+        description: The names of the security groups to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-cluster-01
+      responses:
+        '200':
+          description: Successfully described security groups
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=AuthorizeSecurityGroupIngress:
+    get:
+      operationId: authorizeSecurityGroupIngress
+      summary: Amazon EC2 Add Inbound Security Group Rules
+      description: Adds the specified inbound (ingress) rules to a security group. An inbound rule permits instances to receive traffic from the specified IPv4 or IPv6 CIDR address range, or from the instances associated with the specified security group.
+      tags:
+      - Security Groups
+      parameters:
+      - name: GroupId
+        in: query
+        required: true
+        description: The ID of the security group
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: IpProtocol
+        in: query
+        description: The IP protocol name (tcp, udp, icmp) or number
+        schema:
+          type: string
+        example: example-string
+      - name: FromPort
+        in: query
+        description: The start of port range for TCP and UDP protocols
+        schema:
+          type: integer
+        example: 27017
+      - name: ToPort
+        in: query
+        description: The end of port range for TCP and UDP protocols
+        schema:
+          type: integer
+        example: 27017
+      - name: CidrIp
+        in: query
+        description: The IPv4 CIDR range
+        schema:
+          type: string
+        example: example-id-1234
+      responses:
+        '200':
+          description: Successfully authorized ingress rules
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DeleteSecurityGroup:
+    get:
+      operationId: deleteSecurityGroup
+      summary: Amazon EC2 Delete a Security Group
+      description: Deletes a security group. If you attempt to delete a security group that is associated with an instance, or is referenced by another security group, the operation fails.
+      tags:
+      - Security Groups
+      parameters:
+      - name: GroupId
+        in: query
+        description: The ID of the security group to delete
+        schema:
+          type: string
+        example: example-cluster-01
+      - name: GroupName
+        in: query
+        description: The name of the security group to delete
+        schema:
+          type: string
+        example: example-cluster-01
+      responses:
+        '200':
+          description: Successfully deleted security group
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/

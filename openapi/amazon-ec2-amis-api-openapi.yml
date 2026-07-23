@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: AMIs
+  description: Operations for creating and managing Amazon Machine Images
+paths:
+  /?Action=CreateImage:
+    get:
+      operationId: createImage
+      summary: Amazon EC2 Create an AMI from an Instance
+      description: Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance that is either running or stopped. The AMI is created with the root volume and any additional EBS volumes attached to the instance.
+      tags:
+      - AMIs
+      parameters:
+      - name: InstanceId
+        in: query
+        required: true
+        description: The ID of the instance to create the image from
+        schema:
+          type: string
+        example: i-0abc123def456789
+      - name: Name
+        in: query
+        required: true
+        description: A name for the new image
+        schema:
+          type: string
+        example: example-resource-name
+      - name: Description
+        in: query
+        description: A description for the new image
+        schema:
+          type: string
+        example: example-string
+      - name: NoReboot
+        in: query
+        description: If true, Amazon EC2 does not shut down the instance before creating the image
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: Successfully created image
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateImageResponse'
+              examples:
+                createImage200Example:
+                  summary: Default createImage 200 response
+                  x-microcks-default: true
+                  value:
+                    imageId: ami-0abc123def456789
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DescribeImages:
+    get:
+      operationId: describeImages
+      summary: Amazon EC2 Describe AMIs
+      description: Describes the specified images (AMIs, AKIs, and ARIs) available to you or all of the images available to you. Images available include public images, private images owned by you, and private images owned by others for which you have explicit launch permissions.
+      tags:
+      - AMIs
+      parameters:
+      - name: ImageId
+        in: query
+        description: The image IDs to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - ami-0abc123def456789
+      - name: Owner
+        in: query
+        description: Scopes the results to images with the specified owners
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-string
+      - name: Filter
+        in: query
+        description: Filters to apply to the results
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-string
+      responses:
+        '200':
+          description: Successfully described images
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DeregisterImage:
+    get:
+      operationId: deregisterImage
+      summary: Amazon EC2 Deregister an AMI
+      description: Deregisters the specified AMI. After you deregister an AMI, it cannot be used to launch new instances. Deregistering does not delete the AMI.
+      tags:
+      - AMIs
+      parameters:
+      - name: ImageId
+        in: query
+        required: true
+        description: The ID of the AMI to deregister
+        schema:
+          type: string
+        example: ami-0abc123def456789
+      responses:
+        '200':
+          description: Successfully deregistered image
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CreateImageResponse:
+      type: object
+      description: Response from the CreateImage action
+      properties:
+        imageId:
+          type: string
+          description: The ID of the new AMI
+          example: ami-0abc123def456789
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/

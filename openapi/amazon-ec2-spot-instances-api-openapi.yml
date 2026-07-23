@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs Spot Instances API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Spot Instances
+  description: Operations for requesting and managing Spot Instances
+paths:
+  /?Action=RequestSpotInstances:
+    get:
+      operationId: requestSpotInstances
+      summary: Amazon EC2 Request Spot Instances
+      description: Creates a Spot Instance request. For more information about Spot Instances, see Spot Instances in the Amazon EC2 User Guide.
+      tags:
+      - Spot Instances
+      parameters:
+      - name: SpotPrice
+        in: query
+        description: The maximum price per unit hour for a Spot Instance
+        schema:
+          type: string
+        example: example-string
+      - name: InstanceCount
+        in: query
+        description: The maximum number of Spot Instances to launch
+        schema:
+          type: integer
+        example: 1
+      - name: Type
+        in: query
+        description: The Spot Instance request type
+        schema:
+          type: string
+          enum:
+          - one-time
+          - persistent
+        example: one-time
+      responses:
+        '200':
+          description: Successfully created Spot Instance request
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DescribeSpotInstanceRequests:
+    get:
+      operationId: describeSpotInstanceRequests
+      summary: Amazon EC2 Describe Spot Instance Requests
+      description: Describes the specified Spot Instance requests. You can use DescribeSpotInstanceRequests to find a running Spot Instance by querying for the Spot Instance request ID.
+      tags:
+      - Spot Instances
+      parameters:
+      - name: SpotInstanceRequestId
+        in: query
+        description: The IDs of the Spot Instance requests
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - i-0abc123def456789
+      responses:
+        '200':
+          description: Successfully described Spot Instance requests
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/

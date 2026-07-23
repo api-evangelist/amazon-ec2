@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs Key Pairs API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Key Pairs
+  description: Operations for managing SSH key pairs used for instance access
+paths:
+  /?Action=CreateKeyPair:
+    get:
+      operationId: createKeyPair
+      summary: Amazon EC2 Create a Key Pair
+      description: Creates an ED25519 or 2048-bit RSA key pair with the specified name. Amazon EC2 stores the public key and displays the private key for you to save to a file.
+      tags:
+      - Key Pairs
+      parameters:
+      - name: KeyName
+        in: query
+        required: true
+        description: A unique name for the key pair
+        schema:
+          type: string
+        example: example-resource-name
+      - name: KeyType
+        in: query
+        description: The type of key pair (rsa or ed25519)
+        schema:
+          type: string
+          enum:
+          - rsa
+          - ed25519
+        example: rsa
+      responses:
+        '200':
+          description: Successfully created key pair
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DescribeKeyPairs:
+    get:
+      operationId: describeKeyPairs
+      summary: Amazon EC2 Describe Key Pairs
+      description: Describes the specified key pairs or all of your key pairs.
+      tags:
+      - Key Pairs
+      parameters:
+      - name: KeyName
+        in: query
+        description: The key pair names to describe
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      - name: KeyPairId
+        in: query
+        description: The IDs of the key pairs
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-id-1234
+      responses:
+        '200':
+          description: Successfully described key pairs
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DeleteKeyPair:
+    get:
+      operationId: deleteKeyPair
+      summary: Amazon EC2 Delete a Key Pair
+      description: Deletes the specified key pair by removing the public key from Amazon EC2.
+      tags:
+      - Key Pairs
+      parameters:
+      - name: KeyName
+        in: query
+        description: The name of the key pair to delete
+        schema:
+          type: string
+        example: example-resource-name
+      - name: KeyPairId
+        in: query
+        description: The ID of the key pair to delete
+        schema:
+          type: string
+        example: example-id-1234
+      responses:
+        '200':
+          description: Successfully deleted key pair
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/

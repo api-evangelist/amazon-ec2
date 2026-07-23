@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: Amazon EC2 AMIs Launch Templates API
+  description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
+  version: '2016-11-15'
+  contact:
+    name: Amazon Web Services
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://ec2.{region}.amazonaws.com
+  description: Amazon EC2 Regional Endpoint
+  variables:
+    region:
+      default: us-east-1
+      description: AWS Region
+security:
+- sigv4Auth: []
+tags:
+- name: Launch Templates
+  description: Operations for managing reusable instance launch configurations
+paths:
+  /?Action=CreateLaunchTemplate:
+    get:
+      operationId: createLaunchTemplate
+      summary: Amazon EC2 Create a Launch Template
+      description: Creates a launch template. A launch template contains the parameters to launch an instance. When you launch an instance using RunInstances, you can specify a launch template instead of providing the launch parameters in the request.
+      tags:
+      - Launch Templates
+      parameters:
+      - name: LaunchTemplateName
+        in: query
+        required: true
+        description: A name for the launch template
+        schema:
+          type: string
+        example: example-resource-name
+      - name: VersionDescription
+        in: query
+        description: A description for the first version of the launch template
+        schema:
+          type: string
+        example: 5.0.0
+      responses:
+        '200':
+          description: Successfully created launch template
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /?Action=DescribeLaunchTemplates:
+    get:
+      operationId: describeLaunchTemplates
+      summary: Amazon EC2 Describe Launch Templates
+      description: Describes one or more launch templates.
+      tags:
+      - Launch Templates
+      parameters:
+      - name: LaunchTemplateId
+        in: query
+        description: The IDs of the launch templates
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-id-1234
+      - name: LaunchTemplateName
+        in: query
+        description: The names of the launch templates
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - example-resource-name
+      responses:
+        '200':
+          description: Successfully described launch templates
+        '400':
+          description: Invalid request parameters
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4Auth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
+externalDocs:
+  description: Amazon EC2 API Reference
+  url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
