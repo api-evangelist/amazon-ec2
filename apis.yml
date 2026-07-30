@@ -2,63 +2,376 @@ name: Amazon EC2
 description: >-
   Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud, allowing you to launch virtual
   server instances, manage networking, and configure storage with complete control over your computing resources.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://aws.amazon.com/ec2/
 created: '2024-01-15'
 modified: '2026-05-19'
 apis:
-  - name: Amazon EC2 API
-    description: >-
-      Core API for managing Amazon EC2 instances, AMIs, key pairs, security groups, Elastic IPs, launch templates, spot
-      instances, capacity reservations, and other compute resources.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://aws.amazon.com/ec2/
-    baseURL: https://ec2.amazonaws.com
-    tags:
-      - AWS
-      - Cloud Computing
-      - Compute
-      - Instances
-      - Virtual Machines
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
-      - type: OpenAPI
-        url: openapi/amazon-ec2-openapi.yml
-      - type: OpenAPI
-        url: https://api.apis.guru/v2/specs/amazonaws.com/ec2/2016-11-15/openapi.yaml
-      - type: JSONSchema
-        url: json-schema/amazon-ec2-instance-schema.json
-      - type: JSONLD
-        url: json-ld/amazon-ec2-context.jsonld
-      - type: Pricing
-        url: https://aws.amazon.com/ec2/pricing/
-      - type: GettingStarted
-        url: https://aws.amazon.com/ec2/getting-started/
-      - type: Authentication
-        url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
-      - type: SDKs
-        url: https://aws.amazon.com/tools/
-      - type: StatusPage
-        url: https://status.aws.amazon.com/
-      - type: BestPractices
-        url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
-      - type: FAQ
-        url: https://aws.amazon.com/ec2/faqs/
-      - type: TermsOfService
-        url: https://aws.amazon.com/ec2/sla/
-      - type: Documentation
-        url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
-      - type: APIReference
-        url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
-      - type: Documentation
-        url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
-      - type: Security
-        url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
-      - type: JSONStructure
-        url: json-structure/amazon-ec2-instance-structure.json
-      - type: Examples
-        url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-amis-api
+  name: Amazon EC2 AMIs API
+  description: Operations for creating and managing Amazon Machine Images
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - AMIs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-amis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-elastic-ips-api
+  name: Amazon EC2 Elastic IPs API
+  description: Operations for allocating and managing static IP addresses
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Elastic IPs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-elastic-ips-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-instances-api
+  name: Amazon EC2 Instances API
+  description: Operations for launching, managing, and terminating EC2 instances
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-instances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-key-pairs-api
+  name: Amazon EC2 Key Pairs API
+  description: Operations for managing SSH key pairs used for instance access
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Key Pairs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-key-pairs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-launch-templates-api
+  name: Amazon EC2 Launch Templates API
+  description: Operations for managing reusable instance launch configurations
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Launch Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-launch-templates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-regions-api
+  name: Amazon EC2 Regions API
+  description: Operations for describing AWS regions and availability zones
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Regions
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-regions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-security-groups-api
+  name: Amazon EC2 Security Groups API
+  description: Operations for managing security group rules and firewall settings
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Security Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-security-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-spot-instances-api
+  name: Amazon EC2 Spot Instances API
+  description: Operations for requesting and managing Spot Instances
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Spot Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-spot-instances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
 common:
   - type: AgenticAccess
     url: agentic-access/amazon-ec2-agentic-access.yml
