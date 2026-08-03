@@ -1,0 +1,28 @@
+{
+  "provider": "amazon-ec2",
+  "sources": [
+    "amazon-ec2-amis-api-openapi.yml",
+    "amazon-ec2-elastic-ips-api-openapi.yml",
+    "amazon-ec2-instances-api-openapi.yml",
+    "amazon-ec2-key-pairs-api-openapi.yml",
+    "amazon-ec2-launch-templates-api-openapi.yml",
+    "amazon-ec2-regions-api-openapi.yml",
+    "amazon-ec2-security-groups-api-openapi.yml",
+    "amazon-ec2-spot-instances-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-ec2-amis-api-openapi.yml",
+    "amazon-ec2-elastic-ips-api-openapi.yml",
+    "amazon-ec2-instances-api-openapi.yml",
+    "amazon-ec2-key-pairs-api-openapi.yml",
+    "amazon-ec2-launch-templates-api-openapi.yml",
+    "amazon-ec2-regions-api-openapi.yml",
+    "amazon-ec2-security-groups-api-openapi.yml",
+    "amazon-ec2-spot-instances-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
