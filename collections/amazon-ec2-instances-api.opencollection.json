@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs Instances API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Launch EC2 Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=RunInstances",
+            "params": [
+              {
+                "name": "ImageId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the AMI to launch"
+              },
+              {
+                "name": "InstanceType",
+                "value": "",
+                "type": "query",
+                "description": "The instance type such as t2.micro, m5.large, c5.xlarge"
+              },
+              {
+                "name": "MinCount",
+                "value": "1",
+                "type": "query",
+                "description": "The minimum number of instances to launch"
+              },
+              {
+                "name": "MaxCount",
+                "value": "1",
+                "type": "query",
+                "description": "The maximum number of instances to launch"
+              },
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The name of the key pair to use for SSH access"
+              },
+              {
+                "name": "SecurityGroupId",
+                "value": "example-cluster-01",
+                "type": "query",
+                "description": "The IDs of the security groups"
+              },
+              {
+                "name": "SubnetId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the subnet to launch the instance into"
+              }
+            ]
+          },
+          "docs": "Launches the specified number of instances using an AMI for which you have permissions. You can specify a number of options, or leave the default options. When you launch an instance, it enters the pending state, then the running state."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe EC2 Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The instance IDs to describe"
+              },
+              {
+                "name": "Filter",
+                "value": "example-string",
+                "type": "query",
+                "description": "Filters to apply to the results"
+              },
+              {
+                "name": "MaxResults",
+                "value": "1",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "NextToken",
+                "value": "example-string",
+                "type": "query",
+                "description": "Token for the next page of results"
+              }
+            ]
+          },
+          "docs": "Describes the specified instances or all instances. Returns information about the instances including instance ID, instance type, launch time, placement, monitoring state, and more."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Start Stopped Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=StartInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to start"
+              }
+            ]
+          },
+          "docs": "Starts an Amazon EBS-backed instance that you have previously stopped. Instances that use Amazon EBS volumes as their root devices can be quickly stopped and started."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Stop Running Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=StopInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to stop"
+              },
+              {
+                "name": "Force",
+                "value": "true",
+                "type": "query",
+                "description": "Forces the instances to stop without graceful shutdown"
+              }
+            ]
+          },
+          "docs": "Stops an Amazon EBS-backed instance. You can use the stopped instance to modify the root volume, change instance type, or attach additional EBS volumes."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Terminate Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=TerminateInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to terminate"
+              }
+            ]
+          },
+          "docs": "Shuts down the specified instances. This operation is idempotent; if you terminate an instance more than once, each call succeeds. Terminated instances remain visible for a short period after termination."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Reboot Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=RebootInstances",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the instances to reboot"
+              }
+            ]
+          },
+          "docs": "Requests a reboot of the specified instances. This operation is asynchronous; it only queues a request to reboot the specified instances."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Instance Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeInstanceStatus",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The instance IDs to describe"
+              },
+              {
+                "name": "IncludeAllInstances",
+                "value": "true",
+                "type": "query",
+                "description": "Include all instances regardless of running state"
+              }
+            ]
+          },
+          "docs": "Describes the status of the specified instances or all of your instances. Instance status includes status checks, scheduled events, and instance state information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

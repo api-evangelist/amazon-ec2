@@ -1,0 +1,778 @@
+{
+  "item": [
+    {
+      "id": "007c70d7-2b58-4dd1-8eea-50746cf64c8f",
+      "name": "Security Groups",
+      "description": {
+        "content": "Operations for managing security group rules and firewall settings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82727534-7b8e-4a62-8edf-c4b430bd1928",
+          "name": "Amazon EC2 Create a Security Group",
+          "request": {
+            "name": "Amazon EC2 Create a Security Group",
+            "description": {
+              "content": "Creates a security group. A security group acts as a virtual firewall for your instances to control inbound and outbound traffic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "CreateSecurityGroup"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupName",
+                  "value": "<string>",
+                  "description": "(Required) The name of the security group"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupDescription",
+                  "value": "<string>",
+                  "description": "(Required) A description for the security group"
+                },
+                {
+                  "disabled": false,
+                  "key": "VpcId",
+                  "value": "<string>",
+                  "description": "The ID of the VPC for the security group"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a59847d2-0645-4dd5-8cea-ef7e92add297",
+              "name": "Successfully created security group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupName",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "GroupDescription",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "VpcId",
+                      "value": "example-id-1234"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f48bcd71-cf0e-4cd9-89a4-a56c2dce0f04",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupName",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "GroupDescription",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "VpcId",
+                      "value": "example-id-1234"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d857f72c-6886-49f3-b251-50c20d7fea9b",
+          "name": "Amazon EC2 Describe Security Groups",
+          "request": {
+            "name": "Amazon EC2 Describe Security Groups",
+            "description": {
+              "content": "Describes the specified security groups or all of your security groups. A security group is for use with instances either in the EC2-Classic platform or in a specific VPC.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DescribeSecurityGroups"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupId",
+                  "value": "<string>",
+                  "description": "The IDs of the security groups to describe"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupId",
+                  "value": "<string>",
+                  "description": "The IDs of the security groups to describe"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupName",
+                  "value": "<string>",
+                  "description": "The names of the security groups to describe"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupName",
+                  "value": "<string>",
+                  "description": "The names of the security groups to describe"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd6ef639-aa25-4529-b614-5d6554239061",
+              "name": "Successfully described security groups",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupId",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "GroupName",
+                      "value": "example-cluster-01"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82f4a2d9-6e15-4bd4-96b9-f4e3907179d4",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupId",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "GroupName",
+                      "value": "example-cluster-01"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0da38ba3-1233-422b-9c20-46968069ecde",
+          "name": "Amazon EC2 Add Inbound Security Group Rules",
+          "request": {
+            "name": "Amazon EC2 Add Inbound Security Group Rules",
+            "description": {
+              "content": "Adds the specified inbound (ingress) rules to a security group. An inbound rule permits instances to receive traffic from the specified IPv4 or IPv6 CIDR address range, or from the instances associated with the specified security group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "AuthorizeSecurityGroupIngress"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupId",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the security group"
+                },
+                {
+                  "disabled": false,
+                  "key": "IpProtocol",
+                  "value": "<string>",
+                  "description": "The IP protocol name (tcp, udp, icmp) or number"
+                },
+                {
+                  "disabled": false,
+                  "key": "FromPort",
+                  "value": "<integer>",
+                  "description": "The start of port range for TCP and UDP protocols"
+                },
+                {
+                  "disabled": false,
+                  "key": "ToPort",
+                  "value": "<integer>",
+                  "description": "The end of port range for TCP and UDP protocols"
+                },
+                {
+                  "disabled": false,
+                  "key": "CidrIp",
+                  "value": "<string>",
+                  "description": "The IPv4 CIDR range"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3189324c-9deb-4e30-9b0b-7a727e36f0df",
+              "name": "Successfully authorized ingress rules",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupId",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "IpProtocol",
+                      "value": "example-string"
+                    },
+                    {
+                      "key": "FromPort",
+                      "value": "27017"
+                    },
+                    {
+                      "key": "ToPort",
+                      "value": "27017"
+                    },
+                    {
+                      "key": "CidrIp",
+                      "value": "example-id-1234"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7efaa817-8f1e-4379-84b4-326083a191bd",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupId",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "IpProtocol",
+                      "value": "example-string"
+                    },
+                    {
+                      "key": "FromPort",
+                      "value": "27017"
+                    },
+                    {
+                      "key": "ToPort",
+                      "value": "27017"
+                    },
+                    {
+                      "key": "CidrIp",
+                      "value": "example-id-1234"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f44906d-9297-4721-91da-56e71c279af4",
+          "name": "Amazon EC2 Delete a Security Group",
+          "request": {
+            "name": "Amazon EC2 Delete a Security Group",
+            "description": {
+              "content": "Deletes a security group. If you attempt to delete a security group that is associated with an instance, or is referenced by another security group, the operation fails.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "Action",
+                  "value": "DeleteSecurityGroup"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupId",
+                  "value": "<string>",
+                  "description": "The ID of the security group to delete"
+                },
+                {
+                  "disabled": false,
+                  "key": "GroupName",
+                  "value": "<string>",
+                  "description": "The name of the security group to delete"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "AWS Region",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f235ff1c-cfab-4263-a634-48437c75db0a",
+              "name": "Successfully deleted security group",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupId",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "GroupName",
+                      "value": "example-cluster-01"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b1ec5a19-33cb-4091-beb3-8dd7d818f5ee",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "GroupId",
+                      "value": "example-cluster-01"
+                    },
+                    {
+                      "key": "GroupName",
+                      "value": "example-cluster-01"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "AWS Region",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "AWS Region",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://ec2.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5d543d5f-92e0-4734-8555-2b1efaa4adaa",
+    "name": "Amazon EC2 AMIs Security Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.\n\nContact Support:\n Name: Amazon Web Services",
+      "type": "text/plain"
+    }
+  }
+}

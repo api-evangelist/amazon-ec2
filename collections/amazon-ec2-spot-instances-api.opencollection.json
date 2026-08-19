@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs Spot Instances API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spot Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Request Spot Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=RequestSpotInstances",
+            "params": [
+              {
+                "name": "SpotPrice",
+                "value": "example-string",
+                "type": "query",
+                "description": "The maximum price per unit hour for a Spot Instance"
+              },
+              {
+                "name": "InstanceCount",
+                "value": "1",
+                "type": "query",
+                "description": "The maximum number of Spot Instances to launch"
+              },
+              {
+                "name": "Type",
+                "value": "one-time",
+                "type": "query",
+                "description": "The Spot Instance request type"
+              }
+            ]
+          },
+          "docs": "Creates a Spot Instance request. For more information about Spot Instances, see Spot Instances in the Amazon EC2 User Guide."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Spot Instance Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeSpotInstanceRequests",
+            "params": [
+              {
+                "name": "SpotInstanceRequestId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The IDs of the Spot Instance requests"
+              }
+            ]
+          },
+          "docs": "Describes the specified Spot Instance requests. You can use DescribeSpotInstanceRequests to find a running Spot Instance by querying for the Spot Instance request ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

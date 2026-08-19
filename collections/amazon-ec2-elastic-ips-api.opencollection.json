@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs Elastic IPs API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Elastic IPs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Allocate an Elastic IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=AllocateAddress",
+            "params": [
+              {
+                "name": "Domain",
+                "value": "vpc",
+                "type": "query",
+                "description": "Set to vpc to allocate the address for use with instances in a VPC"
+              }
+            ]
+          },
+          "docs": "Allocates an Elastic IP address to your AWS account. After you allocate the Elastic IP address you can associate it with an instance or network interface."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Associate an Elastic IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=AssociateAddress",
+            "params": [
+              {
+                "name": "AllocationId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The allocation ID for the Elastic IP address"
+              },
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The ID of the instance to associate with"
+              },
+              {
+                "name": "NetworkInterfaceId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the network interface"
+              }
+            ]
+          },
+          "docs": "Associates an Elastic IP address with an instance or a network interface. This is an idempotent operation."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Release an Elastic IP Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=ReleaseAddress",
+            "params": [
+              {
+                "name": "AllocationId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The allocation ID of the Elastic IP address"
+              }
+            ]
+          },
+          "docs": "Releases the specified Elastic IP address. After releasing an Elastic IP address, it is released to the IP address pool."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

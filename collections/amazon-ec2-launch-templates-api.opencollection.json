@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs Launch Templates API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Launch Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create a Launch Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateLaunchTemplate",
+            "params": [
+              {
+                "name": "LaunchTemplateName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "A name for the launch template"
+              },
+              {
+                "name": "VersionDescription",
+                "value": "5.0.0",
+                "type": "query",
+                "description": "A description for the first version of the launch template"
+              }
+            ]
+          },
+          "docs": "Creates a launch template. A launch template contains the parameters to launch an instance. When you launch an instance using RunInstances, you can specify a launch template instead of providing the launch parameters in the request."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Launch Templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeLaunchTemplates",
+            "params": [
+              {
+                "name": "LaunchTemplateId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IDs of the launch templates"
+              },
+              {
+                "name": "LaunchTemplateName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The names of the launch templates"
+              }
+            ]
+          },
+          "docs": "Describes one or more launch templates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

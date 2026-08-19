@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs Regions API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Describe AWS Regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeRegions",
+            "params": [
+              {
+                "name": "RegionName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The names of the Regions"
+              },
+              {
+                "name": "AllRegions",
+                "value": "true",
+                "type": "query",
+                "description": "Indicates whether to display all Regions including disabled"
+              }
+            ]
+          },
+          "docs": "Describes the Regions that are enabled for your account, or all Regions. For a list of the Regions supported by Amazon EC2, see the Amazon EC2 Regions and Endpoints."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Availability Zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeAvailabilityZones",
+            "params": [
+              {
+                "name": "ZoneName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The names of the Availability Zones"
+              },
+              {
+                "name": "ZoneId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IDs of the Availability Zones"
+              }
+            ]
+          },
+          "docs": "Describes the Availability Zones, Local Zones, and Wavelength Zones that are available to you. The results include zones only for the Region you are currently using."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

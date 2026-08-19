@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs Key Pairs API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Key Pairs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create a Key Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateKeyPair",
+            "params": [
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "A unique name for the key pair"
+              },
+              {
+                "name": "KeyType",
+                "value": "rsa",
+                "type": "query",
+                "description": "The type of key pair (rsa or ed25519)"
+              }
+            ]
+          },
+          "docs": "Creates an ED25519 or 2048-bit RSA key pair with the specified name. Amazon EC2 stores the public key and displays the private key for you to save to a file."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe Key Pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeKeyPairs",
+            "params": [
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The key pair names to describe"
+              },
+              {
+                "name": "KeyPairId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The IDs of the key pairs"
+              }
+            ]
+          },
+          "docs": "Describes the specified key pairs or all of your key pairs."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Delete a Key Pair",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DeleteKeyPair",
+            "params": [
+              {
+                "name": "KeyName",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "The name of the key pair to delete"
+              },
+              {
+                "name": "KeyPairId",
+                "value": "example-id-1234",
+                "type": "query",
+                "description": "The ID of the key pair to delete"
+              }
+            ]
+          },
+          "docs": "Deletes the specified key pair by removing the public key from Amazon EC2."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon EC2 AMIs API",
+    "version": "2016-11-15"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AMIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon EC2 Create an AMI from an Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=CreateImage",
+            "params": [
+              {
+                "name": "InstanceId",
+                "value": "i-0abc123def456789",
+                "type": "query",
+                "description": "The ID of the instance to create the image from"
+              },
+              {
+                "name": "Name",
+                "value": "example-resource-name",
+                "type": "query",
+                "description": "A name for the new image"
+              },
+              {
+                "name": "Description",
+                "value": "example-string",
+                "type": "query",
+                "description": "A description for the new image"
+              },
+              {
+                "name": "NoReboot",
+                "value": "true",
+                "type": "query",
+                "description": "If true, Amazon EC2 does not shut down the instance before creating the image"
+              }
+            ]
+          },
+          "docs": "Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance that is either running or stopped. The AMI is created with the root volume and any additional EBS volumes attached to the instance."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Describe AMIs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DescribeImages",
+            "params": [
+              {
+                "name": "ImageId",
+                "value": "ami-0abc123def456789",
+                "type": "query",
+                "description": "The image IDs to describe"
+              },
+              {
+                "name": "Owner",
+                "value": "example-string",
+                "type": "query",
+                "description": "Scopes the results to images with the specified owners"
+              },
+              {
+                "name": "Filter",
+                "value": "example-string",
+                "type": "query",
+                "description": "Filters to apply to the results"
+              }
+            ]
+          },
+          "docs": "Describes the specified images (AMIs, AKIs, and ARIs) available to you or all of the images available to you. Images available include public images, private images owned by you, and private images owned by others for which you have explicit launch permissions."
+        },
+        {
+          "info": {
+            "name": "Amazon EC2 Deregister an AMI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ec2.{region}.amazonaws.com/?Action=DeregisterImage",
+            "params": [
+              {
+                "name": "ImageId",
+                "value": "ami-0abc123def456789",
+                "type": "query",
+                "description": "The ID of the AMI to deregister"
+              }
+            ]
+          },
+          "docs": "Deregisters the specified AMI. After you deregister an AMI, it cannot be used to launch new instances. Deregistering does not delete the AMI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
