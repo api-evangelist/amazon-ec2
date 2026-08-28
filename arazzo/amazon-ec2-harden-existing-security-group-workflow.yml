@@ -11,8 +11,8 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonEc2Api
-  url: ../openapi/amazon-ec2-openapi.yml
+- name: securityGroupsApi
+  url: ../openapi/amazon-ec2-security-groups-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: harden-existing-security-group

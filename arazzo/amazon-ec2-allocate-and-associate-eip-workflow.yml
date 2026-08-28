@@ -11,8 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonEc2Api
-  url: ../openapi/amazon-ec2-openapi.yml
+- name: elasticIpsApi
+  url: ../openapi/amazon-ec2-elastic-ips-api-openapi.yml
+  type: openapi
+- name: instancesApi
+  url: ../openapi/amazon-ec2-instances-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: allocate-and-associate-eip

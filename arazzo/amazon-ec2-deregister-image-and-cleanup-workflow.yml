@@ -10,8 +10,8 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonEc2Api
-  url: ../openapi/amazon-ec2-openapi.yml
+- name: amisApi
+  url: ../openapi/amazon-ec2-amis-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: deregister-image-and-cleanup

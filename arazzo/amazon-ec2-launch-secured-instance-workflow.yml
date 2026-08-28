@@ -12,8 +12,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: amazonEc2Api
-  url: ../openapi/amazon-ec2-openapi.yml
+- name: instancesApi
+  url: ../openapi/amazon-ec2-instances-api-openapi.yml
+  type: openapi
+- name: keyPairsApi
+  url: ../openapi/amazon-ec2-key-pairs-api-openapi.yml
+  type: openapi
+- name: securityGroupsApi
+  url: ../openapi/amazon-ec2-security-groups-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: launch-secured-instance
