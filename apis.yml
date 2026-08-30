@@ -171,7 +171,7 @@ apis:
   humanURL: https://aws.amazon.com/ec2/
   baseURL: https://ec2.amazonaws.com
   tags:
-  - Keypairs
+  - Key Pairs
   tags_raw:
   - Key Pairs
   properties:
@@ -559,7 +559,7 @@ tags:
   - AWS
   - Cloud Computing
   - Compute
-  - Infrastructure-as-a-Service
+  - IaaS
   - Infrastructure
   - Virtual Machines
 tags_raw:
