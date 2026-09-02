@@ -569,3 +569,5 @@ tags_raw:
   - IaaS
   - Infrastructure
   - Virtual Machines
+x-parent: aws
+x-relationship: product

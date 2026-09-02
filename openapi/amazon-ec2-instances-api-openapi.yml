@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon EC2 AMIs Instances API
   description: Amazon Elastic Compute Cloud (EC2) provides resizable compute capacity in the cloud. This API enables you to launch and manage virtual server instances, configure networking and security, and manage storage volumes with complete control over your computing resources.
@@ -307,37 +307,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    RunInstancesResponse:
-      type: object
-      description: Response from the RunInstances action
-      properties:
-        reservationId:
-          type: string
-          description: The ID of the reservation
-          example: example-id-1234
-        ownerId:
-          type: string
-          description: The ID of the AWS account that owns the reservation
-          example: example-id-1234
-        instances:
-          type: array
-          description: The instances launched
-          items:
-            $ref: '#/components/schemas/Instance'
-          example:
-          - i-0abc123def456789
-    Tag:
-      type: object
-      description: Describes a tag
-      properties:
-        key:
-          type: string
-          description: The key of the tag
-          example: example-string
-        value:
-          type: string
-          description: The value of the tag
-          example: example-string
     Instance:
       type: object
       description: Describes an EC2 instance
@@ -484,18 +453,49 @@ components:
           type: string
           description: Token for the next page of results
           example: example-string
+    Tag:
+      type: object
+      description: Describes a tag
+      properties:
+        key:
+          type: string
+          description: The key of the tag
+          example: example-string
+        value:
+          type: string
+          description: The value of the tag
+          example: example-string
+    RunInstancesResponse:
+      type: object
+      description: Response from the RunInstances action
+      properties:
+        reservationId:
+          type: string
+          description: The ID of the reservation
+          example: example-id-1234
+        ownerId:
+          type: string
+          description: The ID of the AWS account that owns the reservation
+          example: example-id-1234
+        instances:
+          type: array
+          description: The instances launched
+          items:
+            $ref: '#/components/schemas/Instance'
+          example:
+          - i-0abc123def456789
   parameters:
-    InstanceType:
-      name: InstanceType
-      in: query
-      description: The instance type such as t2.micro, m5.large, c5.xlarge
-      schema:
-        type: string
     ImageId:
       name: ImageId
       in: query
       required: true
       description: The ID of the AMI to launch
+      schema:
+        type: string
+    InstanceType:
+      name: InstanceType
+      in: query
+      description: The instance type such as t2.micro, m5.large, c5.xlarge
       schema:
         type: string
   securitySchemes:
