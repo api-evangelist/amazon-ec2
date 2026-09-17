@@ -166,52 +166,6 @@ apis:
     url: json-structure/amazon-ec2-instance-structure.json
   - type: Examples
     url: examples/amazon-ec2-instance-example.json
-- aid: amazon-ec2:amazon-ec2-key-pairs-api
-  name: Amazon EC2 Key Pairs API
-  description: Operations for managing SSH key pairs used for instance access
-  humanURL: https://aws.amazon.com/ec2/
-  baseURL: https://ec2.amazonaws.com
-  tags:
-  - Keypairs
-  tags_raw:
-  - Key Pairs
-  properties:
-  - type: OpenAPI
-    url: openapi/amazon-ec2-key-pairs-api-openapi.yml
-  - type: Documentation
-    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
-  - type: JSONSchema
-    url: json-schema/amazon-ec2-instance-schema.json
-  - type: JSONLD
-    url: json-ld/amazon-ec2-context.jsonld
-  - type: Pricing
-    url: https://aws.amazon.com/ec2/pricing/
-  - type: GettingStarted
-    url: https://aws.amazon.com/ec2/getting-started/
-  - type: Authentication
-    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
-  - type: SDKs
-    url: https://aws.amazon.com/tools/
-  - type: StatusPage
-    url: https://status.aws.amazon.com/
-  - type: BestPractices
-    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
-  - type: FAQ
-    url: https://aws.amazon.com/ec2/faqs/
-  - type: TermsOfService
-    url: https://aws.amazon.com/ec2/sla/
-  - type: Documentation
-    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
-  - type: APIReference
-    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
-  - type: Documentation
-    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
-  - type: Security
-    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
-  - type: JSONStructure
-    url: json-structure/amazon-ec2-instance-structure.json
-  - type: Examples
-    url: examples/amazon-ec2-instance-example.json
 - aid: amazon-ec2:amazon-ec2-launch-templates-api
   name: Amazon EC2 Launch Templates API
   description: Operations for managing reusable instance launch configurations
@@ -354,6 +308,50 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/amazon-ec2-spot-instances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
+  - type: JSONSchema
+    url: json-schema/amazon-ec2-instance-schema.json
+  - type: JSONLD
+    url: json-ld/amazon-ec2-context.jsonld
+  - type: Pricing
+    url: https://aws.amazon.com/ec2/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/ec2/getting-started/
+  - type: Authentication
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: StatusPage
+    url: https://status.aws.amazon.com/
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-best-practices.html
+  - type: FAQ
+    url: https://aws.amazon.com/ec2/faqs/
+  - type: TermsOfService
+    url: https://aws.amazon.com/ec2/sla/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/
+  - type: APIReference
+    url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/
+  - type: Documentation
+    url: https://docs.aws.amazon.com/cli/latest/reference/ec2/
+  - type: Security
+    url: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security.html
+  - type: JSONStructure
+    url: json-structure/amazon-ec2-instance-structure.json
+  - type: Examples
+    url: examples/amazon-ec2-instance-example.json
+- aid: amazon-ec2:amazon-ec2-keypairs-api
+  name: Amazon EC2 Keypairs API
+  description: Operations for managing SSH key pairs used for instance access
+  humanURL: https://aws.amazon.com/ec2/
+  baseURL: https://ec2.amazonaws.com
+  tags:
+  - Keypairs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-ec2-keypairs-api-openapi.yml
   - type: Documentation
     url: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html
   - type: JSONSchema
