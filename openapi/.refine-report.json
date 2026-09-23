@@ -1,14 +1,7 @@
 {
   "provider": "amazon-ec2",
   "sources": [
-    "amazon-ec2-amis-api-openapi.yml",
-    "amazon-ec2-elastic-ips-api-openapi.yml",
-    "amazon-ec2-instances-api-openapi.yml",
-    "amazon-ec2-key-pairs-api-openapi.yml",
-    "amazon-ec2-launch-templates-api-openapi.yml",
-    "amazon-ec2-regions-api-openapi.yml",
-    "amazon-ec2-security-groups-api-openapi.yml",
-    "amazon-ec2-spot-instances-api-openapi.yml"
+    "_original/amazon-ec2-openapi.yml"
   ],
   "outputs": [
     "amazon-ec2-amis-api-openapi.yml",
@@ -20,11 +13,25 @@
     "amazon-ec2-security-groups-api-openapi.yml",
     "amazon-ec2-spot-instances-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "amazon-ec2-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: amazon-ec2-keypairs-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "amazon-ec2-amis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-elastic-ips-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-keypairs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-launch-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-regions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-security-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-ec2-spot-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
