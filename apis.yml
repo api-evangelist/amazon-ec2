@@ -388,7 +388,7 @@ apis:
     url: examples/amazon-ec2-instance-example.json
 common:
 - type: Website
-  url: https://amazon.com
+  url: https://aws.amazon.com/ec2/
 - type: AgenticAccess
   url: agentic-access/amazon-ec2-agentic-access.yml
 - type: TrustCenter
@@ -573,5 +573,5 @@ tags_raw:
 - IaaS
 - Infrastructure
 - Virtual Machines
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product

@@ -307,6 +307,31 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DescribeInstancesResponse:
+      type: object
+      description: Response from the DescribeInstances action
+      properties:
+        reservationSet:
+          type: array
+          description: Information about the reservations
+          items:
+            type: object
+            properties:
+              reservationId:
+                type: string
+                description: The ID of the reservation
+              instancesSet:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instance'
+          example:
+          - reservationId: example-id-1234
+            instancesSet:
+            - example
+        nextToken:
+          type: string
+          description: Token for the next page of results
+          example: example-string
     Instance:
       type: object
       description: Describes an EC2 instance
@@ -428,6 +453,18 @@ components:
           example:
           - groupId: example-cluster-01
             groupName: example-cluster-01
+    Tag:
+      type: object
+      description: Describes a tag
+      properties:
+        key:
+          type: string
+          description: The key of the tag
+          example: example-string
+        value:
+          type: string
+          description: The value of the tag
+          example: example-string
     RunInstancesResponse:
       type: object
       description: Response from the RunInstances action
@@ -447,55 +484,18 @@ components:
             $ref: '#/components/schemas/Instance'
           example:
           - i-0abc123def456789
-    Tag:
-      type: object
-      description: Describes a tag
-      properties:
-        key:
-          type: string
-          description: The key of the tag
-          example: example-string
-        value:
-          type: string
-          description: The value of the tag
-          example: example-string
-    DescribeInstancesResponse:
-      type: object
-      description: Response from the DescribeInstances action
-      properties:
-        reservationSet:
-          type: array
-          description: Information about the reservations
-          items:
-            type: object
-            properties:
-              reservationId:
-                type: string
-                description: The ID of the reservation
-              instancesSet:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Instance'
-          example:
-          - reservationId: example-id-1234
-            instancesSet:
-            - example
-        nextToken:
-          type: string
-          description: Token for the next page of results
-          example: example-string
   parameters:
+    InstanceType:
+      name: InstanceType
+      in: query
+      description: The instance type such as t2.micro, m5.large, c5.xlarge
+      schema:
+        type: string
     ImageId:
       name: ImageId
       in: query
       required: true
       description: The ID of the AMI to launch
-      schema:
-        type: string
-    InstanceType:
-      name: InstanceType
-      in: query
-      description: The instance type such as t2.micro, m5.large, c5.xlarge
       schema:
         type: string
   securitySchemes:
