@@ -307,6 +307,31 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DescribeInstancesResponse:
+      type: object
+      description: Response from the DescribeInstances action
+      properties:
+        reservationSet:
+          type: array
+          description: Information about the reservations
+          items:
+            type: object
+            properties:
+              reservationId:
+                type: string
+                description: The ID of the reservation
+              instancesSet:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instance'
+          example:
+          - reservationId: example-id-1234
+            instancesSet:
+            - example
+        nextToken:
+          type: string
+          description: Token for the next page of results
+          example: example-string
     Tag:
       type: object
       description: Describes a tag
@@ -459,31 +484,6 @@ components:
           example:
           - groupId: example-cluster-01
             groupName: example-cluster-01
-    DescribeInstancesResponse:
-      type: object
-      description: Response from the DescribeInstances action
-      properties:
-        reservationSet:
-          type: array
-          description: Information about the reservations
-          items:
-            type: object
-            properties:
-              reservationId:
-                type: string
-                description: The ID of the reservation
-              instancesSet:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Instance'
-          example:
-          - reservationId: example-id-1234
-            instancesSet:
-            - example
-        nextToken:
-          type: string
-          description: Token for the next page of results
-          example: example-string
   parameters:
     InstanceType:
       name: InstanceType
