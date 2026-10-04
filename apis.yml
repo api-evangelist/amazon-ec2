@@ -387,6 +387,9 @@ apis:
   - type: Examples
     url: examples/amazon-ec2-instance-example.json
 common:
+- type: CapabilityMap
+  url: capabilities/amazon-ec2-capability-edges.yml
+  name: Amazon EC2 Business Capability Map
 - type: Website
   url: https://aws.amazon.com/ec2/
 - type: AgenticAccess

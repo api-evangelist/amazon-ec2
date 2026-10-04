@@ -1,0 +1,66 @@
+slug: amazon-ec2
+provider: Amazon EC2
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Elastic IPs
+  spec_file: amazon-ec2-elastic-ips-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.85
+  evidence: Allocate an Elastic IP Address; Associate an Elastic IP Address; Release an Elastic IP Address
+  reason: Network address allocation for cloud compute — clearly IT infrastructure (network) management.
+- tag: AMIs
+  spec_file: amazon-ec2-amis-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: Amazon EC2 Create an AMI from an Instance; Describe AMIs; Deregister an AMI
+  reason: Machine image lifecycle for cloud compute instances — cloud infrastructure management, not a
+    business-domain capability.
+- tag: Launch Templates
+  spec_file: amazon-ec2-launch-templates-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: Create a Launch Template; Describe Launch Templates
+  reason: Templates defining compute instance provisioning parameters — cloud infrastructure configuration/management.
+- tag: Spot Instances
+  spec_file: amazon-ec2-spot-instances-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: Request Spot Instances; Describe Spot Instance Requests
+  reason: Requesting discounted spare compute capacity — cloud compute infrastructure provisioning.
+- tag: Regions
+  spec_file: amazon-ec2-regions-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: Describe AWS Regions; Describe Availability Zones
+  reason: Read-only metadata about cloud compute regions/zones used for infrastructure placement; infrastructure
+    management is the honest reading, though it is largely reference data.
+- tag: Security Groups
+  spec_file: amazon-ec2-security-groups-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: Create a Security Group; Add Inbound Security Group Rules; Delete a Security Group
+  reason: Network firewall rule management for cloud instances — a security control capability; unclear
+    which sub-capability (architecture vs access control), so L1 only.
