@@ -387,6 +387,12 @@ apis:
   - type: Examples
     url: examples/amazon-ec2-instance-example.json
 common:
+- type: Plans
+  url: plans/amazon-ec2-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/amazon-ec2-rate-limits.yml
+- type: FinOps
+  url: finops/amazon-ec2-finops.yml
 - type: CapabilityMap
   url: capabilities/amazon-ec2-capability-edges.yml
   name: Amazon EC2 Business Capability Map
