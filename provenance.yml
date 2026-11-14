@@ -5,6 +5,9 @@ artifacts:
   agentic-access/amazon-ec2-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  ai-preferences/amazon-ec2-ai-preferences.yml:
+    method: harvested
+    evidence: declared in the artifact
   arazzo/amazon-ec2-allocate-and-associate-eip-workflow.yml:
     method: derived
     evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
@@ -68,6 +71,12 @@ artifacts:
   capabilities/amazon-ec2-capability-edges.yml:
     method: unknown
     evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
+  cli/amazon-ec2-cli.yml:
+    method: searched
+    evidence: declared in the artifact
   collections/amazon-ec2-amis-api.opencollection.json:
     method: derived
     evidence: openapi/amazon-ec2-amis-api
@@ -122,6 +131,27 @@ artifacts:
   collections/amazon-ec2.postman_collection.json:
     method: derived
     evidence: openapi/amazon-ec2
+  compliance/amazon-ec2-compliance.yml:
+    method: harvested
+    evidence: declared in the artifact
+  conformance/amazon-ec2-conformance.yml:
+    method: derived
+    evidence: declared in the artifact
+  conventions/amazon-ec2-conventions.yml:
+    method: searched
+    evidence: declared in the artifact
+  data-model/amazon-ec2-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
+  eligibility/amazon-ec2-eligibility.yml:
+    method: harvested
+    evidence: declared in the artifact
+  errors/amazon-ec2-error-codes.yml:
+    method: searched
+    evidence: declared in the artifact
+  errors/amazon-ec2-problem-types.yml:
+    method: derived
+    evidence: declared in the artifact
   examples/amazon-ec2-instance-example.json:
     method: unknown
     evidence: no authorship recorded
@@ -146,6 +176,9 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  hosts/amazon-ec2-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -155,7 +188,727 @@ artifacts:
   json-ld/amazon-ec2-context.jsonld:
     method: unknown
     evidence: no authorship recorded
+  json-schema/amazon-ec2-accept-address-transfer-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-accept-address-transfer-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-application-status-check-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-client-vpn-target-network-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-client-vpn-target-network-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-dhcp-options-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-instance-event-window-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-ipam-byoasn-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-ipam-byoasn-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-associate-ipam-resource-discovery-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-attach-internet-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-cancel-capacity-reservation-fleets-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-cancel-capacity-reservation-fleets-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-cancel-capacity-reservation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-cancel-declarative-policies-report-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-cancel-declarative-policies-report-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-application-status-check-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-capacity-manager-data-export-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-capacity-manager-data-export-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-capacity-reservation-by-splitting-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-capacity-reservation-fleet-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-capacity-reservation-fleet-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-capacity-reservation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-carrier-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-carrier-gateway-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-client-vpn-endpoint-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-client-vpn-endpoint-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-client-vpn-route-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-client-vpn-route-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-coip-pool-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-coip-pool-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-customer-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-customer-gateway-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-dhcp-options-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-dhcp-options-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-egress-only-internet-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-egress-only-internet-gateway-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-fleet-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-flow-logs-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-flow-logs-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-fpga-image-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-fpga-image-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-image-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-image-usage-report-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-image-usage-report-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-instance-connect-endpoint-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-instance-connect-endpoint-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-instance-event-window-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-internet-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-external-resource-verification-token-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-external-resource-verification-token-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-internet-registry-association-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-internet-registry-association-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-pool-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-pool-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-prefix-list-resolver-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-prefix-list-resolver-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-prefix-list-resolver-target-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-prefix-list-resolver-target-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-resource-discovery-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-create-ipam-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-application-status-check-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-capacity-manager-data-export-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-capacity-manager-data-export-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-carrier-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-carrier-gateway-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-client-vpn-endpoint-authorization-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-client-vpn-endpoint-authorization-policy-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-client-vpn-endpoint-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-client-vpn-route-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-client-vpn-route-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-coip-pool-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-coip-pool-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-customer-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-dhcp-options-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-egress-only-internet-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-egress-only-internet-gateway-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-flow-logs-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-flow-logs-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-fpga-image-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-fpga-image-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-image-usage-report-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-image-usage-report-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-instance-connect-endpoint-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-instance-event-window-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-external-resource-verification-token-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-external-resource-verification-token-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-internet-registry-association-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-pool-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-prefix-list-resolver-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-prefix-list-resolver-target-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-delete-ipam-resource-discovery-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-deregister-instance-event-notification-attributes-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-deregister-instance-event-notification-attributes-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-address-transfers-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-address-transfers-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-application-status-checks-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-aws-network-performance-metric-subscriptions-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-aws-network-performance-metric-subscriptions-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-capacity-manager-data-exports-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-capacity-manager-data-exports-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-capacity-reservation-fleets-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-capacity-reservations-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-carrier-gateways-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-carrier-gateways-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-client-vpn-endpoints-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-client-vpn-endpoints-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-client-vpn-routes-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-client-vpn-routes-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-client-vpn-target-networks-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-client-vpn-target-networks-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-coip-pools-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-coip-pools-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-customer-gateways-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-customer-gateways-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-declarative-policies-reports-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-declarative-policies-reports-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-dhcp-options-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-dhcp-options-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-egress-only-internet-gateways-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-egress-only-internet-gateways-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-fast-snapshot-restores-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-fast-snapshot-restores-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-flow-logs-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-flow-logs-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-fpga-image-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-fpga-image-attribute-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-fpga-images-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-fpga-images-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-image-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-image-usage-reports-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-image-usage-reports-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-images-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-instance-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-instance-connect-endpoints-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-instance-connect-endpoints-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-instance-event-notification-attributes-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-instance-event-notification-attributes-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-instance-event-windows-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-internet-gateways-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-byoasn-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-byoasn-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-external-resource-verification-tokens-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-external-resource-verification-tokens-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-internet-registry-associations-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-internet-registry-associations-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-policies-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-policies-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-pool-allocations-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-pool-allocations-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-pools-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-pools-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-prefix-list-resolver-targets-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-prefix-list-resolver-targets-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-prefix-list-resolvers-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-prefix-list-resolvers-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipam-resource-discoveries-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipams-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-describe-ipams-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-detach-internet-gateway-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-address-transfer-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-allowed-images-settings-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-allowed-images-settings-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-aws-network-performance-metric-subscription-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-aws-network-performance-metric-subscription-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-ebs-encryption-by-default-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-ebs-encryption-by-default-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-fast-snapshot-restores-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-fast-snapshot-restores-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disable-ipam-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-application-status-check-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-client-vpn-target-network-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-client-vpn-target-network-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-instance-event-window-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-ipam-byoasn-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-ipam-byoasn-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-disassociate-ipam-resource-discovery-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-address-transfer-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-allowed-images-settings-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-allowed-images-settings-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-aws-network-performance-metric-subscription-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-aws-network-performance-metric-subscription-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-ebs-encryption-by-default-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-ebs-encryption-by-default-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-fast-snapshot-restores-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-fast-snapshot-restores-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-ipam-internet-registry-association-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-enable-ipam-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-export-image-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-allowed-images-settings-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-allowed-images-settings-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-client-vpn-endpoint-authorization-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-client-vpn-endpoint-authorization-policy-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-ebs-default-kms-key-id-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-ebs-default-kms-key-id-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-ebs-encryption-by-default-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-ebs-encryption-by-default-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-ipam-pool-allocations-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-get-ipam-pool-allocations-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-image-attribute-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-import-image-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-import-image-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-instance-attribute-schema.json:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/amazon-ec2-instance-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-application-status-check-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-capacity-reservation-fleet-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-capacity-reservation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-capacity-reservation-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-client-vpn-endpoint-authorization-policy-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-client-vpn-endpoint-authorization-policy-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-client-vpn-endpoint-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ebs-default-kms-key-id-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ebs-default-kms-key-id-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-fpga-image-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-fpga-image-attribute-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-image-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-instance-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-instance-connect-endpoint-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-instance-event-window-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-pool-allocation-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-pool-allocation-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-pool-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-prefix-list-resolver-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-prefix-list-resolver-target-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-modify-ipam-resource-discovery-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-register-image-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-register-instance-event-notification-attributes-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-register-instance-event-notification-attributes-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-reset-ebs-default-kms-key-id-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-reset-ebs-default-kms-key-id-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-reset-fpga-image-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-reset-fpga-image-attribute-result-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-reset-image-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-reset-instance-attribute-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-start-declarative-policies-report-request-schema.json:
+    method: unknown
+    evidence: no authorship recorded
+  json-schema/amazon-ec2-start-declarative-policies-report-result-schema.json:
     method: unknown
     evidence: no authorship recorded
   json-schema/ec2-openapi-create-image-response-schema.json:
@@ -194,7 +947,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -263,10 +1016,18 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  openapi/_original/amazon-ec2-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  llms/amazon-ec2-llms-provenance.yml:
+    method: unknown
+    evidence: no authorship recorded
+  llms/amazon-ec2-llms.txt:
+    method: unknown
+    evidence: no authorship recorded
+  mcp/amazon-ec2-mcp.yml:
+    method: searched
+    evidence: declared in the artifact
   openapi/amazon-ec2-address-transfer-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -274,8 +1035,8 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-ec2-amis-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-ec2-application-status-check-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -328,8 +1089,8 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-ec2-elastic-ips-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-ec2-fast-snapshot-restore-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -469,8 +1230,8 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-ec2-regions-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-ec2-reserved-instances-listing-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -511,8 +1272,8 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   openapi/amazon-ec2-spot-instances-api-openapi.yml:
-    method: derived
-    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+    method: unknown
+    evidence: no authorship recorded
   openapi/amazon-ec2-subnet-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -639,16 +1400,28 @@ artifacts:
   openapi/amazon-ec2-vpn-gateway-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
+  packages/amazon-ec2-packages.yml:
+    method: searched
+    evidence: declared in the artifact
+  patterns/amazon-ec2-patterns.yml:
+    method: derived
+    evidence: declared in the artifact
   plans/amazon-ec2-plans-pricing.yml:
     method: searched
     evidence: declared in the artifact
   postman/amazon-ec2.postman_collection.json:
     method: derived
     evidence: openapi/amazon-ec2
+  privacy/amazon-ec2-privacy-policy.yml:
+    method: harvested
+    evidence: declared in the artifact
   rate-limits/amazon-ec2-rate-limits.yml:
-    method: generated
+    method: searched
     evidence: declared in the artifact
   rules/amazon-ec2-jsonschema-spectral-rules.yml:
+    method: generated
+    evidence: declared in the artifact
+  rules/amazon-ec2-rules.yml:
     method: generated
     evidence: declared in the artifact
   rules/amazon-ec2-spectral-rules.yml:
@@ -664,8 +1437,34 @@ artifacts:
     method: searched
     evidence: declared in the artifact
   smithy/ec2-2016-11-15.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/ec2/service/2016-11-15/ec2-2016-11-15.json
+      (sha256 baab98be2fff, fetched 2026-11-11T21:08:46+00:00)
+  smithy/ec2-instance-connect-2018-04-02.json:
+    method: harvested
+    evidence: byte-identical to https://raw.githubusercontent.com/aws/api-models-aws/3cd98287b471c106254abd89279cc87308d38bfd/models/ec2-instance-connect/service/2018-04-02/ec2-instance-connect-2018-04-02.json
+      (sha256 82927626567d, fetched 2026-11-11T21:08:47+00:00)
+  terms/amazon-ec2-terms-of-service.yml:
+    method: harvested
+    evidence: declared in the artifact
+  vendors/amazon-ec2-vendors.yml:
     method: unknown
     evidence: no authorship recorded
   vocabulary/amazon-ec2-vocabulary.yaml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/amazon-ec2-vocabulary.yml:
+    method: derived
+    evidence: declared in the artifact
+  well-known/amazon-ec2-aws-mcp-oauth-protected-resource.json:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-ec2-repost-security.txt:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-ec2-security.txt:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/amazon-ec2-well-known.yml:
     method: unknown
     evidence: no authorship recorded
